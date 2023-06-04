@@ -11,5 +11,5 @@ object AndroidConfig {
     const val versionName = "2.0.5"
     const val applicationId = "com.kanyideveloper.mealtime"
 
-    val javaVersion = JavaVersion.VERSION_11
+    val javaVersion = JavaVersion.VERSION_17
 }

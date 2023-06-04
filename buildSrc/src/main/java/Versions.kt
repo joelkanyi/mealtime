@@ -6,7 +6,7 @@ object Versions {
     /**
      * https://developer.android.com/jetpack/androidx/releases/compose
      */
-    const val composeCompiler = "1.3.2"
+    const val composeCompiler = "1.4.2"
 
     // https://github.com/google/truth/releases
     const val truth = "1.1.3"
@@ -25,5 +25,5 @@ object Versions {
 
     const val kotlinxSerialization = "1.3.2"
 
-    const val kotlin = "1.7.20"
+    // const val kotlin = "1.7.20"
 }

@@ -34,11 +34,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = AndroidConfig.javaVersion
+        targetCompatibility = AndroidConfig.javaVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -47,8 +47,13 @@ android {
         kotlinCompilerExtensionVersion = Versions.composeCompiler
     }
     packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        resources.excludes.apply {
+            add("META-INF/LICENSE")
+            add("META-INF/LICENSE-notice.md")
+            add("META-INF/LICENSE.md")
+            add("META-INF/*.properties")
+            add("META-INF/AL2.0")
+            add("META-INF/LGPL2.1")
         }
     }
 }
@@ -57,11 +62,9 @@ dependencies {
     implementation(project(Modules.core))
 
     // Room
-    implementation("androidx.room:room-runtime:2.5.0")
-    kapt("androidx.room:room-compiler:2.5.0")
-    testImplementation("androidx.room:room-testing:2.5.0")
-    androidTestImplementation("androidx.room:room-testing:2.5.0")
-
-    // Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.5.0")
+    implementation(libs.room.runtime)
+    implementation(libs.room.compiler)
+    implementation(libs.room.ktx)
+    testImplementation(libs.room.testing)
+    androidTestImplementation(libs.room.testing)
 }

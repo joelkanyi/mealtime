@@ -24,11 +24,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = AndroidConfig.javaVersion
+        targetCompatibility = AndroidConfig.javaVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -37,8 +37,13 @@ android {
         kotlinCompilerExtensionVersion = Versions.composeCompiler
     }
     packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        resources.excludes.apply {
+            add("META-INF/LICENSE")
+            add("META-INF/LICENSE-notice.md")
+            add("META-INF/LICENSE.md")
+            add("META-INF/*.properties")
+            add("META-INF/AL2.0")
+            add("META-INF/LGPL2.1")
         }
     }
 }
@@ -46,12 +51,12 @@ android {
 dependencies {
     implementation(project(Modules.core))
 
-    // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
+     // Retrofit
+     implementation(libs.squareup.retrofit)
+     implementation(libs.squareup.okhttp)
+     implementation(libs.squareup.logging.interceptor)
 
-    // Chucker
-    debugImplementation("com.github.chuckerteam.chucker:library:3.5.2")
-    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.5.2")
+     // Chucker
+     debugImplementation(libs.chucker.library)
+     releaseImplementation(libs.chucker.library.no.op)
 }

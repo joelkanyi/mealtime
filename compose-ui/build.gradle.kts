@@ -24,11 +24,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = AndroidConfig.javaVersion
+        targetCompatibility = AndroidConfig.javaVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -37,16 +37,21 @@ android {
         kotlinCompilerExtensionVersion = Versions.composeCompiler
     }
     packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        resources.excludes.apply {
+            add("META-INF/LICENSE")
+            add("META-INF/LICENSE-notice.md")
+            add("META-INF/LICENSE.md")
+            add("META-INF/*.properties")
+            add("META-INF/AL2.0")
+            add("META-INF/LGPL2.1")
         }
     }
 }
 
 dependencies {
-    // Modules
-    implementation("androidx.appcompat:appcompat:1.6.0")
+    // implementation("androidx.appcompat:appcompat:1.6.0")
+    implementation(libs.appcompat)
 
     // Accompanist System UI controller
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+    implementation(libs.accompanist.system.ui.controller)
 }

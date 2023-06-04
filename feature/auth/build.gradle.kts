@@ -3,7 +3,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("kotlin-parcelize")
-    id("com.google.devtools.ksp") version ("1.7.20-1.0.8")
+    id("com.google.devtools.ksp") version ("1.8.10-1.0.9")
     id("org.jetbrains.kotlin.android")
 }
 
@@ -25,11 +25,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = AndroidConfig.javaVersion
+        targetCompatibility = AndroidConfig.javaVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -38,17 +38,23 @@ android {
         kotlinCompilerExtensionVersion = Versions.composeCompiler
     }
     packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        resources.excludes.apply {
+            add("META-INF/LICENSE")
+            add("META-INF/LICENSE-notice.md")
+            add("META-INF/LICENSE.md")
+            add("META-INF/*.properties")
+            add("META-INF/AL2.0")
+            add("META-INF/LGPL2.1")
         }
     }
 }
 
 dependencies {
     // RamCosta Navigation
-    implementation("io.github.raamcosta.compose-destinations:animations-core:1.7.32-beta")
-    implementation("com.google.android.gms:play-services-auth:20.4.1")
-    ksp("io.github.raamcosta.compose-destinations:ksp:1.7.32-beta")
+    implementation(libs.compose.destinations.animations)
+    ksp(libs.compose.destinations.ksp)
+
+    implementation(libs.play.services.auth)
 
     implementation(project(Modules.composeUi))
     implementation(project(Modules.core))
