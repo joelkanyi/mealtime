@@ -2,8 +2,9 @@ plugins {
     id(Plugins.androidLibrary)
     id("kotlin-android")
     id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
-    id("com.google.devtools.ksp") version ("1.8.10-1.0.9")
+    alias(libs.plugins.ksp)
     id("org.jetbrains.kotlin.android")
 }
 
@@ -12,6 +13,8 @@ apply {
 }
 
 android {
+    namespace = "com.kanyideveloper.mealtime.addmeal"
+
     compileSdk = AndroidConfig.compileSDK
 
     defaultConfig {
@@ -25,17 +28,21 @@ android {
     }
 
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = AndroidConfig.javaVersion
         targetCompatibility = AndroidConfig.javaVersion
     }
     kotlinOptions {
         jvmTarget = "17"
     }
+    kotlin {
+        jvmToolchain(17)
+    }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.composeCompiler
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources.excludes.apply {
@@ -60,8 +67,13 @@ dependencies {
 
     // Room
     implementation(libs.room.runtime)
-    implementation(libs.room.compiler)
+    kapt(libs.room.compiler)
     implementation(libs.room.ktx)
+
+    // Dagger - Hilt
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.android.compiler)
+    kapt(libs.hilt.compiler)
 }
 
 kotlin {

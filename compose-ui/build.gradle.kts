@@ -1,9 +1,9 @@
+import org.jetbrains.kotlin.js.translate.context.Namer.kotlin
+
 plugins {
     id(Plugins.androidLibrary)
+    id("kotlin-android")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
-    id("kotlin-parcelize")
 }
 
 apply {
@@ -11,6 +11,7 @@ apply {
 }
 
 android {
+    namespace = "com.kanyideveloper.mealtime.composeui"
     compileSdk = AndroidConfig.compileSDK
 
     defaultConfig {
@@ -24,17 +25,21 @@ android {
     }
 
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = AndroidConfig.javaVersion
         targetCompatibility = AndroidConfig.javaVersion
-    }
-    kotlinOptions {
-        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
     }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+    kotlin {
+        jvmToolchain(17)
+    }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.composeCompiler
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources.excludes.apply {

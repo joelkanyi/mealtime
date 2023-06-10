@@ -11,6 +11,11 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven(url = "https://jitpack.io")
+        maven(url = "https://maven.google.com")
+        maven(url = "https://androidx.dev/storage/compose-compiler/repository/")
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
     }
 }
 rootProject.name = "MealTime"

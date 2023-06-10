@@ -2,6 +2,7 @@ plugins {
     id(Plugins.androidLibrary)
     id("kotlin-android")
     id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
     id("org.jetbrains.kotlin.android")
 }
@@ -11,6 +12,8 @@ apply {
 }
 
 android {
+    namespace = "com.kanyideveloper.mealtime.core_network"
+
     compileSdk = AndroidConfig.compileSDK
 
     defaultConfig {
@@ -24,17 +27,21 @@ android {
     }
 
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = AndroidConfig.javaVersion
         targetCompatibility = AndroidConfig.javaVersion
     }
     kotlinOptions {
         jvmTarget = "17"
     }
+    kotlin {
+        jvmToolchain(17)
+    }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.composeCompiler
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources.excludes.apply {
@@ -59,4 +66,9 @@ dependencies {
      // Chucker
      debugImplementation(libs.chucker.library)
      releaseImplementation(libs.chucker.library.no.op)
+
+    // Dagger - Hilt
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.android.compiler)
+    kapt(libs.hilt.compiler)
 }

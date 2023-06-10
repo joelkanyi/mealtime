@@ -1,21 +1,23 @@
 [versions]
-kotlin = "1.8.10"
+kotlin = "1.8.20"
+ksp = "1.8.20-1.0.11"
 ktx = "1.9.0"
 lifecycle = "2.5.1"
 junit = "4.13.2"
 coroutines = "1.6.4"
 viewmodel-ktx = "2.5.1"
-dagger-hilt = "2.44"
+dagger-hilt = "2.46.1"
 hilt-compiler = "1.0.0"
 timber = "5.0.1"
 desugar-jdk-libs = "2.0.0"
-compose = "1.3.2"
+compose = "1.4.2"
+compose-compiler = "1.4.5"
 coil = "2.2.2"
 compose-activity = "1.6.1"
 compose-paging = "1.0.0-alpha12"
 compose-livedata = "1.0.0-alpha07"
 composeMaterial3 = "1.0.1"
-navigation-compose = "2.6.0-alpha04"
+navigation-compose = "1.0.0"
 onebone = "2.3.5"
 mixpanel = "7.2.2"
 firebaseBom = "31.1.0"
@@ -23,9 +25,10 @@ qonversion-sdk = "4.2.0"
 billing-version = "5.1.0"
 accompanist = "0.31.3-beta"
 compose-destinations = "1.7.32-beta"
-room = "2.5.0"
+room = "2.6.0-alpha01"
 play-services-auth = "20.4.1"
-#hiltNavigationCompose = "1.0.0"
+hiltNavigationCompose = "1.0.0"
+
 
 play = "2.0.1"
 one-tap = "1.0.3"
@@ -42,15 +45,15 @@ junit-ext = "1.1.5"
 espresso-core = "3.5.1"
 horizontal-calendar-view = "1.0.4"
 core-splash-screen = "1.0.0"
-material = "1.8.0"
+material = "1.3.1"
 appcompat = "1.6.0"
 okhttp = "5.0.0-alpha.2"
 chucker = "3.5.2"
 firebase-auth-ktx = "21.0.2"
 firebase-storage-ktx = "20.0.0"
 firebase-database-ktx = "20.0.0"
-hilt-navigation-compose = "1.0.0"
 material-icons-extended = "1.3.0"
+compose-hilt-navigation = "1.0.0"
 
 [libraries]
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
@@ -66,18 +69,18 @@ viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx"
 dagger-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger-hilt" }
 dagger-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "dagger-hilt" }
 hilt-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hilt-compiler" }
-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 
-compose-compiler = { group = "androidx.compose.compiler", name = "compiler", version.ref = "compose" }
+compose-compiler = { group = "androidx.compose.compiler", name = "compiler", version.ref = "compose-compiler" }
 compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "compose" }
-compose-material = { group = "androidx.compose.material", name = "material", version.ref = "compose" }
+compose-material = { group = "androidx.compose.material", name = "material", version.ref = "material" }
 compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "material-icons-extended" }
 compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
 
-compoe-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "compose" }
-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "compose" }
+compoe-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "compose" }
+compose-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "compose" }
+compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "compose" }
 
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "compose-activity" }
 compose-paging = { group = "androidx.paging", name = "paging-compose", version.ref = "compose-paging" }
@@ -85,6 +88,7 @@ compose-livedata = { group = "androidx.compose.runtime", name = "runtime-livedat
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "composeMaterial3" }
 lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
+compose-hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "compose-hilt-navigation" }
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version = "accompanist" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 desugar-jdk-libs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugar-jdk-libs" }
@@ -153,7 +157,6 @@ room-testing = { group = "androidx.room", name = "room-testing", version.ref = "
 
 horizontal-calendar-view = { module = "com.github.JoelKanyi:HorizontalCalendarView", version.ref = "horizontal-calendar-view" }
 
-material-design = { module = "com.google.android.material:material", version.ref = "material" }
 core-splash-screen = { module = "androidx.core:core-splashscreen", version.ref = "core-splash-screen" }
 
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
@@ -168,3 +171,5 @@ chucker-library-no-op = { group = "com.github.chuckerteam.chucker", name = "libr
 
 [plugins]
 android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

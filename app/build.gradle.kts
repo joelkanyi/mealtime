@@ -4,7 +4,7 @@ plugins {
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
-    id("com.google.devtools.ksp") version ("1.8.10-1.0.9")
+    alias(libs.plugins.ksp)
     id("com.google.gms.google-services")
 }
 
@@ -38,26 +38,33 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = AndroidConfig.javaVersion
         targetCompatibility = AndroidConfig.javaVersion
     }
     kotlinOptions {
         jvmTarget = "17"
     }
+    kotlin {
+        jvmToolchain(17)
+    }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
+
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.composeCompiler
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
+
     packagingOptions {
-        resources.excludes.apply {
-            add("META-INF/LICENSE")
-            add("META-INF/LICENSE-notice.md")
-            add("META-INF/LICENSE.md")
-            add("META-INF/*.properties")
-            add("META-INF/AL2.0")
-            add("META-INF/LGPL2.1")
+        resources {
+            excludes += "META-INF/"
+            excludes += "okhttp3/"
+            excludes += "kotlin/"
+            excludes += "org/"
+            excludes += ".properties"
+            excludes += ".bin"
         }
     }
     namespace = "com.kanyideveloper.mealtime"
@@ -89,8 +96,13 @@ dependencies {
     implementation(libs.compose.destinations.animations)
     ksp(libs.compose.destinations.ksp)
 
-    implementation(libs.material.design)
+    // implementation(libs.material.design)
 
     // Splash Screen API
     implementation(libs.core.splash.screen)
+
+    // Dagger - Hilt
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.android.compiler)
+    kapt(libs.hilt.compiler)
 }

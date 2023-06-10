@@ -1,11 +1,14 @@
 /**
  * A collection of version numbers used throughout the project.
  */
+/*
 object Versions {
 
-    /**
+    */
+/**
      * https://developer.android.com/jetpack/androidx/releases/compose
-     */
+     *//*
+
     const val composeCompiler = "1.4.2"
 
     // https://github.com/google/truth/releases
@@ -26,4 +29,4 @@ object Versions {
     const val kotlinxSerialization = "1.3.2"
 
     // const val kotlin = "1.7.20"
-}
+}*/
