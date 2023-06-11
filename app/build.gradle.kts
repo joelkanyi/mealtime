@@ -79,6 +79,7 @@ dependencies {
     implementation(project(Modules.mealPlanner))
     implementation(project(Modules.kitchenTimer))
     implementation(project(Modules.auth))
+    implementation(project(Modules.shared))
 
     // RamCosta Navigation
     implementation(libs.compose.destinations.animations)
@@ -88,4 +89,5 @@ dependencies {
 
     // Splash Screen API
     implementation(libs.core.splash.screen)
+
 }

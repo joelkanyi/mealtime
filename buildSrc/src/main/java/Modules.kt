@@ -13,4 +13,5 @@ object Modules {
     const val mealPlanner = ":feature:mealplanner"
     const val kitchenTimer = ":feature:kitchen-timer"
     const val auth = ":feature:auth"
+    const val shared = ":shared"
 }
