@@ -15,11 +15,10 @@
  */
 package com.kanyideveloper.core.data
 
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import com.kanyideveloper.core.domain.SubscriptionRepository
 import com.kanyideveloper.core.util.Constants
@@ -35,10 +34,10 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class SubscriptionRepositoryImpl(
-    private val dataStore: DataStore<Preferences>
+    private val context: Context,
 ) : SubscriptionRepository {
     override val isSubscribed: Flow<Boolean>
-        get() = dataStore.data.map { preferences ->
+        get() = context.dataStore.data.map { preferences ->
             // preferences[Constants.SUBSCRIPTION] == true
             true
         }
@@ -60,7 +59,7 @@ class SubscriptionRepositoryImpl(
                 Timber.e("Success: ${entitlements["Premium"]?.isActive}")
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    dataStore.edit { preferences ->
+                    context.dataStore.edit { preferences ->
                         preferences[Constants.SUBSCRIPTION] =
                             entitlements["Premium"]?.isActive == true
                     }

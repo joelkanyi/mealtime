@@ -21,18 +21,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.joelkanyi.shared.data.network.utils.Resource
 import com.kanyideveloper.core.analytics.AnalyticsUtil
-import com.kanyideveloper.core.util.Resource
 import com.kanyideveloper.core.util.UiEvents
 import com.kanyideveloper.mealplanner.destinations.MealPlannerScreenDestination
 import com.kanyideveloper.mealplanner.domain.repository.MealPlannerRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class SetupViewModel @Inject constructor(
+class SetupViewModel constructor(
     private val mealPlannerRepository: MealPlannerRepository,
     private val analyticsUtil: AnalyticsUtil
 ) : ViewModel() {

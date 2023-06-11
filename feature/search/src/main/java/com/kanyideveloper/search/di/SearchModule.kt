@@ -15,22 +15,21 @@
  */
 package com.kanyideveloper.search.di
 
-import com.kanyideveloper.core_network.MealDbApi
 import com.kanyideveloper.search.data.repository.SearchRepositoryImpl
 import com.kanyideveloper.search.domain.SearchRepository
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.kanyideveloper.search.presentation.search.SearchViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object SearchModule {
+fun searchModule() = module {
 
-    @Provides
-    @Singleton
-    fun providesSearchRepository(mealDbApi: MealDbApi): SearchRepository {
-        return SearchRepositoryImpl(mealDbApi = mealDbApi)
+    single<SearchRepository> { SearchRepositoryImpl(get()) }
+
+    viewModel {
+        SearchViewModel(
+            searchRepository = get(),
+            favoritesRepository = get(),
+            analyticsUtil = get(),
+        )
     }
 }

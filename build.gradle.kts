@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.android.kotlin) apply false
     alias(libs.plugins.jvm) apply false
-    alias(libs.plugins.hilt.android) apply false
+    // alias(libs.plugins.hilt.android) apply false
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.ktlint)
     alias(libs.plugins.spotless)

@@ -15,56 +15,29 @@
  */
 package com.kanyideveloper.addmeal.di
 
-import android.content.Context
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.kanyideveloper.addmeal.data.repository.SaveMealRepositoryImpl
 import com.kanyideveloper.addmeal.data.repository.UploadImageRepositoryImpl
 import com.kanyideveloper.addmeal.domain.repository.SaveMealRepository
 import com.kanyideveloper.addmeal.domain.repository.UploadImageRepository
-import com.kanyideveloper.core_database.MealTimeDatabase
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.kanyideveloper.addmeal.presentation.addmeal.AddMealsViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object AddMealModule {
+fun addMealModule() = module {
 
-    @Provides
-    @Singleton
-    fun provideUploadImageRepository(
-        storageReference: StorageReference,
-        @ApplicationContext context: Context
-    ): UploadImageRepository {
-        return UploadImageRepositoryImpl(
-            storageReference = storageReference,
-            context = context
+    single<UploadImageRepository> { UploadImageRepositoryImpl(get(), get()) }
+
+    single<SaveMealRepository> { SaveMealRepositoryImpl(get(), get(), get()) }
+
+    single { FirebaseStorage.getInstance().getReference("meal_images") }
+
+    viewModel {
+        AddMealsViewModel(
+            uploadImageRepository = get(),
+            saveMealRepository = get(),
+            analyticsUtil = get(),
+            subscriptionRepository = get()
         )
-    }
-
-    @Provides
-    @Singleton
-    fun provideSaveMealRepository(
-        mealTimeDatabase: MealTimeDatabase,
-        databaseReference: DatabaseReference,
-        firebaseAuth: FirebaseAuth
-    ): SaveMealRepository {
-        return SaveMealRepositoryImpl(
-            mealTimeDatabase = mealTimeDatabase,
-            databaseReference = databaseReference,
-            firebaseAuth = firebaseAuth
-        )
-    }
-
-    @Provides
-    @Singleton
-    fun provideFirebaseStorageReference(): StorageReference {
-        return FirebaseStorage.getInstance().getReference("meal_images")
     }
 }

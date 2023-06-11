@@ -15,30 +15,14 @@
  */
 package com.kanyideveloper.core.di
 
-import android.content.Context
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.util.Constants
 import com.mixpanel.android.mpmetrics.MixpanelAPI
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object AnalyticsModule {
+fun analyticsModule() = module {
 
-    @Singleton
-    @Provides
-    fun providesMixPaneApi(@ApplicationContext context: Context): MixpanelAPI {
-        return MixpanelAPI.getInstance(context, Constants.MIXPANEL_TOKEN, false)
-    }
+    single<MixpanelAPI> { MixpanelAPI.getInstance(get(), Constants.MIXPANEL_TOKEN, false) }
 
-    @Singleton
-    @Provides
-    fun providesAnalyticsUtil(mixpanelAPI: MixpanelAPI): AnalyticsUtil {
-        return AnalyticsUtil(mixpanelAPI)
-    }
+    single { AnalyticsUtil(get()) }
 }

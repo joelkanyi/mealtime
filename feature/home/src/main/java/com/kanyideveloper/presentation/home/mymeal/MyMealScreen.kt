@@ -51,7 +51,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.kanyideveloper.compose_ui.theme.Shapes
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.components.LoadingStateComponent
@@ -67,6 +66,7 @@ import com.kanyideveloper.presentation.home.MyMealState
 import com.kanyideveloper.presentation.home.composables.MealItem
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Destination
@@ -74,7 +74,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun MyMealScreen(
     isSubscribed: Boolean,
     navigator: HomeNavigator,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = koinViewModel()
 ) {
     val myMealsState = viewModel.myMealsState.value
     val snackbarHostState = remember { SnackbarHostState() }

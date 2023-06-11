@@ -19,8 +19,8 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.joelkanyi.auth.domain.repository.AuthRepository
+import com.joelkanyi.shared.data.network.utils.Resource
 import com.kanyideveloper.core.analytics.AnalyticsUtil
-import com.kanyideveloper.core.util.Resource
 import kotlinx.coroutines.tasks.await
 import org.json.JSONObject
 

@@ -17,11 +17,8 @@ package com.joelkanyi.auth.presentation.landing
 
 import androidx.lifecycle.ViewModel
 import com.kanyideveloper.core.analytics.AnalyticsUtil
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
-@HiltViewModel
-class LandingPageViewModel @Inject constructor(
+class LandingPageViewModel constructor(
     private val analyticsUtil: AnalyticsUtil
 ) : ViewModel() {
     fun analyticsUtil() = analyticsUtil

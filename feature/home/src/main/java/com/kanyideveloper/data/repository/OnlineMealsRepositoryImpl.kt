@@ -15,18 +15,17 @@
  */
 package com.kanyideveloper.data.repository
 
+import com.joelkanyi.shared.data.network.MealDbApi
+import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.shared.data.network.utils.safeApiCall
 import com.kanyideveloper.core.model.Meal
-import com.kanyideveloper.core.util.Resource
-import com.kanyideveloper.core.util.safeApiCall
 import com.kanyideveloper.core_database.dao.OnlineMealsDao
-import com.kanyideveloper.core_network.MealDbApi
 import com.kanyideveloper.data.mapper.toCategory
 import com.kanyideveloper.data.mapper.toEntity
 import com.kanyideveloper.data.mapper.toMeal
 import com.kanyideveloper.domain.model.Category
 import com.kanyideveloper.domain.model.OnlineMeal
 import com.kanyideveloper.domain.repository.OnlineMealsRepository
-import kotlinx.coroutines.Dispatchers
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -75,16 +74,16 @@ class OnlineMealsRepositoryImpl(
     }
 
     override suspend fun getMealDetails(mealId: String): Resource<List<Meal>> {
-        return safeApiCall(Dispatchers.IO) {
+        return safeApiCall {
             val response = mealDbApi.getMealDetails(mealId = mealId)
-            response.meals.map { it.toMeal() }
+            response.meals?.map { it.toMeal() } ?: emptyList()
         }
     }
 
     override suspend fun getRandomMeal(): Resource<List<Meal>> {
-        return safeApiCall(Dispatchers.IO) {
+        return safeApiCall {
             val response = mealDbApi.getRandomMeal()
-            response.meals.map { it.toMeal() }
+            response.meals?.map { it.toMeal() } ?: emptyList()
         }
     }
 }

@@ -19,7 +19,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -73,13 +72,10 @@ import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultA
 import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
 import com.ramcosta.composedestinations.navigation.dependency
 import com.ramcosta.composedestinations.scope.DestinationScope
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import org.koin.android.ext.android.inject
 import timber.log.Timber
-
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel: MainViewModel by viewModels()
     private lateinit var appUpdateManager: AppUpdateManager
     private val updateAvailable = MutableLiveData<Boolean>().apply { value = false }
     private var updateInfo: AppUpdateInfo? = null
@@ -94,6 +90,7 @@ class MainActivity : ComponentActivity() {
             removeInstallStateUpdateListener()
         }
     }
+    val viewModel: MainViewModel by inject()
 
     @OptIn(ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {

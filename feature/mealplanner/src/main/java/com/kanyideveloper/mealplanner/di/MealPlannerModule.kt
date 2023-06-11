@@ -15,47 +15,41 @@
  */
 package com.kanyideveloper.mealplanner.di
 
-import android.content.Context
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.kanyideveloper.core.data.MealTimePreferences
-import com.kanyideveloper.core_database.dao.FavoritesDao
-import com.kanyideveloper.core_database.dao.MealDao
-import com.kanyideveloper.core_database.dao.MealPlanDao
-import com.kanyideveloper.core_network.MealDbApi
+import com.kanyideveloper.mealplanner.MealPlannerViewModel
 import com.kanyideveloper.mealplanner.data.repository.MealPlannerRepositoryImpl
 import com.kanyideveloper.mealplanner.domain.repository.MealPlannerRepository
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.kanyideveloper.mealplanner.setup.SetupViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object MealPlannerModule {
+fun mealPlannerModule() = module {
 
-    @Provides
-    @Singleton
-    fun providesMealPlannerRepository(
-        mealTimePreferences: MealTimePreferences,
-        mealsPlanDao: MealPlanDao,
-        mealDbApi: MealDbApi,
-        mealDao: MealDao,
-        favoritesDao: FavoritesDao,
-        context: Context,
-        databaseReference: DatabaseReference,
-        firebaseAuth: FirebaseAuth
-    ): MealPlannerRepository {
-        return MealPlannerRepositoryImpl(
-            mealTimePreferences = mealTimePreferences,
-            mealPlanDao = mealsPlanDao,
-            mealDao = mealDao,
-            mealDbApi = mealDbApi,
-            favoritesDao = favoritesDao,
-            context = context,
-            databaseReference = databaseReference,
-            firebaseAuth = firebaseAuth
+    single<MealPlannerRepository> {
+        MealPlannerRepositoryImpl(
+            mealTimePreferences = get(),
+            mealPlanDao = get(),
+            favoritesDao = get(),
+            mealDao = get(),
+            mealDbApi = get(),
+            context = get(),
+            databaseReference = get(),
+            firebaseAuth = get()
+        )
+    }
+
+    viewModel {
+        MealPlannerViewModel(
+            mealPlannerRepository = get(),
+            homeRepository = get(),
+            subscriptionRepository = get(),
+            analyticsUtil = get(),
+        )
+    }
+
+    viewModel {
+        SetupViewModel(
+            mealPlannerRepository = get(),
+            analyticsUtil = get()
         )
     }
 }

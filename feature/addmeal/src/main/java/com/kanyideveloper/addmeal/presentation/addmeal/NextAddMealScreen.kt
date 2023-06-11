@@ -62,7 +62,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.kanyideveloper.addmeal.presentation.addmeal.destinations.NextAddMealScreenDestination
 import com.kanyideveloper.compose_ui.components.StandardToolbar
 import com.kanyideveloper.core.state.SubscriptionStatusUiState
@@ -71,6 +70,7 @@ import com.kanyideveloper.core.util.UiEvents
 import com.kanyideveloper.mealtime.core.R
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
@@ -84,7 +84,7 @@ fun NextAddMealScreen(
     cookingTime: Int,
     servingPeople: Int,
     navigator: AddMealNavigator,
-    viewModel: AddMealsViewModel = hiltViewModel()
+    viewModel: AddMealsViewModel = koinViewModel()
 ) {
     NextAddMealScreenDestination
     val context = LocalContext.current

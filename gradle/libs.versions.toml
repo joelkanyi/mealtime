@@ -167,8 +167,12 @@ ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-nego
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
 ktor-server-auth = { group = "io.ktor", name = "ktor-server-auth", version.ref = "ktor" }
+ktor-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
 
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 
 multiplatformSettings = { group = "com.russhwolf", name = "multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
 multiplatformSettingsCoroutines = { group = "com.russhwolf", name = "multiplatform-settings-coroutines", version.ref = "multiplatformSettings" }
@@ -192,3 +196,4 @@ parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotli
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 sqlDelight-plugin = { id = "com.squareup.sqldelight", version.ref = "sqlDelight" }
+kotlinX-serialization-plugin = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

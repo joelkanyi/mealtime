@@ -15,25 +15,44 @@
  */
 package com.joelkanyi.auth.di
 
-import com.google.firebase.auth.FirebaseAuth
 import com.joelkanyi.auth.data.repository.AuthRepositoryImpl
 import com.joelkanyi.auth.domain.repository.AuthRepository
-import com.kanyideveloper.core.analytics.AnalyticsUtil
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.joelkanyi.auth.presentation.forgotpassword.ForgotPasswordViewModel
+import com.joelkanyi.auth.presentation.landing.LandingPageViewModel
+import com.joelkanyi.auth.presentation.signin.SignInViewModel
+import com.joelkanyi.auth.presentation.signup.SignUpViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object AuthModule {
-    @Provides
-    @Singleton
-    fun provideAuthRepository(analyticsUtil: AnalyticsUtil): AuthRepository {
-        return AuthRepositoryImpl(
-            firebaseAuth = FirebaseAuth.getInstance(),
-            analyticsUtil = analyticsUtil
+fun authModule() = module {
+    single<AuthRepository> {
+        AuthRepositoryImpl(
+            get(),
+            get()
+        )
+    }
+
+    viewModel {
+        LandingPageViewModel(analyticsUtil = get())
+    }
+
+    viewModel {
+        ForgotPasswordViewModel(
+            authenticationRepository = get(),
+        )
+    }
+
+    viewModel {
+        SignInViewModel(
+            authRepository = get(),
+            analyticsUtil = get(),
+        )
+    }
+
+    viewModel {
+        SignUpViewModel(
+            authRepository = get(),
+            analyticsUtil = get(),
         )
     }
 }

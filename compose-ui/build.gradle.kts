@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.android.kotlin)
     alias(libs.plugins.kapt)
-    alias(libs.plugins.hilt.android)
+    // alias(libs.plugins.hilt.android)
     alias(libs.plugins.parcelize)
 }
 

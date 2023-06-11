@@ -21,18 +21,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.joelkanyi.shared.data.network.utils.Resource
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.domain.HomeRepository
 import com.kanyideveloper.core.domain.SubscriptionRepository
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.state.SubscriptionStatusUiState
-import com.kanyideveloper.core.util.Resource
 import com.kanyideveloper.core.util.UiEvents
 import com.kanyideveloper.core.util.getTodaysDate
 import com.kanyideveloper.mealplanner.domain.repository.MealPlannerRepository
 import com.kanyideveloper.mealplanner.model.MealPlan
 import com.kanyideveloper.mealplanner.presentation.state.SearchMealState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -42,10 +41,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.UUID
-import javax.inject.Inject
 
-@HiltViewModel
-class MealPlannerViewModel @Inject constructor(
+class MealPlannerViewModel constructor(
     private val mealPlannerRepository: MealPlannerRepository,
     private val homeRepository: HomeRepository,
     subscriptionRepository: SubscriptionRepository,

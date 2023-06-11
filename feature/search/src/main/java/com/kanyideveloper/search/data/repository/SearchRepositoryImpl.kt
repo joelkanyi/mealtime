@@ -15,13 +15,12 @@
  */
 package com.kanyideveloper.search.data.repository
 
+import com.joelkanyi.shared.data.network.MealDbApi
+import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.shared.data.network.utils.safeApiCall
 import com.kanyideveloper.core.model.OnlineMeal
-import com.kanyideveloper.core.util.Resource
-import com.kanyideveloper.core.util.safeApiCall
-import com.kanyideveloper.core_network.MealDbApi
 import com.kanyideveloper.search.data.mapper.toOnlineMeal
 import com.kanyideveloper.search.domain.SearchRepository
-import kotlinx.coroutines.Dispatchers
 import timber.log.Timber
 
 class SearchRepositoryImpl(
@@ -33,7 +32,7 @@ class SearchRepositoryImpl(
     ): Resource<List<OnlineMeal>> {
         return when (searchOption) {
             "Meal Name" -> {
-                return safeApiCall(Dispatchers.IO) {
+                return safeApiCall {
                     val response = mealDbApi.searchMealsByName(query = searchParam)
                     Timber.e("Response for meal name: $response")
                     if (response?.meals == null) {
@@ -43,8 +42,9 @@ class SearchRepositoryImpl(
                     }
                 }
             }
+
             "Ingredient" -> {
-                return safeApiCall(Dispatchers.IO) {
+                return safeApiCall {
                     val response = mealDbApi.searchMealsByIngredient(query = searchParam)
 
                     if (response?.meals == null) {
@@ -54,8 +54,9 @@ class SearchRepositoryImpl(
                     }
                 }
             }
+
             "Meal Category" -> {
-                return safeApiCall(Dispatchers.IO) {
+                return safeApiCall {
                     val response = mealDbApi.searchMealsByCategory(query = searchParam)
 
                     if (response?.meals == null) {
@@ -65,6 +66,7 @@ class SearchRepositoryImpl(
                     }
                 }
             }
+
             else -> {
                 Resource.Error("Unknown online search by")
             }

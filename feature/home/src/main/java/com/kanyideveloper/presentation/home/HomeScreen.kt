@@ -55,7 +55,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -69,6 +68,7 @@ import com.kanyideveloper.mealtime.core.R
 import com.kanyideveloper.presentation.home.composables.TabItem
 import com.kanyideveloper.presentation.home.composables.Tabs
 import com.ramcosta.composedestinations.annotation.Destination
+import org.koin.androidx.compose.koinViewModel
 
 interface HomeNavigator {
     fun openHome()
@@ -87,7 +87,7 @@ interface HomeNavigator {
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Destination
 @Composable
-fun HomeScreen(navigator: HomeNavigator, viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(navigator: HomeNavigator, viewModel: HomeViewModel = koinViewModel()) {
     val context = LocalContext.current
     val analyticsUtil = viewModel.analyticsUtil()
     var hasCamPermission by remember {

@@ -55,7 +55,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.kanyideveloper.compose_ui.components.StandardToolbar
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.components.PremiumCard
@@ -67,6 +66,7 @@ import com.kanyideveloper.settings.presentation.components.FeedbackDialog
 import com.kanyideveloper.settings.presentation.components.SettingCard
 import com.kanyideveloper.settings.presentation.components.ThemesDialog
 import com.ramcosta.composedestinations.annotation.Destination
+import org.koin.androidx.compose.koinViewModel
 
 interface SettingsNavigator {
     fun openAllergiesScreen(editMealPlanPreference: Boolean)
@@ -77,7 +77,7 @@ interface SettingsNavigator {
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Destination
 @Composable
-fun SettingsScreen(navigator: SettingsNavigator, viewModel: SettingsViewModel = hiltViewModel()) {
+fun SettingsScreen(navigator: SettingsNavigator, viewModel: SettingsViewModel = koinViewModel()) {
     val shouldShowThemesDialog = viewModel.shouldShowThemesDialog.value
     val shouldShowFeedbackDialog = viewModel.shouldShowFeedbackDialog.value
     val context = LocalContext.current

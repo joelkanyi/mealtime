@@ -19,9 +19,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
+import com.joelkanyi.shared.data.network.utils.Resource
 import com.kanyideveloper.core.domain.FavoritesRepository
 import com.kanyideveloper.core.model.Favorite
-import com.kanyideveloper.core.util.Resource
 import com.kanyideveloper.core_database.dao.FavoritesDao
 import com.kanyideveloper.core_database.model.FavoriteEntity
 import com.kanyideveloper.favorites.presentation.favorites.data.mapper.toEntity

@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.kotlin)
     alias(libs.plugins.kapt)
-    alias(libs.plugins.hilt.android)
+    // alias(libs.plugins.hilt.android)
     alias(libs.plugins.parcelize)
     alias(libs.plugins.ksp)
     alias(libs.plugins.google.services)
@@ -79,6 +79,7 @@ dependencies {
     implementation(project(Modules.mealPlanner))
     implementation(project(Modules.kitchenTimer))
     implementation(project(Modules.auth))
+    implementation(project(Modules.coreDatabase))
     implementation(project(Modules.shared))
 
     // RamCosta Navigation
@@ -90,4 +91,8 @@ dependencies {
     // Splash Screen API
     implementation(libs.core.splash.screen)
 
+    // Room
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
 }

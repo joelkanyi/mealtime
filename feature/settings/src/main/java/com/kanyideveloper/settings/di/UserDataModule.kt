@@ -15,38 +15,35 @@
  */
 package com.kanyideveloper.settings.di
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.kanyideveloper.core.data.MealTimePreferences
 import com.kanyideveloper.core.domain.UserDataRepository
 import com.kanyideveloper.settings.data.UserDataRepositoryImpl
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.kanyideveloper.settings.presentation.SettingsViewModel
+import org.koin.android.ext.koin.androidApplication
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object UserDataModule {
+fun userDataModule() = module {
 
-    @Provides
-    @Singleton
-    fun provideMealTimePreferences(
-        dataStore: DataStore<Preferences>,
-        databaseReference: DatabaseReference,
-        firebaseAuth: FirebaseAuth
-    ) = MealTimePreferences(
-        dataStore = dataStore,
-        databaseReference = databaseReference,
-        firebaseAuth = firebaseAuth
-    )
+    single {
+        MealTimePreferences(
+            context = androidApplication().applicationContext,
+            databaseReference = get(),
+            firebaseAuth = get()
+        )
+    }
 
-    @Provides
-    @Singleton
-    fun provideUserDataRepository(mealTimePreferences: MealTimePreferences): UserDataRepository {
-        return UserDataRepositoryImpl(mealTimePreferences = mealTimePreferences)
+    single<UserDataRepository> {
+        UserDataRepositoryImpl(
+            mealTimePreferences = get()
+        )
+    }
+
+    viewModel {
+        SettingsViewModel(
+            userDataRepository = get(),
+            subscriptionRepository = get(),
+            analyticsUtil = get(),
+        )
     }
 }

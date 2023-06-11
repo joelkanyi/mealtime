@@ -31,14 +31,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.gson.Gson
 import com.kanyideveloper.core.model.ErrorResponse
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
@@ -64,6 +65,7 @@ fun Context.imageUriToImageBitmap(uri: Uri): Bitmap {
     }
 }
 
+/*
 suspend fun <T> safeApiCall(
     dispatcher: CoroutineDispatcher,
     apiCall: suspend () -> T
@@ -110,6 +112,7 @@ suspend fun <T> safeApiCall(
         }
     }
 }
+*/
 
 private fun convertStringErrorResponseToJsonObject(jsonString: String): ErrorResponse? {
     val gson = Gson()
@@ -166,12 +169,15 @@ fun showDayCookMessage(): String {
         in 12..16 -> {
             "What to cook for lunch?"
         }
+
         in 17..20 -> {
             "What to cook for dinner?"
         }
+
         in 21..23 -> {
             "What to cook tonight?"
         }
+
         else -> {
             "What to cook for breakfast?"
         }
@@ -248,3 +254,5 @@ fun convertMillisecondsToTimeString(millis: Long): String {
 fun isNumeric(toCheck: String): Boolean {
     return toCheck.all { char -> char.isDigit() }
 }
+
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = Constants.MEALTIME_PREFERENCES)

@@ -52,7 +52,7 @@ dependencies {
     implementation(project(Modules.core))
     implementation(project(Modules.composeUi))
     implementation(project(Modules.coreDatabase))
-    implementation(project(Modules.coreNetwork))
+    implementation(project(Modules.shared))
 
     implementation(libs.horizontal.calendar.view)
 

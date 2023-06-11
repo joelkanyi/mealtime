@@ -15,10 +15,10 @@
  */
 package com.kanyideveloper.search.data.mapper
 
+import com.joelkanyi.shared.data.network.model.MealsResponse
 import com.kanyideveloper.core.model.OnlineMeal
-import com.kanyideveloper.core_network.model.MealsResponse
 
-internal fun MealsResponse.Meal.toOnlineMeal(): OnlineMeal {
+internal fun com.joelkanyi.shared.data.network.model.MealsResponse.Meal.toOnlineMeal(): OnlineMeal {
     return OnlineMeal(
         name = strMeal,
         imageUrl = strMealThumb,

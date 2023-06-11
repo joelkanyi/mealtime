@@ -20,19 +20,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.joelkanyi.shared.data.network.utils.Resource
 import com.kanyideveloper.core.domain.FavoritesRepository
 import com.kanyideveloper.core.model.Favorite
-import com.kanyideveloper.core.util.Resource
 import com.kanyideveloper.core.util.UiEvents
 import com.kanyideveloper.domain.repository.OnlineMealsRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class DetailsViewModel @Inject constructor(
+class DetailsViewModel constructor(
     private val onlineMealsRepository: OnlineMealsRepository,
     private val favoritesRepository: FavoritesRepository
 ) : ViewModel() {

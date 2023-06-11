@@ -16,7 +16,7 @@
 package com.joelkanyi.auth.domain.repository
 
 import com.google.firebase.auth.AuthResult
-import com.kanyideveloper.core.util.Resource
+import com.joelkanyi.shared.data.network.utils.Resource
 
 interface AuthRepository {
     suspend fun registerUser(email: String, password: String, name: String): Resource<AuthResult>

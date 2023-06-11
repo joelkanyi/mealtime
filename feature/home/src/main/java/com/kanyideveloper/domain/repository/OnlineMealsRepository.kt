@@ -15,8 +15,8 @@
  */
 package com.kanyideveloper.domain.repository
 
+import com.joelkanyi.shared.data.network.utils.Resource
 import com.kanyideveloper.core.model.Meal
-import com.kanyideveloper.core.util.Resource
 import com.kanyideveloper.domain.model.Category
 import com.kanyideveloper.domain.model.OnlineMeal
 

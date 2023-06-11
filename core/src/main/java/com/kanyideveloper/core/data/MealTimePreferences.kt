@@ -15,13 +15,16 @@
  */
 package com.kanyideveloper.core.data
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.preferencesDataStore
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.kanyideveloper.core.model.MealPlanPreference
+import com.kanyideveloper.core.util.Constants
 import com.kanyideveloper.core.util.Constants.ALLERGIES
 import com.kanyideveloper.core.util.Constants.DISH_TYPES
 import com.kanyideveloper.core.util.Constants.NUMBER_OF_PEOPLE
@@ -31,14 +34,15 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withTimeoutOrNull
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(Constants.MEALTIME_PREFERENCES)
 
 class MealTimePreferences(
-    private val dataStore: DataStore<Preferences>,
+    private val context: Context,
     private val databaseReference: DatabaseReference,
     private val firebaseAuth: FirebaseAuth
 ) {
     suspend fun saveTheme(themeValue: Int) {
-        dataStore.edit { preferences ->
+        context.dataStore.edit { preferences ->
             preferences[THEME_OPTIONS] = themeValue
         }
     }
@@ -48,14 +52,14 @@ class MealTimePreferences(
         numberOfPeople: String,
         dishTypes: List<String>
     ) {
-        dataStore.edit { preferences ->
+        context.dataStore.edit { preferences ->
             preferences[ALLERGIES] = allergies.toSet()
             preferences[NUMBER_OF_PEOPLE] = numberOfPeople
             preferences[DISH_TYPES] = dishTypes.toSet()
         }
     }
 
-    val getTheme: Flow<Int> = dataStore.data.map { preferences ->
+    val getTheme: Flow<Int> = context.dataStore.data.map { preferences ->
         preferences[THEME_OPTIONS] ?: AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     }
 
@@ -63,7 +67,7 @@ class MealTimePreferences(
         return if (isSubscribed) {
             fetchPrefsFromRemoteDatasource()
         } else {
-            dataStore.data.map { preferences ->
+            context.dataStore.data.map { preferences ->
                 MealPlanPreference(
                     numberOfPeople = preferences[NUMBER_OF_PEOPLE] ?: "0",
                     dishTypes = preferences[DISH_TYPES]?.toList() ?: listOf(""),
@@ -77,7 +81,7 @@ class MealTimePreferences(
         /**
          * Do offline caching
          */
-        val prefsFromLocal = dataStore.data.map { preferences ->
+        val prefsFromLocal = context.dataStore.data.map { preferences ->
             MealPlanPreference(
                 numberOfPeople = preferences[NUMBER_OF_PEOPLE] ?: "0",
                 dishTypes = preferences[DISH_TYPES]?.toList() ?: listOf(""),

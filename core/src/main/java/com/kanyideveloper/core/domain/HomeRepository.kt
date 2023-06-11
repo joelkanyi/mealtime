@@ -16,8 +16,8 @@
 package com.kanyideveloper.core.domain
 
 import androidx.lifecycle.LiveData
+import com.joelkanyi.shared.data.network.utils.Resource
 import com.kanyideveloper.core.model.Meal
-import com.kanyideveloper.core.util.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface HomeRepository {

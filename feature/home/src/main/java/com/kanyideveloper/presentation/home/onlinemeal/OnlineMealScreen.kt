@@ -63,7 +63,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.kanyideveloper.compose_ui.theme.Shapes
@@ -81,6 +80,7 @@ import com.kanyideveloper.presentation.home.onlinemeal.state.CategoriesState
 import com.kanyideveloper.presentation.home.onlinemeal.state.MealState
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Destination
@@ -88,7 +88,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun OnlineMealScreen(
     isSubscribed: Boolean,
     navigator: HomeNavigator,
-    viewModel: OnlineMealViewModel = hiltViewModel()
+    viewModel: OnlineMealViewModel = koinViewModel()
 ) {
     val mealsState = viewModel.meals.value
     val categoriesState = viewModel.categories.value
@@ -295,7 +295,7 @@ fun OnlineMealItem(
     onClick: (String) -> Unit,
     addToFavorites: (String, String, String) -> Unit,
     removeFromFavorites: (String) -> Unit,
-    viewModel: OnlineMealViewModel = hiltViewModel()
+    viewModel: OnlineMealViewModel = koinViewModel()
 ) {
     val isFavorite = viewModel.inOnlineFavorites(id = meal.mealId).observeAsState().value != null
 

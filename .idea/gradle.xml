@@ -15,7 +15,6 @@
             <option value="$PROJECT_DIR$/compose-ui" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core-database" />
-            <option value="$PROJECT_DIR$/core-network" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/addmeal" />
             <option value="$PROJECT_DIR$/feature/auth" />

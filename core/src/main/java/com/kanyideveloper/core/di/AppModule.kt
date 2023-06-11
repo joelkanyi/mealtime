@@ -15,67 +15,25 @@
  */
 package com.kanyideveloper.core.di
 
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStoreFile
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import com.kanyideveloper.core.data.SubscriptionRepositoryImpl
 import com.kanyideveloper.core.domain.SubscriptionRepository
-import com.kanyideveloper.core.util.Constants.MEALTIME_PREFERENCES
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.android.ext.koin.androidApplication
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object AppModule {
+fun appModule() = module {
 
-    @Provides
-    @Singleton
-    fun provideFirebaseDatabase(): DatabaseReference {
-        val database = FirebaseDatabase.getInstance().reference
-        database.keepSynced(true)
-        return database
-    }
+    single { FirebaseDatabase.getInstance().reference }
 
-    @Provides
-    @Singleton
-    fun provideFirebaseAuth(): FirebaseAuth {
-        return FirebaseAuth.getInstance()
-    }
+    single { FirebaseAuth.getInstance() }
 
-    @Provides
-    @Singleton
-    fun provideGson() = Gson()
+    single { Gson() }
 
-    @Provides
-    @Singleton
-    fun providesContent(@ApplicationContext context: Context): Context {
-        return context
-    }
-
-    @Provides
-    @Singleton
-    fun provideDatastorePreferences(@ApplicationContext context: Context): DataStore<Preferences> =
-        PreferenceDataStoreFactory.create(
-            produceFile = {
-                context.preferencesDataStoreFile(MEALTIME_PREFERENCES)
-            }
-        )
-
-    @Provides
-    @Singleton
-    fun provideSubscriptionRepository(dataStore: DataStore<Preferences>): SubscriptionRepository {
-        return SubscriptionRepositoryImpl(
-            dataStore = dataStore
+    single<SubscriptionRepository> {
+        SubscriptionRepositoryImpl(
+            context = androidApplication().applicationContext,
         )
     }
 }

@@ -18,9 +18,9 @@ dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     // Dagger - Hilt
-    implementation(libs.dagger.hilt.android)
+/*    implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.android.compiler)
-    kapt(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)*/
 
     // UI
     implementation(libs.activity.compose)
@@ -30,7 +30,7 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.test.manifest)
     implementation(libs.lifecycle.viewmodel.compose)
-    implementation(libs.compose.hilt.navigation)
+    //implementation(libs.compose.hilt.navigation)
 
     // Coil
     implementation(libs.coil.compose)
@@ -121,4 +121,8 @@ dependencies {
 
     // Mixpanel
     api(libs.mixpanel)
+
+    // Koin
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
 }

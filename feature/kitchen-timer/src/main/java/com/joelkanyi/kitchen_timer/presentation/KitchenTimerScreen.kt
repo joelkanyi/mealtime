@@ -76,7 +76,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.joelkanyi.kitchen_timer.domain.model.KitchenTimer
 import com.kanyideveloper.compose_ui.components.StandardToolbar
 import com.kanyideveloper.compose_ui.theme.PrimaryColor
@@ -86,11 +85,12 @@ import com.kanyideveloper.core.util.minutesToMilliseconds
 import com.kanyideveloper.mealtime.core.R
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Destination
 @Composable
-fun KitchenTimerScreen(viewModel: KitchenTimerViewModel = hiltViewModel()) {
+fun KitchenTimerScreen(viewModel: KitchenTimerViewModel = koinViewModel()) {
     val timerValue = viewModel.remainingTimerValue.observeAsState(initial = KitchenTimer()).value
     val isTimerRunning = viewModel.isTimerRunning.observeAsState(initial = false).value
     val context = LocalContext.current

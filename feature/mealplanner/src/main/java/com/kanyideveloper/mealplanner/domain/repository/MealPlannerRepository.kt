@@ -15,9 +15,9 @@
  */
 package com.kanyideveloper.mealplanner.domain.repository
 
+import com.joelkanyi.shared.data.network.utils.Resource
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.model.MealPlanPreference
-import com.kanyideveloper.core.util.Resource
 import com.kanyideveloper.mealplanner.model.MealPlan
 import kotlinx.coroutines.flow.Flow
 
