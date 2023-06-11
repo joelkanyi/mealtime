@@ -19,11 +19,10 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import com.google.firebase.storage.StorageReference
+import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.shared.data.network.utils.safeApiCall
 import com.kanyideveloper.addmeal.domain.repository.UploadImageRepository
-import com.kanyideveloper.core.util.Resource
 import com.kanyideveloper.core.util.imageUriToImageBitmap
-import com.kanyideveloper.core.util.safeApiCall
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayOutputStream
 import java.util.UUID
@@ -33,7 +32,7 @@ class UploadImageRepositoryImpl(
     private val context: Context
 ) : UploadImageRepository {
     override suspend fun uploadImage(imageUri: Uri): Resource<String> {
-        return safeApiCall(Dispatchers.IO) {
+        return safeApiCall {
             val fileStorageReference =
                 storageReference.child("${UUID.randomUUID()}${imageUri.lastPathSegment}")
 

@@ -22,20 +22,20 @@ import android.content.Intent
 import androidx.activity.ComponentActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
+import com.joelkanyi.shared.data.network.MealDbApi
+import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.shared.data.network.utils.safeApiCall
 import com.kanyideveloper.core.data.MealTimePreferences
 import com.kanyideveloper.core.model.Favorite
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.model.MealPlanPreference
 import com.kanyideveloper.core.notifications.NotificationReceiver
-import com.kanyideveloper.core.util.Resource
-import com.kanyideveloper.core.util.safeApiCall
 import com.kanyideveloper.core_database.dao.FavoritesDao
 import com.kanyideveloper.core_database.dao.MealDao
 import com.kanyideveloper.core_database.dao.MealPlanDao
 import com.kanyideveloper.core_database.model.FavoriteEntity
 import com.kanyideveloper.core_database.model.MealEntity
 import com.kanyideveloper.core_database.model.MealPlanEntity
-import com.kanyideveloper.core_network.MealDbApi
 import com.kanyideveloper.mealplanner.data.mapper.toEntity
 import com.kanyideveloper.mealplanner.data.mapper.toGeneralMeal
 import com.kanyideveloper.mealplanner.data.mapper.toMeal
@@ -108,12 +108,15 @@ class MealPlannerRepositoryImpl(
                     searchBy = searchBy
                 )
             }
+
             "My Meals" -> {
                 getMyMeals(isSubscribed = isSubscribed)
             }
+
             "My Favorites" -> {
                 getFavorites(isSubscribed = isSubscribed)
             }
+
             else -> {
                 Resource.Error("Invalid source: $source", null)
             }
@@ -147,7 +150,7 @@ class MealPlannerRepositoryImpl(
     }
 
     override suspend fun getAllIngredients(): Resource<List<String>> {
-        return safeApiCall(Dispatchers.IO) {
+        return safeApiCall {
             val response = mealDbApi.getAllIngredients()
             Timber.d("Ingredients response: $response")
             response.meals.map { it.strIngredient }
@@ -566,10 +569,10 @@ class MealPlannerRepositoryImpl(
                     mealDao.insertMeal(
                         mealEntity = MealEntity(
                             id = onlineMeal.id ?: UUID.randomUUID().toString(),
-                            name = onlineMeal.name,
-                            imageUrl = onlineMeal.imageUrl,
+                            name = onlineMeal.name ?: "",
+                            imageUrl = onlineMeal.imageUrl ?: "",
                             cookingTime = onlineMeal.cookingTime,
-                            category = onlineMeal.category,
+                            category = onlineMeal.category ?: "",
                             cookingDifficulty = onlineMeal.cookingDifficulty,
                             ingredients = onlineMeal.ingredients,
                             cookingInstructions = onlineMeal.cookingDirections,
@@ -617,7 +620,7 @@ class MealPlannerRepositoryImpl(
     ): Resource<Flow<List<Meal>>> {
         return when (searchBy) {
             "Name" -> {
-                safeApiCall(Dispatchers.IO) {
+                safeApiCall {
                     val response = mealDbApi.searchMealsByName(query = searchString)
                     val mealsList = if (response?.meals != null) {
                         response.meals.map { it.toOnlineMeal().toGeneralMeal() }
@@ -627,8 +630,9 @@ class MealPlannerRepositoryImpl(
                     flowOf(mealsList)
                 }
             }
+
             "Ingredient" -> {
-                safeApiCall(Dispatchers.IO) {
+                safeApiCall {
                     val response = mealDbApi.searchMealsByIngredient(query = searchString)
                     val mealsList = if (response?.meals != null) {
                         response.meals.map { it.toOnlineMeal().toGeneralMeal() }
@@ -639,8 +643,9 @@ class MealPlannerRepositoryImpl(
                     flowOf(mealsList)
                 }
             }
+
             "Category" -> {
-                safeApiCall(Dispatchers.IO) {
+                safeApiCall {
                     val response = mealDbApi.searchMealsByCategory(query = searchString)
                     val mealsList = if (response?.meals != null) {
                         response.meals.map { it.toOnlineMeal().toGeneralMeal() }
@@ -651,6 +656,7 @@ class MealPlannerRepositoryImpl(
                     flowOf(mealsList)
                 }
             }
+
             else -> {
                 Resource.Error("Unknown online search by")
             }

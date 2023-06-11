@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.kanyideveloper.core.components.EmptyStateComponent
 import com.kanyideveloper.core.components.ErrorStateComponent
 import com.kanyideveloper.core.components.LoadingStateComponent
@@ -30,6 +29,7 @@ import com.kanyideveloper.presentation.details.DetailsViewModel
 import com.kanyideveloper.presentation.details.common.DetailsCollapsingToolbar
 import com.kanyideveloper.presentation.home.HomeNavigator
 import com.ramcosta.composedestinations.annotation.Destination
+import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Destination
@@ -37,7 +37,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 fun OnlineMealDetailsScreen(
     mealId: String,
     navigator: HomeNavigator,
-    viewModel: DetailsViewModel = hiltViewModel()
+    viewModel: DetailsViewModel = koinViewModel()
 ) {
     LaunchedEffect(key1 = true) {
         viewModel.getDetails(mealId = mealId)

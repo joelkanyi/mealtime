@@ -15,14 +15,14 @@
  */
 package com.kanyideveloper.data.mapper
 
+import com.joelkanyi.shared.data.network.model.CategoriesResponse
+import com.joelkanyi.shared.data.network.model.MealDetailsResponse
+import com.joelkanyi.shared.data.network.model.MealsResponse
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.util.stringToList
 import com.kanyideveloper.core_database.model.MealEntity
 import com.kanyideveloper.core_database.model.OnlineMealCategoryEntity
 import com.kanyideveloper.core_database.model.OnlineMealEntity
-import com.kanyideveloper.core_network.model.CategoriesResponse
-import com.kanyideveloper.core_network.model.MealDetailsResponse
-import com.kanyideveloper.core_network.model.MealsResponse
 import com.kanyideveloper.domain.model.Category
 import com.kanyideveloper.domain.model.OnlineMeal
 
@@ -41,7 +41,7 @@ internal fun MealEntity.toMeal(): Meal {
     )
 }
 
-internal fun CategoriesResponse.Category.toCategory(): Category {
+internal fun com.joelkanyi.shared.data.network.model.CategoriesResponse.Category.toCategory(): Category {
     return Category(
         categoryId = idCategory,
         categoryName = strCategory,
@@ -50,7 +50,7 @@ internal fun CategoriesResponse.Category.toCategory(): Category {
     )
 }
 
-internal fun MealsResponse.Meal.toMeal(): OnlineMeal {
+internal fun com.joelkanyi.shared.data.network.model.MealsResponse.Meal.toMeal(): OnlineMeal {
     return OnlineMeal(
         name = strMeal,
         imageUrl = strMealThumb,
@@ -58,12 +58,13 @@ internal fun MealsResponse.Meal.toMeal(): OnlineMeal {
     )
 }
 
-internal fun CategoriesResponse.Category.toEntity() = OnlineMealCategoryEntity(
-    idCategory = idCategory,
-    strCategory = strCategory,
-    strCategoryDescription = strCategoryDescription,
-    strCategoryThumb = strCategoryThumb
-)
+internal fun com.joelkanyi.shared.data.network.model.CategoriesResponse.Category.toEntity() =
+    OnlineMealCategoryEntity(
+        idCategory = idCategory,
+        strCategory = strCategory,
+        strCategoryDescription = strCategoryDescription,
+        strCategoryThumb = strCategoryThumb
+    )
 
 internal fun OnlineMealCategoryEntity.toCategory() = Category(
     categoryId = idCategory,
@@ -72,12 +73,13 @@ internal fun OnlineMealCategoryEntity.toCategory() = Category(
     categoryImageUrl = strCategoryThumb
 )
 
-internal fun MealsResponse.Meal.toEntity(category: String) = OnlineMealEntity(
-    idMeal = idMeal,
-    strMeal = strMeal,
-    strMealThumb = strMealThumb,
-    strCategory = category
-)
+internal fun com.joelkanyi.shared.data.network.model.MealsResponse.Meal.toEntity(category: String) =
+    OnlineMealEntity(
+        idMeal = idMeal,
+        strMeal = strMeal,
+        strMealThumb = strMealThumb,
+        strCategory = category
+    )
 
 internal fun OnlineMealEntity.toMeal() = OnlineMeal(
     name = strMeal,
@@ -93,28 +95,28 @@ internal fun MealDetailsResponse.Meal.toMeal(): Meal {
         category = strCategory,
         cookingDifficulty = "",
         ingredients = listOf(
-            strIngredient1,
-            strIngredient2,
-            strIngredient3,
-            strIngredient4,
-            strIngredient5,
-            strIngredient6,
-            strIngredient7,
-            strIngredient8,
-            strIngredient9,
-            strIngredient10,
-            strIngredient11,
-            strIngredient12,
-            strIngredient13,
-            strIngredient14,
-            strIngredient15,
-            strIngredient16,
-            strIngredient17,
-            strIngredient18,
-            strIngredient19,
-            strIngredient20
+            strIngredient1 ?: "",
+            strIngredient2 ?: "",
+            strIngredient3 ?: "",
+            strIngredient4 ?: "",
+            strIngredient5 ?: "",
+            strIngredient6 ?: "",
+            strIngredient7 ?: "",
+            strIngredient8 ?: "",
+            strIngredient9 ?: "",
+            strIngredient10 ?: "",
+            strIngredient11 ?: "",
+            strIngredient12 ?: "",
+            strIngredient13 ?: "",
+            strIngredient14 ?: "",
+            strIngredient15 ?: "",
+            strIngredient16 ?: "",
+            strIngredient17 ?: "",
+            strIngredient18 ?: "",
+            strIngredient19 ?: "",
+            strIngredient20 ?: "",
         ).filter { it.isNotEmpty() },
-        cookingDirections = strInstructions.stringToList(),
+        cookingDirections = strInstructions?.stringToList() ?: emptyList(),
         favorite = false,
         servingPeople = 0,
         onlineMealId = idMeal

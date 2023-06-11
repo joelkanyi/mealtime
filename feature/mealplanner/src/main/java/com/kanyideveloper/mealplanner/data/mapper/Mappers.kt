@@ -15,12 +15,12 @@
  */
 package com.kanyideveloper.mealplanner.data.mapper
 
+import com.joelkanyi.shared.data.network.model.MealsResponse
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.model.OnlineMeal
 import com.kanyideveloper.core_database.model.FavoriteEntity
 import com.kanyideveloper.core_database.model.MealEntity
 import com.kanyideveloper.core_database.model.MealPlanEntity
-import com.kanyideveloper.core_network.model.MealsResponse
 import com.kanyideveloper.mealplanner.model.MealPlan
 import java.util.UUID
 
@@ -42,7 +42,7 @@ internal fun MealPlanEntity.toMealPlan(): MealPlan {
     )
 }
 
-internal fun MealsResponse.Meal.toOnlineMeal(): OnlineMeal {
+internal fun com.joelkanyi.shared.data.network.model.MealsResponse.Meal.toOnlineMeal(): OnlineMeal {
     return OnlineMeal(
         name = strMeal,
         imageUrl = strMealThumb,

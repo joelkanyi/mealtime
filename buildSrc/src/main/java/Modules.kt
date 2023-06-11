@@ -3,7 +3,6 @@ object Modules {
 
     const val core = ":core"
     const val coreDatabase = ":core-database"
-    const val coreNetwork = ":core-network"
     const val composeUi = ":compose-ui"
     const val addMeal = ":feature:addmeal"
     const val favorites = ":feature:favorites"

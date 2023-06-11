@@ -137,7 +137,7 @@ fun MealItem(
                     modifier = Modifier
                         .fillMaxWidth(0.75f)
                         .padding(vertical = 3.dp),
-                    text = meal.name,
+                    text = meal.name ?: "",
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 2,
@@ -148,7 +148,7 @@ fun MealItem(
                         if (isFavorite) {
                             meal.localMealId?.let { removeFromFavorites(it) }
                         } else {
-                            meal.localMealId?.let { addToFavorites(it, meal.imageUrl, meal.name) }
+                            meal.localMealId?.let { addToFavorites(it, meal.imageUrl ?: "", meal.name ?: "") }
                         }
                     }
                 ) {

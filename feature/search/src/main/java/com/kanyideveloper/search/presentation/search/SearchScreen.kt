@@ -70,7 +70,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.kanyideveloper.compose_ui.components.StandardToolbar
@@ -82,6 +81,7 @@ import com.kanyideveloper.core.util.UiEvents
 import com.kanyideveloper.mealtime.core.R
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.compose.koinViewModel
 
 interface SearchNavigator {
     fun openOnlineMealDetails(mealId: String)
@@ -91,7 +91,7 @@ interface SearchNavigator {
 
 @Destination
 @Composable
-fun SearchScreen(navigator: SearchNavigator, viewModel: SearchViewModel = hiltViewModel()) {
+fun SearchScreen(navigator: SearchNavigator, viewModel: SearchViewModel = koinViewModel()) {
     val searchState = viewModel.searchState.value
     val context = LocalContext.current
     val analyticsUtil = viewModel.analyticsUtil()
@@ -358,7 +358,7 @@ fun OnlineMealItem(
     onClick: (String) -> Unit,
     addToFavorites: (String, String, String) -> Unit,
     removeFromFavorites: (String) -> Unit,
-    viewModel: SearchViewModel = hiltViewModel()
+    viewModel: SearchViewModel = koinViewModel()
 ) {
     val isFavorite = viewModel.inOnlineFavorites(id = meal.mealId).observeAsState().value != null
 

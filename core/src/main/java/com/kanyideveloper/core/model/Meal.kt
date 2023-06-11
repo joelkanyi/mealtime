@@ -21,11 +21,11 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Meal(
     val id: String? = null,
-    val name: String = "",
-    val imageUrl: String = "",
+    val name: String? = "",
+    val imageUrl: String? = "",
     val cookingTime: Int = -1,
     val servingPeople: Int = -1,
-    val category: String = "",
+    val category: String? = "",
     val cookingDifficulty: String = "",
     val ingredients: List<String> = emptyList(),
     val cookingDirections: List<String> = emptyList(),

@@ -15,25 +15,17 @@
  */
 package com.joelkanyi.kitchen_timer.di
 
-import android.content.Context
 import com.joelkanyi.kitchen_timer.data.repository.KitchenTimerRepositoryImpl
 import com.joelkanyi.kitchen_timer.domain.repository.KitchenTimerRepository
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.joelkanyi.kitchen_timer.presentation.KitchenTimerViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object KitchenTimerModule {
+fun kitchenTimerModule() = module {
 
-    @Provides
-    @Singleton
-    fun provideKitchenTimerRepository(
-        @ApplicationContext context: Context
-    ): KitchenTimerRepository {
-        return KitchenTimerRepositoryImpl(context)
+    single<KitchenTimerRepository> { KitchenTimerRepositoryImpl(get()) }
+
+    viewModel {
+        KitchenTimerViewModel(repository = get(), analyticsUtil = get())
     }
 }

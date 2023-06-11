@@ -15,58 +15,29 @@
  */
 package com.kanyideveloper.core_database.di
 
-import android.content.Context
 import androidx.room.Room
-import com.google.gson.Gson
 import com.kanyideveloper.core.util.Constants
 import com.kanyideveloper.core_database.DatabaseMigrations.migration_1_3
 import com.kanyideveloper.core_database.MealTimeDatabase
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object DatabaseModule {
+fun databaseModule() = module {
 
-    @Provides
-    @Singleton
-    fun provideTypeConverters(gson: Gson) =
-        com.kanyideveloper.core_database.converters.Converters(gson)
+    single { com.kanyideveloper.core_database.converters.Converters(get()) }
 
-    @Provides
-    @Singleton
-    fun provideMealTimeDatabase(
-        @ApplicationContext context: Context,
-        converters: com.kanyideveloper.core_database.converters.Converters
-    ): MealTimeDatabase {
-        return Room.databaseBuilder(
-            context.applicationContext,
-            MealTimeDatabase::class.java,
-            Constants.MEALTIME_DATABASE
-        )
+    single {
+        Room.databaseBuilder(get(), MealTimeDatabase::class.java, Constants.MEALTIME_DATABASE)
             .addMigrations(migration_1_3)
             .fallbackToDestructiveMigration()
-            .addTypeConverter(converters)
+            .addTypeConverter(get<com.kanyideveloper.core_database.converters.Converters>())
             .build()
     }
 
-    @Provides
-    @Singleton
-    fun provideMealDao(database: MealTimeDatabase) = database.mealDao
+    single { get<MealTimeDatabase>().mealDao }
 
-    @Provides
-    @Singleton
-    fun providesFavoritesDao(database: MealTimeDatabase) = database.favoritesDao
+    single { get<MealTimeDatabase>().favoritesDao }
 
-    @Provides
-    @Singleton
-    fun providesMealPlanDao(database: MealTimeDatabase) = database.mealPlanDao
+    single { get<MealTimeDatabase>().mealPlanDao }
 
-    @Provides
-    @Singleton
-    fun providesOnlineMealDao(database: MealTimeDatabase) = database.onlineMealsDao
+    single { get<MealTimeDatabase>().onlineMealsDao }
 }

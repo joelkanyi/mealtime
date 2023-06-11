@@ -50,7 +50,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.kanyideveloper.core.model.Meal
@@ -59,6 +58,7 @@ import com.kanyideveloper.presentation.details.DetailsViewModel
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
+import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
 
 @Composable
@@ -68,7 +68,7 @@ fun DetailsCollapsingToolbar(
     onRemoveFavorite: (String, String) -> Unit,
     addToFavorites: (String, String, String) -> Unit,
     isOnlineMeal: Boolean = false,
-    viewModel: DetailsViewModel = hiltViewModel()
+    viewModel: DetailsViewModel = koinViewModel()
 ) {
     val state = rememberCollapsingToolbarScaffoldState()
     val textSize = (18 + (30 - 18) * state.toolbarState.progress).sp
@@ -118,7 +118,7 @@ fun DetailsCollapsingToolbar(
             )
 
             Text(
-                text = meal.name,
+                text = meal.name ?: "",
                 modifier = Modifier
                     .road(Alignment.CenterStart, Alignment.BottomEnd)
                     .padding(60.dp, 16.dp, 16.dp, 16.dp),
@@ -150,7 +150,7 @@ fun DetailsCollapsingToolbar(
                     ) {
                         Text(
                             modifier = Modifier.fillMaxWidth(0.85f),
-                            text = meal.name,
+                            text = meal.name ?: "",
                             style = MaterialTheme.typography.headlineMedium
                         )
                         Box(
@@ -172,16 +172,16 @@ fun DetailsCollapsingToolbar(
                                             meal.onlineMealId?.let {
                                                 addToFavorites(
                                                     it,
-                                                    meal.imageUrl,
-                                                    meal.name
+                                                    meal.imageUrl ?: "",
+                                                    meal.name ?: ""
                                                 )
                                             }
                                         } else {
                                             meal.localMealId?.let {
                                                 addToFavorites(
                                                     it,
-                                                    meal.imageUrl,
-                                                    meal.name
+                                                    meal.imageUrl ?: "",
+                                                    meal.name ?: ""
                                                 )
                                             }
                                         }

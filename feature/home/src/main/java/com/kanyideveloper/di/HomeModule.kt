@@ -15,42 +15,54 @@
  */
 package com.kanyideveloper.di
 
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.kanyideveloper.core.domain.HomeRepository
-import com.kanyideveloper.core_database.dao.MealDao
-import com.kanyideveloper.core_database.dao.OnlineMealsDao
-import com.kanyideveloper.core_network.MealDbApi
 import com.kanyideveloper.data.repository.HomeRepositoryImpl
 import com.kanyideveloper.data.repository.OnlineMealsRepositoryImpl
 import com.kanyideveloper.domain.repository.OnlineMealsRepository
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.kanyideveloper.presentation.details.DetailsViewModel
+import com.kanyideveloper.presentation.home.HomeViewModel
+import com.kanyideveloper.presentation.home.onlinemeal.OnlineMealViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object HomeModule {
+fun homeModule() = module {
 
-    @Provides
-    @Singleton
-    fun provideHomeRepository(
-        mealDao: MealDao,
-        databaseReference: DatabaseReference,
-        firebaseAuth: FirebaseAuth
-    ): HomeRepository {
-        return HomeRepositoryImpl(
-            mealDao = mealDao,
-            databaseReference = databaseReference,
-            firebaseAuth = firebaseAuth
+    single<HomeRepository> {
+        HomeRepositoryImpl(
+            get(),
+            get(),
+            get()
         )
     }
 
-    @Provides
-    @Singleton
-    fun provideOnlineMealsRepository(mealDbApi: MealDbApi, onlineMealsDao: OnlineMealsDao): OnlineMealsRepository {
-        return OnlineMealsRepositoryImpl(mealDbApi = mealDbApi, onlineMealsDao = onlineMealsDao)
+    single<OnlineMealsRepository> {
+        OnlineMealsRepositoryImpl(
+            mealDbApi = get(),
+            onlineMealsDao = get()
+        )
+    }
+
+    viewModel {
+        HomeViewModel(
+            homeRepository = get(),
+            favoritesRepository = get(),
+            subscriptionRepository = get(),
+            analyticsUtil = get(),
+        )
+    }
+
+    viewModel {
+        OnlineMealViewModel(
+            onlineMealsRepository = get(),
+            favoritesRepository = get(),
+            analyticsUtil = get(),
+        )
+    }
+
+    viewModel {
+        DetailsViewModel(
+            onlineMealsRepository = get(),
+            favoritesRepository = get(),
+        )
     }
 }

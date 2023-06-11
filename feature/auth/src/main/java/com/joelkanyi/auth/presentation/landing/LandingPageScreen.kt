@@ -49,7 +49,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -63,6 +62,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.json.JSONObject
+import org.koin.androidx.compose.koinViewModel
 
 interface AuthNavigator {
     fun openForgotPassword()
@@ -77,7 +77,7 @@ interface AuthNavigator {
 @Composable
 fun LandingPageScreen(
     navigator: AuthNavigator,
-    viewModel: LandingPageViewModel = hiltViewModel(),
+    viewModel: LandingPageViewModel = koinViewModel(),
 ) {
     val auth = Firebase.auth
     val context = LocalContext.current

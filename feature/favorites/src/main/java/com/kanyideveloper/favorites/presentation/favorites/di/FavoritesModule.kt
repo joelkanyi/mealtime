@@ -15,32 +15,28 @@
  */
 package com.kanyideveloper.favorites.presentation.favorites.di
 
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
 import com.kanyideveloper.core.domain.FavoritesRepository
-import com.kanyideveloper.core_database.dao.FavoritesDao
 import com.kanyideveloper.favorites.presentation.favorites.data.repository.FavoritesRepositoryImpl
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.kanyideveloper.favorites.presentation.favorites.presentation.FavoritesViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object FavoritesModule {
+fun favoritesModule() = module {
 
-    @Provides
-    @Singleton
-    fun providesFavoritesRepository(
-        favoritesDao: FavoritesDao,
-        databaseReference: DatabaseReference,
-        firebaseAuth: FirebaseAuth
-    ): FavoritesRepository {
-        return FavoritesRepositoryImpl(
-            favoritesDao = favoritesDao,
-            databaseReference = databaseReference,
-            firebaseAuth = firebaseAuth
+    single<FavoritesRepository> {
+        FavoritesRepositoryImpl(
+            get(),
+            get(),
+            get()
+        )
+    }
+
+    viewModel {
+        FavoritesViewModel(
+            favoritesRepository = get(),
+            homeRepository = get(),
+            subscriptionRepository = get(),
+            analyticsUtil = get()
         )
     }
 }

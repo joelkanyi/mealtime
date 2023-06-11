@@ -76,7 +76,6 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.kanyidev.searchable_dropdown.SearchableExpandedDropDownMenu
 import com.kanyideveloper.compose_ui.components.StandardToolbar
 import com.kanyideveloper.core.util.compressImage
@@ -91,6 +90,7 @@ import com.mr0xf00.easycrop.rememberImageCropper
 import com.mr0xf00.easycrop.ui.ImageCropperDialog
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -98,7 +98,7 @@ import java.io.File
 @Composable
 fun AddMealScreen(
     navigator: AddMealNavigator,
-    viewModel: AddMealsViewModel = hiltViewModel()
+    viewModel: AddMealsViewModel = koinViewModel()
 ) {
     val mealName = viewModel.mealName.value
     val category = viewModel.category.value

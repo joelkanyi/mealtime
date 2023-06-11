@@ -60,7 +60,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.joelkanyi.auth.presentation.landing.AuthNavigator
 import com.joelkanyi.auth.presentation.state.LoginState
 import com.kanyideveloper.compose_ui.theme.poppins
@@ -69,12 +68,13 @@ import com.kanyideveloper.core.state.TextFieldState
 import com.kanyideveloper.core.util.UiEvents
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Destination
 @Composable
-fun SignInScreen(navigator: AuthNavigator, viewModel: SignInViewModel = hiltViewModel()) {
+fun SignInScreen(navigator: AuthNavigator, viewModel: SignInViewModel = koinViewModel()) {
     val emailState = viewModel.emailState.value
     val passwordState = viewModel.passwordState.value
     val keyboardController = LocalSoftwareKeyboardController.current

@@ -23,13 +23,13 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.util.UiEvents
 import com.kanyideveloper.presentation.details.common.DetailsCollapsingToolbar
 import com.kanyideveloper.presentation.home.HomeNavigator
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
@@ -38,7 +38,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun DetailsScreen(
     meal: Meal,
     navigator: HomeNavigator,
-    viewModel: DetailsViewModel = hiltViewModel()
+    viewModel: DetailsViewModel = koinViewModel()
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
 

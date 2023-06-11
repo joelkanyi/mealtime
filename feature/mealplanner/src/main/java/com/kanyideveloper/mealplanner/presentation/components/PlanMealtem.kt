@@ -107,7 +107,7 @@ fun PlanMealItem(
 
                 Text(
                     modifier = Modifier.padding(4.dp),
-                    text = meal.name,
+                    text = meal.name ?: "",
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 2,

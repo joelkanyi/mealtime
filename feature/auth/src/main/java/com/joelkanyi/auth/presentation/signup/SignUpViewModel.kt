@@ -22,20 +22,17 @@ import androidx.lifecycle.viewModelScope
 import com.joelkanyi.auth.domain.repository.AuthRepository
 import com.joelkanyi.auth.presentation.destinations.SignInScreenDestination
 import com.joelkanyi.auth.presentation.state.RegisterState
+import com.joelkanyi.shared.data.network.utils.Resource
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.state.PasswordTextFieldState
 import com.kanyideveloper.core.state.TextFieldState
-import com.kanyideveloper.core.util.Resource
 import com.kanyideveloper.core.util.UiEvents
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class SignUpViewModel @Inject constructor(
+class SignUpViewModel constructor(
     private val authRepository: AuthRepository,
     private val analyticsUtil: AnalyticsUtil,
 ) : ViewModel() {

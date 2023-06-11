@@ -245,7 +245,7 @@ fun MealProperties(meal: Meal) {
                 }
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = meal.category,
+                    text = meal.category ?: "",
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     style = MaterialTheme.typography.labelSmall
                 )

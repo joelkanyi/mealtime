@@ -22,10 +22,10 @@ import java.util.UUID
 internal fun Meal.toMealEntity(): MealEntity {
     return MealEntity(
         id = id ?: UUID.randomUUID().toString(),
-        name = name,
-        imageUrl = imageUrl,
+        name = name ?: "---",
+        imageUrl = imageUrl ?: "",
         cookingTime = cookingTime,
-        category = category,
+        category = category ?: "",
         cookingDifficulty = cookingDifficulty,
         ingredients = ingredients,
         cookingInstructions = cookingDirections,

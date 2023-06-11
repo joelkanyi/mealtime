@@ -41,7 +41,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.kanyideveloper.compose_ui.components.StandardToolbar
 import com.kanyideveloper.compose_ui.theme.PrimaryColor
 import com.kanyideveloper.core.analytics.AnalyticsUtil
@@ -52,13 +51,14 @@ import com.kanyideveloper.core.util.UiEvents
 import com.kanyideveloper.mealplanner.MealPlannerNavigator
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.compose.koinViewModel
 
 @Destination
 @Composable
 fun AllergiesScreen(
     editMealPlanPreference: Boolean = false,
     navigator: MealPlannerNavigator,
-    viewModel: SetupViewModel = hiltViewModel()
+    viewModel: SetupViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
     val analyticsUtil = viewModel.analyticsUtil()

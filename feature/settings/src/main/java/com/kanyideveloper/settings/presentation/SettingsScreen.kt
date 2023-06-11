@@ -55,7 +55,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.kanyideveloper.compose_ui.components.StandardToolbar
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.components.PremiumCard
@@ -67,6 +66,7 @@ import com.kanyideveloper.settings.presentation.components.FeedbackDialog
 import com.kanyideveloper.settings.presentation.components.SettingCard
 import com.kanyideveloper.settings.presentation.components.ThemesDialog
 import com.ramcosta.composedestinations.annotation.Destination
+import org.koin.androidx.compose.koinViewModel
 
 interface SettingsNavigator {
     fun openAllergiesScreen(editMealPlanPreference: Boolean)
@@ -77,7 +77,7 @@ interface SettingsNavigator {
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Destination
 @Composable
-fun SettingsScreen(navigator: SettingsNavigator, viewModel: SettingsViewModel = hiltViewModel()) {
+fun SettingsScreen(navigator: SettingsNavigator, viewModel: SettingsViewModel = koinViewModel()) {
     val shouldShowThemesDialog = viewModel.shouldShowThemesDialog.value
     val shouldShowFeedbackDialog = viewModel.shouldShowFeedbackDialog.value
     val context = LocalContext.current
@@ -272,25 +272,43 @@ private fun SettingsScreenContent(
                             }
 
                             "Rate Us on Play Store" -> {
-                                analyticsUtil.trackUserEvent("Rate Us Clicked")
-                                val rateIntent = Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("market://details?id=" + context.packageName)
-                                )
-                                startActivity(context, rateIntent, null)
+                                try {
+                                    analyticsUtil.trackUserEvent("Rate Us Clicked")
+                                    val rateIntent = Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse("market://details?id=" + context.packageName)
+                                    )
+                                    startActivity(context, rateIntent, null)
+                                } catch (e: Exception) {
+                                    Toast.makeText(
+                                        context,
+                                        "No Play Store Application Found",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
                             }
 
                             "Share the App with Friends" -> {
-                                analyticsUtil.trackUserEvent("Share App Clicked")
-                                val appPackageName = context.packageName
-                                val sendIntent = Intent()
-                                sendIntent.action = Intent.ACTION_SEND
-                                sendIntent.putExtra(
-                                    Intent.EXTRA_TEXT,
-                                    "Check out MealTime App on Play Store that helps your create your own recipes, search new ones online, create meal plans for a whole day, week or even a month: https://play.google.com/store/apps/details?id=$appPackageName"
-                                )
-                                sendIntent.type = "text/plain"
-                                context.startActivity(sendIntent)
+                                try {
+                                    analyticsUtil.trackUserEvent("Share App Clicked")
+                                    val appPackageName = context.packageName
+                                    val sendIntent = Intent()
+                                    sendIntent.action = Intent.ACTION_SEND
+                                    sendIntent.putExtra(
+                                        Intent.EXTRA_TEXT,
+                                        "Check out MealTime App on Play Store that helps your create your own recipes, search new ones online, create meal plans for a whole day, week or even a month: https://play.google.com/store/apps/details?id=$appPackageName"
+                                    )
+                                    sendIntent.type = "text/plain"
+                                    context.startActivity(sendIntent)
+                                } catch (e: Exception) {
+                                    Toast.makeText(
+                                        context,
+                                        "No sharing application found",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
                             }
 
                             "Upgrade to Premium" -> {

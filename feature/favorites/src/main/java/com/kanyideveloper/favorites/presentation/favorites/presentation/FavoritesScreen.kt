@@ -62,7 +62,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.kanyideveloper.compose_ui.components.StandardToolbar
@@ -77,6 +76,7 @@ import com.kanyideveloper.core.util.UiEvents
 import com.kanyideveloper.mealtime.core.R
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.compose.koinViewModel
 
 interface FavoritesNavigator {
     fun openOnlineMealDetails(mealId: String)
@@ -87,7 +87,7 @@ interface FavoritesNavigator {
 @Composable
 fun FavoritesScreen(
     navigator: FavoritesNavigator,
-    viewModel: FavoritesViewModel = hiltViewModel()
+    viewModel: FavoritesViewModel = koinViewModel()
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val favoritesUiState = viewModel.favoritesUiState.value

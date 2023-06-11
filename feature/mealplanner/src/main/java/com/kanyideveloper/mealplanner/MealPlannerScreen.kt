@@ -43,7 +43,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.joelkanyi.horizontalcalendar.HorizontalCalendarView
 import com.kanyideveloper.compose_ui.components.StandardToolbar
 import com.kanyideveloper.core.analytics.AnalyticsUtil
@@ -58,6 +57,7 @@ import com.kanyideveloper.mealplanner.presentation.components.SelectMealDialog
 import com.kanyideveloper.mealtime.core.R
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.compose.koinViewModel
 
 interface MealPlannerNavigator {
     fun popBackStack()
@@ -80,7 +80,7 @@ interface MealPlannerNavigator {
 @Composable
 fun MealPlannerScreen(
     navigator: MealPlannerNavigator,
-    viewModel: MealPlannerViewModel = hiltViewModel()
+    viewModel: MealPlannerViewModel = koinViewModel()
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val hasMealPlan = viewModel.hasMealPlanPrefs.value
@@ -133,7 +133,9 @@ fun MealPlannerScreen(
 
                         val allergies = viewModel.allergies.value
 
-                        val allergy = allergies.find { it.lowercase() in meall.name.lowercase() }
+                        val allergy = allergies.find {
+                            it.lowercase() in (meall.name?.lowercase() ?: "")
+                        }
 
                         if (allergy != null) {
                             Toast.makeText(

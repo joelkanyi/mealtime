@@ -27,17 +27,14 @@ import com.kanyideveloper.core.domain.UserDataRepository
 import com.kanyideveloper.core.state.SubscriptionStatusUiState
 import com.kanyideveloper.core.state.TextFieldState
 import com.kanyideveloper.core.util.UiEvents
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class SettingsViewModel @Inject constructor(
+class SettingsViewModel constructor(
     private val userDataRepository: UserDataRepository,
     subscriptionRepository: SubscriptionRepository,
     private val analyticsUtil: AnalyticsUtil,

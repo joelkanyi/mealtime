@@ -20,6 +20,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.joelkanyi.shared.data.network.utils.Resource
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.domain.FavoritesRepository
 import com.kanyideveloper.core.domain.HomeRepository
@@ -27,9 +28,7 @@ import com.kanyideveloper.core.domain.SubscriptionRepository
 import com.kanyideveloper.core.model.Favorite
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.state.SubscriptionStatusUiState
-import com.kanyideveloper.core.util.Resource
 import com.kanyideveloper.core.util.UiEvents
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -38,10 +37,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class FavoritesViewModel @Inject constructor(
+class FavoritesViewModel constructor(
     private val favoritesRepository: FavoritesRepository,
     private val homeRepository: HomeRepository,
     subscriptionRepository: SubscriptionRepository,
