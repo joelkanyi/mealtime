@@ -272,25 +272,43 @@ private fun SettingsScreenContent(
                             }
 
                             "Rate Us on Play Store" -> {
-                                analyticsUtil.trackUserEvent("Rate Us Clicked")
-                                val rateIntent = Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("market://details?id=" + context.packageName)
-                                )
-                                startActivity(context, rateIntent, null)
+                                try {
+                                    analyticsUtil.trackUserEvent("Rate Us Clicked")
+                                    val rateIntent = Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse("market://details?id=" + context.packageName)
+                                    )
+                                    startActivity(context, rateIntent, null)
+                                } catch (e: Exception) {
+                                    Toast.makeText(
+                                        context,
+                                        "No Play Store Application Found",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
                             }
 
                             "Share the App with Friends" -> {
-                                analyticsUtil.trackUserEvent("Share App Clicked")
-                                val appPackageName = context.packageName
-                                val sendIntent = Intent()
-                                sendIntent.action = Intent.ACTION_SEND
-                                sendIntent.putExtra(
-                                    Intent.EXTRA_TEXT,
-                                    "Check out MealTime App on Play Store that helps your create your own recipes, search new ones online, create meal plans for a whole day, week or even a month: https://play.google.com/store/apps/details?id=$appPackageName"
-                                )
-                                sendIntent.type = "text/plain"
-                                context.startActivity(sendIntent)
+                                try {
+                                    analyticsUtil.trackUserEvent("Share App Clicked")
+                                    val appPackageName = context.packageName
+                                    val sendIntent = Intent()
+                                    sendIntent.action = Intent.ACTION_SEND
+                                    sendIntent.putExtra(
+                                        Intent.EXTRA_TEXT,
+                                        "Check out MealTime App on Play Store that helps your create your own recipes, search new ones online, create meal plans for a whole day, week or even a month: https://play.google.com/store/apps/details?id=$appPackageName"
+                                    )
+                                    sendIntent.type = "text/plain"
+                                    context.startActivity(sendIntent)
+                                } catch (e: Exception) {
+                                    Toast.makeText(
+                                        context,
+                                        "No sharing application found",
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
                             }
 
                             "Upgrade to Premium" -> {
