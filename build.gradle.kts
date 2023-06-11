@@ -1,21 +1,19 @@
 buildscript {
     dependencies {
-        classpath("com.google.gms:google-services:4.3.14")
     }
-} // Top-level build file where you can add configuration options common to all sub-projects/modules.
-plugins {
-    id("com.android.application") version ("7.4.0") apply false
-    id("com.android.library") version ("7.4.0") apply false
-    id("org.jetbrains.kotlin.android") version ("1.7.10") apply false
-    id("org.jetbrains.kotlin.jvm") version Versions.kotlin apply false
-    id("com.google.dagger.hilt.android") version ("2.44") apply false
-    id("org.jlleitschuh.gradle.ktlint") version ("11.3.1")
-    id("com.diffplug.spotless") version ("5.17.1")
 }
-
-/*tasks.register<Delete>("clean") {
-    delete(rootProject.buildDir)
-}*/
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.android.kotlin) apply false
+    alias(libs.plugins.jvm) apply false
+    alias(libs.plugins.hilt.android) apply false
+    alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.ktlint)
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.kapt) apply false
+    alias(libs.plugins.parcelize) apply false
+}
 
 subprojects {
 

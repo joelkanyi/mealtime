@@ -1,133 +1,124 @@
 dependencies {
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(libs.androidx.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.junit.ext)
+    androidTestImplementation(libs.espresso.core)
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
 
     // Coroutine Lifecycle Scopes
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-
-    // Dagger - Hilt
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
+    implementation(libs.viewmodel.ktx)
 
     // Timber
-    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation(libs.timber)
 
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.0'
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
+
+    // Dagger - Hilt
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.android.compiler)
+    kapt(libs.hilt.compiler)
 
     // UI
-    implementation("androidx.activity:activity-compose:1.6.1")
-
-    implementation("androidx.compose.ui:ui:${Versions.composeCompiler}")
-    implementation("androidx.compose.ui:ui-tooling-preview:${Versions.composeCompiler}")
-
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Versions.composeCompiler}")
-    debugImplementation("androidx.compose.ui:ui-tooling:${Versions.composeCompiler}")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:${Versions.composeCompiler}")
-
-    // Compose dependencies
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
-    implementation("androidx.navigation:navigation-compose:2.6.0-alpha04")
-    implementation("com.google.accompanist:accompanist-flowlayout:0.27.0")
-
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation(libs.activity.compose)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.tooling.preview)
+    androidTestImplementation(libs.compose.ui.test.junit4)
+    debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.compose.test.manifest)
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.compose.hilt.navigation)
 
     // Coil
-    implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation(libs.coil.compose)
 
     // Paging Compose
-    implementation("androidx.paging:paging-compose:1.0.0-alpha17")
+    implementation(libs.compose.paging)
 
     // Livedata
-    implementation("androidx.compose.runtime:runtime-livedata:${Versions.composeCompiler}")
+    implementation(libs.compose.livedata)
 
     // collapsing Toolbar
-    implementation("me.onebone:toolbar-compose:2.3.5")
-
-    // Searchable Dropdown
-    implementation("com.github.Breens-Mbaka:Searchable-Dropdown-Menu-Jetpack-Compose:0.2.7")
-
-    // Swipe to refresh
-    implementation("com.google.accompanist:accompanist-swiperefresh:0.27.1")
-
-    // Pager
-    implementation("com.google.accompanist:accompanist-pager:0.28.0")
-    implementation("com.google.accompanist:accompanist-pager-indicators:0.28.0")
-
-    // debugImplementation because LeakCanary should only run in debug builds.
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.10")
-
-    // Truth library
-    testImplementation "com.google.truth:truth:1.1.3"
-    androidTestImplementation "com.google.truth:truth:1.1.3"
-
-    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
-
-    // Gson
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
-    // Lottie
-    api "com.airbnb.android:lottie-compose:5.2.0"
-
-    // Material 3
-    implementation("androidx.compose.material3:material3:1.0.1")
-    implementation("androidx.compose.material3:material3-window-size-class:1.0.1")
-
-    // Preferences DataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation(libs.toolbar.compose)
 
     // Compose livedata
-    implementation("androidx.compose.runtime:runtime-livedata:${Versions.composeCompiler}")
+    implementation(libs.compose.livedata)
+
+    // Searchable Dropdown
+    implementation(libs.searchable.dropdown)
+
+    // Swipe to refresh
+    implementation(libs.accompanist.swiperefresh)
+
+    // Pager
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
+
+    // Leak Canary
+    debugImplementation(libs.leakcanary.android)
+
+    // Truth library
+    testImplementation(libs.truth)
+    androidTestImplementation(libs.truth)
+
+    androidTestImplementation(libs.arch.core.testing)
+
+    // Material 3
+    implementation(libs.compose.material3)
+
+    // Gson
+    implementation(libs.retrofit.converter.gson)
+
+    // Lottie
+    api(libs.lottie.compose)
+
+    // Preferences DataStore
+    implementation(libs.datastore.preferences)
 
     // Compose Paging
-    implementation("androidx.paging:paging-runtime:3.1.1")
+    implementation(libs.paging.runtime)
 
     // Compose Image Cropper
-    implementation("io.github.mr0xf00:easycrop:0.1.1")
+    implementation(libs.easycrop)
 
     // Billing
-    def billing_version = "5.1.0" // for today, it's the latest
-    implementation("com.android.billingclient:billing:$billing_version")
+    implementation(libs.billing)
 
     // Qonversion
-    implementation("io.qonversion.android.sdk:sdk:4.2.0")
+    implementation(libs.qonversion.sdk)
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:31.1.0"))
+    implementation(libs.firebase.bom)
 
     // Firebase Storage
-    implementation("com.google.firebase:firebase-storage-ktx")
+    implementation(libs.firebase.storage.ktx)
 
     // Firebase Coroutine
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
+    implementation(libs.coroutines.play.services)
 
     // Firebase Auth
-    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation(libs.firebase.auth.ktx)
 
     // Firebase Database
-    implementation 'com.google.firebase:firebase-database-ktx'
+    implementation(libs.firebase.database.ktx)
 
     // Compose One Tap
-    implementation 'com.github.stevdza-san:OneTapCompose:1.0.3'
+    implementation(libs.one.tap.compose)
 
     // In app updates
-    implementation("com.google.android.play:app-update:2.0.1")
-    implementation("com.google.android.play:app-update-ktx:2.0.1")
+    implementation(libs.play.app.update)
+    implementation(libs.play.app.update.ktx)
 
     // In app review
-    implementation("com.google.android.play:review:2.0.1")
-    implementation("com.google.android.play:review-ktx:2.0.1")
+    implementation(libs.play.review)
+    implementation(libs.play.review.ktx)
 
     // Material Extended Icons
-    implementation "androidx.compose.material:material-icons-extended:1.3.0"
+    implementation(libs.compose.material.icons.extended)
 
     // Mixpanel
-    api ("com.mixpanel.android:mixpanel-android:7.2.2")
+    api(libs.mixpanel)
 }

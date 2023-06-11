@@ -1,9 +1,8 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("kotlin-parcelize")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.kotlin)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.parcelize)
 }
 
 apply {
@@ -11,6 +10,8 @@ apply {
 }
 
 android {
+    namespace = "com.kanyideveloper.mealtime.core_network"
+
     compileSdk = AndroidConfig.compileSDK
 
     defaultConfig {
@@ -24,17 +25,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = AndroidConfig.javaVersion
+        targetCompatibility = AndroidConfig.javaVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = AndroidConfig.jvmTarget
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.composeCompiler
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources {
@@ -47,9 +48,9 @@ dependencies {
     implementation(project(Modules.core))
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
+    implementation(libs.squareup.retrofit)
+    implementation(libs.squareup.okhttp)
+    implementation(libs.squareup.logging.interceptor)
 
     // Chucker
     debugImplementation("com.github.chuckerteam.chucker:library:3.5.2")

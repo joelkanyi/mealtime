@@ -1,10 +1,9 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("kotlin-parcelize")
-    id("com.google.devtools.ksp") version ("1.7.20-1.0.8")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.kotlin)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.parcelize)
+    alias(libs.plugins.ksp)
 }
 
 apply {
@@ -12,6 +11,8 @@ apply {
 }
 
 android {
+    namespace = "com.kanyideveloper.mealtime.addmeal"
+
     compileSdk = AndroidConfig.compileSDK
 
     defaultConfig {
@@ -25,17 +26,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = AndroidConfig.javaVersion
+        targetCompatibility = AndroidConfig.javaVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = AndroidConfig.jvmTarget
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.composeCompiler
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources {
@@ -46,19 +47,17 @@ android {
 
 dependencies {
     // RamCosta Navigation
-    implementation("io.github.raamcosta.compose-destinations:animations-core:1.7.32-beta")
-    ksp("io.github.raamcosta.compose-destinations:ksp:1.7.32-beta")
+    implementation(libs.compose.destinations.animations)
+    ksp(libs.compose.destinations.ksp)
 
     implementation(project(Modules.core))
     implementation(project(Modules.composeUi))
     implementation(project(Modules.coreDatabase))
 
     // Room
-    implementation("androidx.room:room-runtime:2.4.3")
-    kapt("androidx.room:room-compiler:2.4.3")
-
-    // Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.4.3")
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
 }
 
 kotlin {

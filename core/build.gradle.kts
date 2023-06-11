@@ -1,9 +1,9 @@
 plugins {
-    id(Plugins.androidLibrary)
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
-    id("kotlin-parcelize")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.kotlin)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.parcelize)
 }
 
 apply {
@@ -11,6 +11,8 @@ apply {
 }
 
 android {
+    namespace = "com.kanyideveloper.mealtime.core"
+
     compileSdk = AndroidConfig.compileSDK
 
     defaultConfig {
@@ -24,17 +26,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = AndroidConfig.javaVersion
+        targetCompatibility = AndroidConfig.javaVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = AndroidConfig.jvmTarget
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.composeCompiler
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources {
@@ -44,5 +46,5 @@ android {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.6.0")
+    implementation(libs.appcompat)
 }

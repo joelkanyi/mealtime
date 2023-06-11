@@ -1,11 +1,11 @@
 plugins {
-    id(Plugins.androidApplication)
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("dagger.hilt.android.plugin")
-    id("kotlin-parcelize")
-    id("com.google.devtools.ksp") version ("1.7.20-1.0.8")
-    id("com.google.gms.google-services")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.kotlin)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.parcelize)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.google.services)
 }
 
 apply {
@@ -38,17 +38,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = AndroidConfig.javaVersion
+        targetCompatibility = AndroidConfig.javaVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = AndroidConfig.jvmTarget
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Versions.composeCompiler
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
     packagingOptions {
         resources {
@@ -81,10 +81,11 @@ dependencies {
     implementation(project(Modules.auth))
 
     // RamCosta Navigation
-    implementation("io.github.raamcosta.compose-destinations:animations-core:1.7.32-beta")
-    implementation("com.google.android.material:material:1.8.0")
-    ksp("io.github.raamcosta.compose-destinations:ksp:1.7.32-beta")
+    implementation(libs.compose.destinations.animations)
+    ksp(libs.compose.destinations.ksp)
+
+    implementation(libs.android.material)
 
     // Splash Screen API
-    implementation("androidx.core:core-splashscreen:1.0.0")
+    implementation(libs.core.splash.screen)
 }
