@@ -4,6 +4,9 @@ ksp = "1.8.21-1.0.11"
 ktx = "1.9.0"
 gradle = "8.0.0"
 lifecycle = "2.5.1"
+sqlDelight = "1.5.5"
+ktor = "2.3.1"
+koin = "3.2.0"
 junit = "4.13.2"
 coroutines = "1.6.4"
 viewmodel-ktx = "2.5.1"
@@ -31,6 +34,8 @@ play-services-auth = "20.4.1"
 hiltNavigationCompose = "1.0.0"
 ktlint = "11.3.1"
 google-services = "4.3.14"
+multiplatformSettings = "1.0.0"
+napier = "2.6.1"
 
 
 play = "2.0.1"
@@ -59,7 +64,11 @@ material-icons-extended = "1.3.0"
 compose-hilt-navigation = "1.0.0"
 spotless = "5.17.1"
 android-material = "1.8.0"
-#
+kotlinxSerialization = "1.2.2"
+kotlinSerialization = "1.8.10"
+kotlinxCoroutines = "1.6.0-native-mt"
+kotlinxDateTime = "0.3.2"
+
 [libraries]
 androidx-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
@@ -142,6 +151,32 @@ squareup-logging-interceptor = { module = "com.squareup.okhttp3:logging-intercep
 chucker-library = { group = "com.github.chuckerteam.chucker", name = "library", version.ref = "chucker" }
 chucker-library-no-op = { group = "com.github.chuckerteam.chucker", name = "library-no-op", version.ref = "chucker" }
 android-material = { group = "com.google.android.material", name = "material", version.ref = "android-material" }
+sqlDelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqlDelight" }
+sqlDelight-coroutine = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
+sqlDelight-android = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqlDelight" }
+sqlDelight-native = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqlDelight" }
+sqlDelight-JVM = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
+
+ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-serialization = { group = "io.ktor", name = "ktor-client-serialization", version.ref = "ktor" }
+ktor-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
+ktor-ios = { group = "io.ktor", name = "ktor-client-ios", version.ref = "ktor" }
+ktor-jvm = { group = "io.ktor", name = "ktor-client-jvm", version.ref = "ktor" }
+ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
+ktor-server-auth = { group = "io.ktor", name = "ktor-server-auth", version.ref = "ktor" }
+
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+
+multiplatformSettings = { group = "com.russhwolf", name = "multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
+multiplatformSettingsCoroutines = { group = "com.russhwolf", name = "multiplatform-settings-coroutines", version.ref = "multiplatformSettings" }
+napier = { group = "io.github.aakira", name = "napier", version.ref = "napier" }
+
+kotlinxCoroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinxSerialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
+kotlinxDateTime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDateTime" }
 
 [plugins]
 android-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -155,4 +190,5 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
-
+multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+sqlDelight-plugin = { id = "com.squareup.sqldelight", version.ref = "sqlDelight" }
