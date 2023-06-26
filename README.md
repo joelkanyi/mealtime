@@ -73,6 +73,7 @@ https://github.com/JoelKanyi/MealTime/issues
 
 - [Kotlin Coroutines](https://developer.android.com/kotlin/coroutines) - A concurrency design pattern that you can use on Android to simplify code that executes asynchronously.
 - [Ktor Client](https://ktor.io/docs/create-client.html) -  A multiplatform asynchronous HTTP client.
+- [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization) - Kotlin multiplatform / multi-format serialization.
 - [GSON](https://github.com/square/gson) - JSON Parser,used to parse requests on the data layer for Entities and understands Kotlin non-nullable and default parameters.
 - [Kotlin Flow](https://developer.android.com/kotlin/flow) - In coroutines, a flow is a type that can emit multiple values sequentially, as opposed to suspend functions that return only a single value.
 - [Koin](https://insert-koin.io) - The pragmatic Kotlin & Kotlin Multiplatform Dependency Injection framework.
