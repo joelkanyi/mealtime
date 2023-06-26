@@ -19,14 +19,26 @@ https://github.com/JoelKanyi/MealTime/issues
 
 ## Demo
 
-### My Meals
-<img src="screenshots/my_meals_light.jpeg" width="250"/> <img src="screenshots/home_dark.jpeg" width="250"/>
+### Authentication
+<img src="screenshots/auth-dashboard.jpeg" width="250"/>
+
+<img src="screenshots/register-light.jpeg" width="250"/> <img src="screenshots/register-dark.jpeg" width="250"/>
+
+<img src="screenshots/login-light.jpeg" width="250"/> <img src="screenshots/login-dark.jpeg" width="250"/>
+
+<img src="screenshots/forgotpass-light.jpeg" width="250"/> <img src="screenshots/forgotpass-dark.jpeg" width="250"/>
 
 ### Online Meals
-<img src="screenshots/online_meals_light.jpeg" width="250"/> <img src="screenshots/online_meals_dark.jpeg" width="250"/>
+<img src="screenshots/online-light.jpeg" width="250"/> <img src="screenshots/online-dark.jpeg" width="250"/>
+
+### My Meals
+<img src="screenshots/mymeal-light.jpeg" width="250"/> <img src="screenshots/mymeal-dark.jpeg" width="250"/>
 
 ### Meal Details
 <img src="screenshots/meal_details.jpeg" width="250"/>
+
+### Kitchen Timer
+<img src="screenshots/timer-light.jpeg" width="250"/> <img src="screenshots/timer-dark.jpeg" width="250"/>
 
 ### Meal Planner
 <img src="screenshots/meal_planner_empty.jpeg" width="250"/> <img src="screenshots/allergies.jpeg" width="250"/>
@@ -41,10 +53,10 @@ https://github.com/JoelKanyi/MealTime/issues
 <img src="screenshots/search_empty.jpeg" width="250"/> <img src="screenshots/search_items.jpeg" width="250"/>
 
 ### Favorites
-<img src="screenshots/favorites_light.jpeg" width="250"/> <img src="screenshots/favorites_dark.jpeg" width="250"/>
+<img src="screenshots/favorites-light.jpeg" width="250"/> <img src="screenshots/favorites-dark.jpeg" width="250"/>
 
 ### Settings
-<img src="screenshots/settings_screen_light.jpg" width="250"/> <img src="screenshots/theme_options.jpeg" width="250"/>
+<img src="screenshots/settings-light.jpeg" width="250"/> <img src="screenshots/settings-dark.jpeg" width="250"/> <img src="screenshots/theme_options.jpeg" width="250"/>
 
 ## Tech Stack.
 - [Kotlin](https://developer.android.com/kotlin) - Kotlin is a programming language that can run on JVM. Google has announced Kotlin as one of its officially supported programming languages in Android Studio; and the Android community is migrating at a pace from Java to Kotlin.
