@@ -96,6 +96,7 @@ fun MealPlannerScreen(
     when (val isSubscribed = viewModel.isSubscribed.collectAsState().value) {
         is SubscriptionStatusUiState.Success -> {
             LaunchedEffect(key1 = true, block = {
+                analyticsUtil.trackUserEvent("open meal planner screen")
                 viewModel.getMealPlanPrefs(isSubscribed = isSubscribed.isSubscribed)
                 viewModel.getPlanMeals(
                     isSubscribed = isSubscribed.isSubscribed

@@ -160,13 +160,9 @@ class FavoritesRepositoryImpl(
         return mutableLiveData
     }
 
-    override fun isOnlineFavorite(id: String): LiveData<Boolean> {
-        val mutableLiveData = MutableLiveData<Boolean>()
-        mutableLiveData.postValue(
-            favoriteQueries.onlineInFavorites(onlineMealId = id)
-                .executeAsOneOrNull()
-        )
-        return mutableLiveData
+    override fun isOnlineFavorite(id: String): Flow<Boolean> {
+        val isFav = favoriteQueries.onlineInFavorites(onlineMealId = id).executeAsOneOrNull()
+        return flowOf(isFav != null && isFav == true)
     }
 
     override suspend fun deleteOneFavorite(favorite: Favorite, isSubscribed: Boolean) {

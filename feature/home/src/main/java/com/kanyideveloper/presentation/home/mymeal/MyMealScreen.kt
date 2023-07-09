@@ -81,6 +81,7 @@ fun MyMealScreen(
     val analyticsUtils = viewModel.analyticsUtil()
 
     LaunchedEffect(key1 = true, block = {
+        analyticsUtils.trackUserEvent("My Meals Screen")
         viewModel.getMyMeals()
 
         viewModel.eventsFlow.collectLatest { event ->

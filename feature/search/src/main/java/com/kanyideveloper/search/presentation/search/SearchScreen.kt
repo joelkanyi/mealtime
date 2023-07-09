@@ -53,6 +53,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -97,6 +98,7 @@ fun SearchScreen(navigator: SearchNavigator, viewModel: SearchViewModel = koinVi
     val analyticsUtil = viewModel.analyticsUtil()
 
     LaunchedEffect(key1 = true) {
+        analyticsUtil.trackUserEvent("open search meals screen")
         viewModel.eventsFlow.collectLatest { event ->
             when (event) {
                 is UiEvents.SnackbarEvent -> {
@@ -360,7 +362,7 @@ fun OnlineMealItem(
     removeFromFavorites: (String) -> Unit,
     viewModel: SearchViewModel = koinViewModel()
 ) {
-    val isFavorite = viewModel.inOnlineFavorites(id = meal.mealId).observeAsState().value != null
+    val isFavorite = viewModel.isOnlineFavorite(id = meal.mealId).collectAsState().value
 
     Card(
         modifier = Modifier

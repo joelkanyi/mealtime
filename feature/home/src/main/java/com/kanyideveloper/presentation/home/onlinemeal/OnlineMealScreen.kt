@@ -52,7 +52,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -97,6 +97,7 @@ fun OnlineMealScreen(
     val analyticsUtil = viewModel.analyticsUtil()
 
     LaunchedEffect(key1 = true, block = {
+        analyticsUtil.trackUserEvent("open online meals screen")
         viewModel.eventsFlow.collectLatest { event ->
             when (event) {
                 is UiEvents.SnackbarEvent -> {
@@ -110,8 +111,7 @@ fun OnlineMealScreen(
         }
     })
 
-    OnlineMealScreenContent(
-        categoriesState = categoriesState,
+    OnlineMealScreenContent(categoriesState = categoriesState,
         selectedCategory = selectedCategory,
         mealsState = mealsState,
         snackbarHostState = snackbarHostState,
@@ -137,8 +137,7 @@ fun OnlineMealScreen(
         removeFromFavorites = { id ->
             analyticsUtil.trackUserEvent("remove online meal from favorites - $id")
             viewModel.deleteAnOnlineFavorite(
-                onlineMealId = id,
-                isSubscribed = isSubscribed
+                onlineMealId = id, isSubscribed = isSubscribed
             )
         },
         openRandomMeal = {
@@ -147,8 +146,7 @@ fun OnlineMealScreen(
         },
         onRefreshData = {
             viewModel.getMeals(viewModel.selectedCategory.value)
-        }
-    )
+        })
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -166,16 +164,13 @@ fun OnlineMealScreenContent(
     onRefreshData: () -> Unit,
     snackbarHostState: SnackbarHostState,
 ) {
-    Scaffold(
-        snackbarHost = {
-            SnackbarHost(
-                snackbarHostState
-            )
-        }
-    ) { paddingValues ->
+    Scaffold(snackbarHost = {
+        SnackbarHost(
+            snackbarHostState
+        )
+    }) { paddingValues ->
         SwipeRefreshComponent(
-            isRefreshingState = mealsState.isLoading,
-            onRefreshData = onRefreshData
+            isRefreshingState = mealsState.isLoading, onRefreshData = onRefreshData
         ) {
             Box(
                 modifier = Modifier
@@ -189,13 +184,11 @@ fun OnlineMealScreenContent(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     item(span = { GridItemSpan(2) }) {
-                        CategorySelection(
-                            state = categoriesState,
+                        CategorySelection(state = categoriesState,
                             selectedCategory = selectedCategory,
                             onClick = { categoryName ->
                                 onSelectCategory(categoryName)
-                            }
-                        )
+                            })
                     }
                     item(span = { GridItemSpan(2) }) {
                         Spacer(modifier = Modifier.height(12.dp))
@@ -297,7 +290,7 @@ fun OnlineMealItem(
     removeFromFavorites: (String) -> Unit,
     viewModel: OnlineMealViewModel = koinViewModel()
 ) {
-    val isFavorite = viewModel.inOnlineFavorites(id = meal.mealId).observeAsState().value != null
+    val isFav = viewModel.isOnlineFavorite(id = meal.mealId).collectAsState().value
 
     Card(
         modifier = Modifier
@@ -317,8 +310,7 @@ fun OnlineMealItem(
                     .height(200.dp),
                 contentDescription = meal.name,
                 painter = rememberAsyncImagePainter(
-                    ImageRequest.Builder(LocalContext.current)
-                        .data(data = meal.imageUrl)
+                    ImageRequest.Builder(LocalContext.current).data(data = meal.imageUrl)
                         .apply(block = fun ImageRequest.Builder.() {
                             placeholder(R.drawable.placeholder)
                         }).build()
@@ -343,25 +335,19 @@ fun OnlineMealItem(
                     overflow = TextOverflow.Ellipsis
                 )
 
-                IconButton(
-                    onClick = {
-                        if (isFavorite) {
-                            removeFromFavorites(meal.mealId)
-                        } else {
-                            addToFavorites(meal.mealId, meal.imageUrl, meal.name)
-                        }
+                IconButton(onClick = {
+                    if (isFav) {
+                        removeFromFavorites(meal.mealId)
+                    } else {
+                        addToFavorites(meal.mealId, meal.imageUrl, meal.name)
                     }
-                ) {
+                }) {
                     Icon(
-                        modifier = Modifier
-                            .size(30.dp),
-                        painter = if (isFavorite) {
+                        modifier = Modifier.size(30.dp), painter = if (isFav) {
                             painterResource(id = R.drawable.filled_favorite)
                         } else {
                             painterResource(id = R.drawable.heart_plus)
-                        },
-                        contentDescription = null,
-                        tint = if (isFavorite) {
+                        }, contentDescription = null, tint = if (isFav) {
                             Color(0xFFfa4a0c)
                         } else {
                             MaterialTheme.colorScheme.onSurfaceVariant
@@ -376,16 +362,13 @@ fun OnlineMealItem(
 @Composable
 fun CategorySelection(state: CategoriesState, onClick: (String) -> Unit, selectedCategory: String) {
     LazyRow(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
+        modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         items(state.categories) { category ->
             CategoryItem(
-                category = category,
-                onClick = {
+                category = category, onClick = {
                     onClick(category.categoryName)
-                },
-                selectedCategory = selectedCategory
+                }, selectedCategory = selectedCategory
             )
         }
     }
@@ -400,9 +383,7 @@ fun CategoryItem(category: Category, selectedCategory: String, onClick: () -> Un
             .wrapContentHeight()
             .clickable {
                 onClick()
-            },
-        shape = MaterialTheme.shapes.medium,
-        colors = CardDefaults.cardColors(
+            }, shape = MaterialTheme.shapes.medium, colors = CardDefaults.cardColors(
             containerColor = if (selected) {
                 MaterialTheme.colorScheme.primary
             } else {

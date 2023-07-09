@@ -121,6 +121,7 @@ fun KitchenTimerScreen(viewModel: KitchenTimerViewModel = koinViewModel()) {
     )
 
     LaunchedEffect(key1 = true, block = {
+        analyticsUtil.trackUserEvent("open kitchen timer screen")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             notificationsPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }

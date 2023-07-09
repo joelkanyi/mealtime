@@ -98,6 +98,7 @@ fun NextAddMealScreen(
     val analyticsUtil = viewModel.analyticsUtil()
 
     LaunchedEffect(key1 = true) {
+        analyticsUtil.trackUserEvent("open next add meal screen")
         viewModel.eventFlow.collectLatest { event ->
             when (event) {
                 is UiEvents.SnackbarEvent -> {

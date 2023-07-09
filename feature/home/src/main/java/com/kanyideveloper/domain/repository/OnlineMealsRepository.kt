@@ -19,10 +19,11 @@ import com.joelkanyi.shared.core.data.network.utils.Resource
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.domain.model.Category
 import com.kanyideveloper.domain.model.OnlineMeal
+import kotlinx.coroutines.flow.Flow
 
 interface OnlineMealsRepository {
     suspend fun getMealCategories(): Resource<List<Category>>
-    suspend fun getMeals(category: String): Resource<List<OnlineMeal>>
+    suspend fun getMeals(category: String): Flow<Resource<List<OnlineMeal>>>
     suspend fun getMealDetails(mealId: String): Resource<List<Meal>>
     suspend fun getRandomMeal(): Resource<List<Meal>>
 }

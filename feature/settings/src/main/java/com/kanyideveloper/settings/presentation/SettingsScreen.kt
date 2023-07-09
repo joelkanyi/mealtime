@@ -88,6 +88,7 @@ fun SettingsScreen(navigator: SettingsNavigator, viewModel: SettingsViewModel = 
     when (val isSubscribed = viewModel.isSubscribed.collectAsState().value) {
         is SubscriptionStatusUiState.Success -> {
             LaunchedEffect(key1 = true) {
+                analyticsUtils.trackUserEvent("open settings screen")
                 viewModel.eventsFlow.collect { event ->
                     when (event) {
                         is UiEvents.SnackbarEvent -> {

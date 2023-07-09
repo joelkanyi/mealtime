@@ -24,18 +24,18 @@ import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core_database.dao.OnlineMealsDao
 */
 import com.kanyideveloper.data.mapper.toCategory
-import com.kanyideveloper.data.mapper.toEntity
 import com.kanyideveloper.data.mapper.toMeal
 import com.kanyideveloper.domain.model.Category
 import com.kanyideveloper.domain.model.OnlineMeal
 import com.kanyideveloper.domain.repository.OnlineMealsRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
 
 class OnlineMealsRepositoryImpl(
     private val mealDbApi: MealDbApi,
     mealTimeDatabase: MealTimeDatabase,
-    // private val onlineMealsDao: OnlineMealsDao,
 ) : OnlineMealsRepository {
     private val onlineMealsDao = mealTimeDatabase.onlineMealEntityQueries
     override suspend fun getMealCategories(): Resource<List<Category>> {
@@ -68,10 +68,10 @@ class OnlineMealsRepositoryImpl(
         }
     }
 
-    override suspend fun getMeals(category: String): Resource<List<OnlineMeal>> {
+    override suspend fun getMeals(category: String): Flow<Resource<List<OnlineMeal>>> = flow {
         val cachedMeals =
             onlineMealsDao.getOnlineMeals(category).executeAsList().map { it.toMeal() }
-        return try {
+        try {
             val response = mealDbApi.getMeals(category = category)
             onlineMealsDao.deleteOnlineMeals(category = category)
             response.meals.forEach { meal ->
@@ -82,17 +82,26 @@ class OnlineMealsRepositoryImpl(
                     strCategory = category,
                 )
             }
-            Resource.Success(
-                data = onlineMealsDao.getOnlineMeals(category).executeAsList().map { it.toMeal() })
+            emit(
+                Resource.Success(
+                    data = onlineMealsDao.getOnlineMeals(category).executeAsList()
+                        .map { it.toMeal() })
+            )
         } catch (e: IOException) {
-            return Resource.Error(
-                "Couldn't reach the server. Check your internet connection",
-                data = cachedMeals
+            emit(
+                Resource.Error(
+                    "Couldn't reach the server. Check your internet connection",
+                    data = cachedMeals
+                )
             )
         } catch (e: HttpException) {
-            return Resource.Error("Server error occurred", data = cachedMeals)
+            emit(
+                Resource.Error("Server error occurred", data = cachedMeals)
+            )
         } catch (e: Exception) {
-            return Resource.Error("An unknown error occurred", data = cachedMeals)
+            emit(
+                Resource.Error("An unknown error occurred", data = cachedMeals)
+            )
         }
     }
 

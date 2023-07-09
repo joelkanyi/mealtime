@@ -64,6 +64,7 @@ fun homeModule() = module {
         DetailsViewModel(
             onlineMealsRepository = get(),
             favoritesRepository = get(),
+            analyticsUtil = get(),
         )
     }
 }

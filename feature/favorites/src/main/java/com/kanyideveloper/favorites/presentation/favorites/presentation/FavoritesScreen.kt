@@ -98,6 +98,7 @@ fun FavoritesScreen(
     when (val isSubscribed = viewModel.isSubscribed.collectAsState().value) {
         is SubscriptionStatusUiState.Success -> {
             LaunchedEffect(key1 = true, block = {
+                analyticsUtil.trackUserEvent("open favorites screen")
                 viewModel.getFavorites(
                     isSubscribed = isSubscribed.isSubscribed
                 )

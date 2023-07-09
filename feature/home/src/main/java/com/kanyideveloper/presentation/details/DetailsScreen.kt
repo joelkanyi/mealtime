@@ -40,9 +40,11 @@ fun DetailsScreen(
     navigator: HomeNavigator,
     viewModel: DetailsViewModel = koinViewModel()
 ) {
+    val analyticsUtil = viewModel.analyticsUtil()
     val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(key1 = true, block = {
+        analyticsUtil.trackUserEvent("open meal details screen")
         viewModel.eventsFlow.collectLatest { event ->
             when (event) {
                 is UiEvents.SnackbarEvent -> {

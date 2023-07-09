@@ -27,7 +27,7 @@ class FakeOnlineMealsRepository : OnlineMealsRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getMeals(category: String): Resource<List<OnlineMeal>> {
+    override suspend fun getMeals(category: String): Flow<Resource<List<OnlineMeal>>> {
         TODO("Not yet implemented")
     }
 

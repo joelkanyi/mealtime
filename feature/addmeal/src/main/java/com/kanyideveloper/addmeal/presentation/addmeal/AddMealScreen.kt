@@ -213,6 +213,7 @@ fun AddMealScreen(
         }
 
     LaunchedEffect(key1 = true, block = {
+        analyticsUtil.trackUserEvent("open add meal screen")
         cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
     })
 

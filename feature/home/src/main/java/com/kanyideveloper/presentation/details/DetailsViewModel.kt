@@ -21,18 +21,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joelkanyi.shared.core.data.network.utils.Resource
+import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.domain.FavoritesRepository
 import com.kanyideveloper.core.model.Favorite
+import com.kanyideveloper.core.state.SubscriptionStatusUiState
 import com.kanyideveloper.core.util.UiEvents
 import com.kanyideveloper.domain.repository.OnlineMealsRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class DetailsViewModel constructor(
     private val onlineMealsRepository: OnlineMealsRepository,
-    private val favoritesRepository: FavoritesRepository
+    private val favoritesRepository: FavoritesRepository,
+    private val analyticsUtil: AnalyticsUtil,
 ) : ViewModel() {
+
+    fun analyticsUtil() = analyticsUtil
 
     private val _eventsFlow = MutableSharedFlow<UiEvents>()
     val eventsFlow = _eventsFlow.asSharedFlow()
@@ -52,12 +61,14 @@ class DetailsViewModel constructor(
                         error = result.message
                     )
                 }
+
                 is Resource.Success -> {
                     _details.value = details.value.copy(
                         isLoading = false,
                         mealDetails = result.data ?: emptyList()
                     )
                 }
+
                 else -> {
                     details
                 }
@@ -80,12 +91,14 @@ class DetailsViewModel constructor(
                         error = result.message
                     )
                 }
+
                 is Resource.Success -> {
                     _randomMeal.value = randomMeal.value.copy(
                         isLoading = false,
                         mealDetails = result.data ?: emptyList()
                     )
                 }
+
                 else -> {
                     randomMeal
                 }
@@ -97,9 +110,15 @@ class DetailsViewModel constructor(
         return favoritesRepository.isLocalFavorite(id = id)
     }
 
-    fun inOnlineFavorites(id: String): LiveData<Boolean> {
-        return favoritesRepository.isOnlineFavorite(id = id)
-    }
+
+    fun isOnlineFavorite(id: String): StateFlow<Boolean> =
+        favoritesRepository.isOnlineFavorite(id = id)
+            .map { it }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = false
+            )
 
     fun deleteALocalFavorite(localMealId: String) {
         viewModelScope.launch {
@@ -148,6 +167,7 @@ class DetailsViewModel constructor(
                         )
                     )
                 }
+
                 is Resource.Success -> {
                     _eventsFlow.emit(
                         UiEvents.SnackbarEvent(
@@ -155,6 +175,7 @@ class DetailsViewModel constructor(
                         )
                     )
                 }
+
                 else -> {}
             }
         }

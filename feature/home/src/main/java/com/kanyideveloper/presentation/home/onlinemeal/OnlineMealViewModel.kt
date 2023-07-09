@@ -29,6 +29,11 @@ import com.kanyideveloper.domain.repository.OnlineMealsRepository
 import com.kanyideveloper.presentation.home.onlinemeal.state.CategoriesState
 import com.kanyideveloper.presentation.home.onlinemeal.state.MealState
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class OnlineMealViewModel constructor(
@@ -98,37 +103,44 @@ class OnlineMealViewModel constructor(
             error = null
         )
         viewModelScope.launch {
-            when (val result = onlineMealsRepository.getMeals(category = category)) {
-                is Resource.Error -> {
-                    _meals.value = meals.value.copy(
-                        isLoading = false,
-                        error = result.message,
-                        meals = result.data ?: emptyList()
-                    )
-                    _eventsFlow.emit(
-                        UiEvents.SnackbarEvent(
-                            result.message ?: "An unknown error occurred"
+            onlineMealsRepository.getMeals(category = category).collectLatest { result ->
+                when (result) {
+                    is Resource.Error -> {
+                        _meals.value = meals.value.copy(
+                            isLoading = false,
+                            error = result.message,
+                            meals = result.data ?: emptyList()
                         )
-                    )
-                }
+                        _eventsFlow.emit(
+                            UiEvents.SnackbarEvent(
+                                result.message ?: "An unknown error occurred"
+                            )
+                        )
+                    }
 
-                is Resource.Success -> {
-                    _meals.value = meals.value.copy(
-                        isLoading = false,
-                        meals = result.data ?: emptyList()
-                    )
-                }
+                    is Resource.Success -> {
+                        _meals.value = meals.value.copy(
+                            isLoading = false,
+                            meals = result.data ?: emptyList()
+                        )
+                    }
 
-                else -> {
-                    categories
+                    else -> {
+                        categories
+                    }
                 }
             }
         }
     }
 
-    fun inOnlineFavorites(id: String): LiveData<Boolean> {
-        return favoritesRepository.isOnlineFavorite(id = id)
-    }
+    fun isOnlineFavorite(id: String): StateFlow<Boolean> =
+        favoritesRepository.isOnlineFavorite(id = id)
+            .map { it }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = false
+            )
 
     fun insertAFavorite(
         isOnline: Boolean,

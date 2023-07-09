@@ -29,7 +29,7 @@ interface FavoritesRepository {
 
     fun isLocalFavorite(id: String): LiveData<Boolean>
 
-    fun isOnlineFavorite(id: String): LiveData<Boolean>
+    fun isOnlineFavorite(id: String): Flow<Boolean>
 
     suspend fun deleteOneFavorite(favorite: Favorite, isSubscribed: Boolean)
 

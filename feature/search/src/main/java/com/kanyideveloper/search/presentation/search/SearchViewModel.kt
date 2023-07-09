@@ -27,6 +27,10 @@ import com.kanyideveloper.core.model.Favorite
 import com.kanyideveloper.core.util.UiEvents
 import com.kanyideveloper.search.domain.SearchRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -104,9 +108,14 @@ class SearchViewModel constructor(
         }
     }
 
-    fun inOnlineFavorites(id: String): LiveData<Boolean> {
-        return favoritesRepository.isOnlineFavorite(id = id)
-    }
+    fun isOnlineFavorite(id: String): StateFlow<Boolean> =
+        favoritesRepository.isOnlineFavorite(id = id)
+            .map { it }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = false
+            )
 
     fun insertAFavorite(
         isOnline: Boolean,
