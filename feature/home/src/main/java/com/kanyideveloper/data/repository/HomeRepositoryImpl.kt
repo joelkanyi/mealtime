@@ -16,34 +16,38 @@
 package com.kanyideveloper.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.mealtime.data.local.sqldelight.MealTimeDatabase
+import com.joelkanyi.shared.core.data.network.utils.Resource
 import com.kanyideveloper.core.domain.HomeRepository
 import com.kanyideveloper.core.model.Meal
-import com.kanyideveloper.core_database.dao.MealDao
-import com.kanyideveloper.core_database.model.MealEntity
+/*import com.kanyideveloper.core_database.dao.MealDao
+import com.kanyideveloper.core_database.model.MealEntity*/
 import com.kanyideveloper.data.mapper.toMeal
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withTimeoutOrNull
 import java.util.UUID
 
 class HomeRepositoryImpl(
-    private val mealDao: MealDao,
+    // private val mealDao: MealDao,
+    mealTimeDatabase: MealTimeDatabase,
     private val databaseReference: DatabaseReference,
     private val firebaseAuth: FirebaseAuth
 ) : HomeRepository {
-
+    private val mealDao = mealTimeDatabase.mealEntityQueries
     override suspend fun getMyMeals(isSubscribed: Boolean): Resource<Flow<List<Meal>>> {
         return if (isSubscribed) {
             /**
              * Do offline caching
              */
             // first read from the local database
-            val myMeals = mealDao.getAllMeals()
+            val myMeals = mealDao.getAllMeals().executeAsList()
 
             try {
                 val newMyMeals = withTimeoutOrNull(10000L) {
@@ -64,65 +68,63 @@ class HomeRepositoryImpl(
                     // save the remote data to the local database
                     myMealsRemote.forEach { onlineMeal ->
                         mealDao.insertMeal(
-                            mealEntity = MealEntity(
-                                id = onlineMeal.id ?: UUID.randomUUID().toString(),
-                                name = onlineMeal.name ?: "---",
-                                imageUrl = onlineMeal.imageUrl ?: "",
-                                cookingTime = onlineMeal.cookingTime,
-                                category = onlineMeal.category ?: "",
-                                cookingDifficulty = onlineMeal.cookingDifficulty,
-                                ingredients = onlineMeal.ingredients,
-                                cookingInstructions = onlineMeal.cookingDirections,
-                                isFavorite = onlineMeal.favorite,
-                                servingPeople = onlineMeal.servingPeople
-                            )
+                            id = onlineMeal.id ?: UUID.randomUUID().toString(),
+                            name = onlineMeal.name ?: "---",
+                            imageUrl = onlineMeal.imageUrl ?: "",
+                            cookingTime = onlineMeal.cookingTime,
+                            category = onlineMeal.category ?: "",
+                            cookingDifficulty = onlineMeal.cookingDifficulty,
+                            ingredients = onlineMeal.ingredients,
+                            cookingInstructions = onlineMeal.cookingDirections,
+                            isFavorite = onlineMeal.favorite,
+                            servingPeople = onlineMeal.servingPeople
                         )
                     }
 
                     // read from the local database
-                    mealDao.getAllMeals().map { mealEntityList ->
-                        mealEntityList.map { mealEntity ->
-                            mealEntity.toMeal()
-                        }
+                    mealDao.getAllMeals().executeAsList().map { mealEntity ->
+                        mealEntity.toMeal()
                     }
                 }
 
                 if (newMyMeals == null) {
                     Resource.Error(
                         "Viewing offline data",
-                        data = myMeals.map {
-                            it.map { mealEntity ->
+                        data = flowOf(
+                            myMeals.map { mealEntity ->
                                 mealEntity.toMeal()
                             }
-                        }
+                        )
                     )
                 } else {
-                    Resource.Success(data = newMyMeals)
+                    Resource.Success(data = flowOf(newMyMeals))
                 }
             } catch (e: Exception) {
                 Resource.Error(
                     e.localizedMessage ?: "Unknown error occurred",
-                    data = myMeals.map {
-                        it.map { mealEntity ->
+                    data = flowOf(
+                        myMeals.map { mealEntity ->
                             mealEntity.toMeal()
                         }
-                    }
+                    )
                 )
             }
         } else {
             Resource.Success(
-                data = mealDao.getAllMeals().map { mealEntityList ->
-                    mealEntityList.map { mealEntity ->
+                data = flowOf(
+                    mealDao.getAllMeals().executeAsList().map { mealEntity ->
                         mealEntity.toMeal()
                     }
-                }
+                )
             )
         }
     }
 
     override fun getMealById(id: String): LiveData<Meal?> {
-        return mealDao.getSingleMeal(id = id).map { mealEntity ->
-            mealEntity?.toMeal()
-        }
+        val mutableLiveData = MutableLiveData<Meal?>(null)
+        mutableLiveData.postValue(
+            mealDao.getSingleMeal(id = id).executeAsOneOrNull()?.toMeal()
+        )
+        return mutableLiveData
     }
 }

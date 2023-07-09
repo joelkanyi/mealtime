@@ -9,12 +9,13 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
+    var greeting = Greeting().greet()
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
-            Text("Hello, MealTime!")
+            Text(greeting)
         }
         .padding()
     }

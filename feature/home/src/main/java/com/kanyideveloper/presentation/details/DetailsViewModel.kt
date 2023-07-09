@@ -20,7 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.shared.core.data.network.utils.Resource
 import com.kanyideveloper.core.domain.FavoritesRepository
 import com.kanyideveloper.core.model.Favorite
 import com.kanyideveloper.core.util.UiEvents

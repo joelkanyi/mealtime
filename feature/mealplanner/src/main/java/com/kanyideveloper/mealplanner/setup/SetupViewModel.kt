@@ -21,7 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.shared.core.data.network.utils.Resource
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.util.UiEvents
 import com.kanyideveloper.mealplanner.destinations.MealPlannerScreenDestination

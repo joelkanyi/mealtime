@@ -79,7 +79,6 @@ dependencies {
     implementation(project(Modules.mealPlanner))
     implementation(project(Modules.kitchenTimer))
     implementation(project(Modules.auth))
-    implementation(project(Modules.coreDatabase))
     implementation(project(Modules.shared))
 
     // RamCosta Navigation

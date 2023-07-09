@@ -16,17 +16,21 @@
 package com.kanyideveloper.favorites.presentation.favorites.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.mealtime.data.local.sqldelight.MealTimeDatabase
+import com.joelkanyi.shared.core.data.network.utils.Resource
 import com.kanyideveloper.core.domain.FavoritesRepository
 import com.kanyideveloper.core.model.Favorite
-import com.kanyideveloper.core_database.dao.FavoritesDao
-import com.kanyideveloper.core_database.model.FavoriteEntity
+/*import com.kanyideveloper.core_database.dao.FavoritesDao
+import com.kanyideveloper.core_database.model.FavoriteEntity*/
 import com.kanyideveloper.favorites.presentation.favorites.data.mapper.toEntity
 import com.kanyideveloper.favorites.presentation.favorites.data.mapper.toFavorite
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withTimeoutOrNull
@@ -34,10 +38,12 @@ import timber.log.Timber
 import java.util.UUID
 
 class FavoritesRepositoryImpl(
-    private val favoritesDao: FavoritesDao,
+    // private val favoritesDao: FavoritesDao,
+    private val mealTimeDatabase: MealTimeDatabase,
     private val databaseReference: DatabaseReference,
     private val firebaseAuth: FirebaseAuth
 ) : FavoritesRepository {
+    val favoriteQueries = mealTimeDatabase.favoriteEntityQueries
     override suspend fun insertFavorite(
         isSubscribed: Boolean,
         favorite: Favorite
@@ -45,7 +51,15 @@ class FavoritesRepositoryImpl(
         return if (isSubscribed) {
             saveFavoriteToRemoteDatasource(favorite)
         } else {
-            favoritesDao.insertAFavorite(favorite.toEntity())
+            favoriteQueries.insertAFavorite(
+                id = 0,
+                onlineMealId = favorite.onlineMealId,
+                localMealId = favorite.localMealId,
+                isOnline = favorite.online,
+                mealName = favorite.mealName,
+                mealImageUrl = favorite.mealImageUrl,
+                isFavorite = favorite.favorite,
+            )
             Resource.Success(data = true)
         }
     }
@@ -55,9 +69,11 @@ class FavoritesRepositoryImpl(
             getFavoritesFromRemoteDataSource()
         } else {
             Resource.Success(
-                data = favoritesDao.getFavorites().map { favoritesEntity ->
-                    favoritesEntity.map { it.toFavorite() }
-                }
+                data = flowOf(
+                    favoriteQueries.getFavorites().executeAsList().map { favoritesEntity ->
+                        favoritesEntity.toFavorite()
+                    }
+                )
             )
         }
     }
@@ -67,7 +83,7 @@ class FavoritesRepositoryImpl(
          * Do offline caching
          */
         // first read from the local database
-        val favorites = favoritesDao.getFavorites()
+        val favorites = favoriteQueries.getFavorites().executeAsList()
 
         return try {
             val newFavorites = withTimeoutOrNull(10000L) {
@@ -83,67 +99,74 @@ class FavoritesRepositoryImpl(
                 }
 
                 // clear the local database
-                favoritesDao.deleteAllFavorites()
+                favoriteQueries.deleteAllFavorites()
 
                 // save the remote data to the local database
                 favoritesRemote.forEach { onlineFavorite ->
-                    favoritesDao.insertAFavorite(
-                        FavoriteEntity(
-                            id = onlineFavorite.id,
-                            onlineMealId = onlineFavorite.onlineMealId,
-                            localMealId = onlineFavorite.localMealId,
-                            isOnline = onlineFavorite.online,
-                            mealName = onlineFavorite.mealName,
-                            mealImageUrl = onlineFavorite.mealImageUrl,
-                            isFavorite = onlineFavorite.favorite
-                        )
+                    favoriteQueries.insertAFavorite(
+                        id = onlineFavorite.id?.toLong(),
+                        onlineMealId = onlineFavorite.onlineMealId,
+                        localMealId = onlineFavorite.localMealId,
+                        isOnline = onlineFavorite.online,
+                        mealName = onlineFavorite.mealName,
+                        mealImageUrl = onlineFavorite.mealImageUrl,
+                        isFavorite = onlineFavorite.favorite,
                     )
                 }
 
                 // read from the local database
-                favoritesDao.getFavorites().map { favoriteEntities ->
-                    favoriteEntities.map { favoriteEntity ->
-                        favoriteEntity.toFavorite()
-                    }
+                favoriteQueries.getFavorites().executeAsList().map { favoriteEntity ->
+                    favoriteEntity.toFavorite()
                 }
             }
 
             if (newFavorites == null) {
                 Resource.Error(
                     "Viewing offline data",
-                    data = favorites.map {
-                        it.map { favoriteEntity ->
-                            favoriteEntity.toFavorite()
-                        }
+                    data = flowOf(favorites.map { favoriteEntity ->
+                        favoriteEntity.toFavorite()
                     }
+                    )
                 )
             } else {
-                Resource.Success(data = newFavorites)
+                Resource.Success(data = flowOf(newFavorites))
             }
         } catch (e: Exception) {
             Resource.Error(
                 e.localizedMessage ?: "Unknown error occurred",
-                data = favorites.map {
-                    it.map { favoriteEntity ->
+                data = flowOf(
+                    favorites.map { favoriteEntity ->
                         favoriteEntity.toFavorite()
                     }
-                }
+                )
             )
         }
     }
 
     override fun getASingleFavorite(id: Int): LiveData<Favorite?> {
-        return favoritesDao.getAFavoriteById(id = id).map {
-            it?.toFavorite()
-        }
+        val mutableLiveData = MutableLiveData<Favorite?>()
+        mutableLiveData.postValue(
+            favoriteQueries.getAFavoriteById(id = id.toLong()).executeAsOneOrNull()?.toFavorite()
+        )
+        return mutableLiveData
     }
 
     override fun isLocalFavorite(id: String): LiveData<Boolean> {
-        return favoritesDao.localInFavorites(id = id)
+        val mutableLiveData = MutableLiveData<Boolean>()
+        mutableLiveData.postValue(
+            favoriteQueries.localInFavorites(localMealId = id)
+                .executeAsOneOrNull()
+        )
+        return mutableLiveData
     }
 
     override fun isOnlineFavorite(id: String): LiveData<Boolean> {
-        return favoritesDao.onlineInFavorites(id = id)
+        val mutableLiveData = MutableLiveData<Boolean>()
+        mutableLiveData.postValue(
+            favoriteQueries.onlineInFavorites(onlineMealId = id)
+                .executeAsOneOrNull()
+        )
+        return mutableLiveData
     }
 
     override suspend fun deleteOneFavorite(favorite: Favorite, isSubscribed: Boolean) {
@@ -157,12 +180,12 @@ class FavoritesRepositoryImpl(
                 isOnlineMeal = favorite.online
             )
         } else {
-            favoritesDao.deleteAFavorite(favorite.toEntity())
+            favoriteQueries.deleteAFavorite(favorite.id?.toLong() ?: 0)
         }
     }
 
     override suspend fun deleteAllFavorites() {
-        favoritesDao.deleteAllFavorites()
+        favoriteQueries.deleteAllFavorites()
     }
 
     override suspend fun deleteALocalFavorite(localMealId: String, isSubscribed: Boolean) {
@@ -172,7 +195,7 @@ class FavoritesRepositoryImpl(
                 isOnlineMeal = false
             )
         } else {
-            favoritesDao.deleteALocalFavorite(localMealId = localMealId)
+            favoriteQueries.deleteALocalFavorite(localMealId = localMealId)
         }
     }
 
@@ -183,7 +206,7 @@ class FavoritesRepositoryImpl(
                 isOnlineMeal = true
             )
         } else {
-            favoritesDao.deleteAnOnlineFavorite(mealId = onlineMealId)
+            favoriteQueries.deleteAnOnlineFavorite(onlineMealId = onlineMealId)
         }
     }
 
@@ -200,7 +223,15 @@ class FavoritesRepositoryImpl(
                     }
                 )
                 .setValue(favorite).await()
-            favoritesDao.insertAFavorite(favorite.toEntity())
+            favoriteQueries.insertAFavorite(
+                id = favorite.id?.toLong(),
+                onlineMealId = favorite.onlineMealId,
+                localMealId = favorite.localMealId,
+                isOnline = favorite.online,
+                mealName = favorite.mealName,
+                mealImageUrl = favorite.mealImageUrl,
+                isFavorite = favorite.favorite,
+            )
             Resource.Success(data = true)
         } catch (e: Exception) {
             return Resource.Error(e.localizedMessage ?: "Unknown error occurred")
@@ -220,9 +251,9 @@ class FavoritesRepositoryImpl(
                 .await()
 
             if (isOnlineMeal) {
-                favoritesDao.deleteAnOnlineFavorite(mealId = mealId)
+                favoriteQueries.deleteAnOnlineFavorite(onlineMealId = mealId)
             } else {
-                favoritesDao.deleteALocalFavorite(localMealId = mealId)
+                favoriteQueries.deleteALocalFavorite(localMealId = mealId)
             }
 
             Resource.Success(data = true)

@@ -1,25 +1,25 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml:2:13-83
-INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml:2:13-83
-INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml:2:13-83
+ADDED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml:2:13-83
+INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml:2:13-83
+INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml:2:13-83
 	package
-		INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml
-		ADDED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml:2:13-83
-		INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml
+		INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml
+		ADDED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml:2:13-83
+		INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml
 	xmlns:android
-		ADDED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml:2:23-81
+		ADDED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml:2:23-81
 uses-sdk
-INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml reason: use-sdk injection requested
-INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml
-INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml
-INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml
-INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml
+INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml reason: use-sdk injection requested
+INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml
+INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml
+INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml
+INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml
 	android:targetSdkVersion
-		INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml
-		ADDED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml
-		INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml
+		INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml
+		ADDED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml
+		INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml
 	android:minSdkVersion
-		INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml
-		ADDED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml
-		INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml
+		INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml
+		ADDED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml
+		INJECTED from /Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml

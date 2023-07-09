@@ -15,11 +15,11 @@
  */
 package com.kanyideveloper.mealplanner.model
 
-import com.kanyideveloper.core.model.Meal
+import com.joelkanyi.shared.core.domain.CoreMeal
 
 data class MealPlan(
     val mealTypeName: String = "",
-    val meals: List<Meal> = emptyList(),
+    val meals: List<CoreMeal> = emptyList(),
     val date: String = "",
     val id: String? = null
 )

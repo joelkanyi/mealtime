@@ -17,11 +17,11 @@ package com.kanyideveloper.addmeal.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.mealtime.data.local.sqldelight.MealTimeDatabase
+import com.joelkanyi.shared.core.data.network.utils.Resource
 import com.kanyideveloper.addmeal.data.mapper.toMealEntity
 import com.kanyideveloper.addmeal.domain.repository.SaveMealRepository
 import com.kanyideveloper.core.model.Meal
-import com.kanyideveloper.core_database.MealTimeDatabase
 import kotlinx.coroutines.tasks.await
 import java.util.UUID
 
@@ -34,8 +34,17 @@ class SaveMealRepositoryImpl(
         return if (isSubscribed) {
             saveMealToRemoteDatasource(meal)
         } else {
-            mealTimeDatabase.mealDao.insertMeal(
-                mealEntity = meal.toMealEntity()
+            mealTimeDatabase.mealEntityQueries.insertMeal(
+                name = meal.name,
+                imageUrl = meal.imageUrl,
+                cookingTime = meal.cookingTime,
+                servingPeople = meal.servingPeople,
+                category = meal.category,
+                cookingDifficulty = meal.cookingDifficulty,
+                ingredients = meal.ingredients,
+                cookingInstructions = meal.cookingDirections,
+                isFavorite = meal.favorite,
+                id = meal.id ?: UUID.randomUUID().toString(),
             )
             Resource.Success(data = true)
         }

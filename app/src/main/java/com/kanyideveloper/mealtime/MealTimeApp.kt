@@ -23,7 +23,6 @@ import com.kanyideveloper.addmeal.di.addMealModule
 import com.kanyideveloper.core.di.analyticsModule
 import com.kanyideveloper.core.di.appModule
 import com.kanyideveloper.core.util.Constants.QONVERSION_PROJECT_KEY
-import com.kanyideveloper.core_database.di.databaseModule
 import com.kanyideveloper.di.homeModule
 import com.kanyideveloper.favorites.presentation.favorites.di.favoritesModule
 import com.kanyideveloper.mealplanner.di.mealPlannerModule
@@ -58,7 +57,6 @@ class MealTimeApp : Application() {
             addMealModule(),
             analyticsModule(),
             authModule(),
-            databaseModule(),
             favoritesModule(),
             homeModule(),
             kitchenTimerModule(),

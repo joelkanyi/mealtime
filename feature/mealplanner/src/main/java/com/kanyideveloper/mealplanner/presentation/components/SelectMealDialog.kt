@@ -44,6 +44,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.joelkanyi.shared.core.domain.CoreMeal
 import com.kanyidev.searchable_dropdown.SearchableExpandedDropDownMenu
 import com.kanyideveloper.core.components.LoadingStateComponent
 import com.kanyideveloper.core.model.Meal
@@ -54,8 +55,8 @@ import com.kanyideveloper.mealtime.core.R
 fun SelectMealDialog(
     onDismiss: () -> Unit,
     mealType: String,
-    onClickAdd: (Meal, String) -> Unit,
-    meals: List<Meal>,
+    onClickAdd: (CoreMeal, String) -> Unit,
+    meals: List<CoreMeal>,
     onSearchClicked: () -> Unit,
     onSearchValueChange: (String) -> Unit,
     currentSearchString: String,

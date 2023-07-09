@@ -15,10 +15,11 @@
  */
 package com.kanyideveloper.mealplanner.presentation.state
 
+import com.joelkanyi.shared.core.domain.CoreMeal
 import com.kanyideveloper.core.model.Meal
 
 data class SearchMealState(
     val isLoading: Boolean = false,
     val error: String? = null,
-    val meals: List<Meal> = emptyList()
+    val meals: List<CoreMeal> = emptyList()
 )
