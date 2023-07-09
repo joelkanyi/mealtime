@@ -38,7 +38,8 @@ fun homeModule() = module {
     single<OnlineMealsRepository> {
         OnlineMealsRepositoryImpl(
             mealDbApi = get(),
-            onlineMealsDao = get()
+            mealTimeDatabase = get(),
+            // onlineMealsDao = get()
         )
     }
 

@@ -15,6 +15,7 @@
  */
 package com.kanyideveloper.core_database.model
 
+/*
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -26,3 +27,4 @@ data class OnlineMealCategoryEntity(
     val strCategoryDescription: String,
     val strCategoryThumb: String
 )
+*/

@@ -15,11 +15,14 @@
  */
 package com.kanyideveloper.data.repository
 
+import com.joelkanyi.mealtime.data.local.sqldelight.MealTimeDatabase
 import com.joelkanyi.shared.data.network.MealDbApi
 import com.joelkanyi.shared.data.network.utils.Resource
 import com.joelkanyi.shared.data.network.utils.safeApiCall
 import com.kanyideveloper.core.model.Meal
+/*
 import com.kanyideveloper.core_database.dao.OnlineMealsDao
+*/
 import com.kanyideveloper.data.mapper.toCategory
 import com.kanyideveloper.data.mapper.toEntity
 import com.kanyideveloper.data.mapper.toMeal
@@ -31,16 +34,27 @@ import java.io.IOException
 
 class OnlineMealsRepositoryImpl(
     private val mealDbApi: MealDbApi,
-    private val onlineMealsDao: OnlineMealsDao,
+    mealTimeDatabase: MealTimeDatabase,
+    // private val onlineMealsDao: OnlineMealsDao,
 ) : OnlineMealsRepository {
+    private val onlineMealsDao = mealTimeDatabase.onlineMealEntityQueries
     override suspend fun getMealCategories(): Resource<List<Category>> {
-        val cachedCategories = onlineMealsDao.getOnlineMealCategories().map { it.toCategory() }
+        val cachedCategories =
+            onlineMealsDao.getOnlineMealCategories().executeAsList().map { it.toCategory() }
         return try {
             val response = mealDbApi.getCategories()
             onlineMealsDao.deleteOnlineMealCategories()
-            onlineMealsDao.insertOnlineMealCategories(response.categories.map { it.toEntity() })
+            response.categories.forEach { category ->
+                onlineMealsDao.insertOnlineMealCategories(
+                    idCategory = category.idCategory,
+                    strCategory = category.strCategory,
+                    strCategoryDescription = category.strCategoryDescription,
+                    strCategoryThumb = category.strCategoryThumb
+                )
+            }
             Resource.Success(
-                data = onlineMealsDao.getOnlineMealCategories().map { it.toCategory() }
+                data = onlineMealsDao.getOnlineMealCategories().executeAsList()
+                    .map { it.toCategory() }
             )
         } catch (e: IOException) {
             return Resource.Error(
@@ -55,12 +69,21 @@ class OnlineMealsRepositoryImpl(
     }
 
     override suspend fun getMeals(category: String): Resource<List<OnlineMeal>> {
-        val cachedMeals = onlineMealsDao.getOnlineMeals(category).map { it.toMeal() }
+        val cachedMeals =
+            onlineMealsDao.getOnlineMeals(category).executeAsList().map { it.toMeal() }
         return try {
             val response = mealDbApi.getMeals(category = category)
             onlineMealsDao.deleteOnlineMeals(category = category)
-            onlineMealsDao.insertOnlineMeals(response.meals.map { it.toEntity(category = category) })
-            Resource.Success(data = onlineMealsDao.getOnlineMeals(category).map { it.toMeal() })
+            response.meals.forEach { meal ->
+                onlineMealsDao.insertOnlineMeals(
+                    idMeal = meal.idMeal,
+                    strMeal = meal.strMeal,
+                    strMealThumb = meal.strMealThumb,
+                    strCategory = category,
+                )
+            }
+            Resource.Success(
+                data = onlineMealsDao.getOnlineMeals(category).executeAsList().map { it.toMeal() })
         } catch (e: IOException) {
             return Resource.Error(
                 "Couldn't reach the server. Check your internet connection",

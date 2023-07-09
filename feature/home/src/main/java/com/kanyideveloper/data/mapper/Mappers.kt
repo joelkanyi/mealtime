@@ -15,14 +15,16 @@
  */
 package com.kanyideveloper.data.mapper
 
+import com.joelkanyi.shared.data.local.OnlineMealCategoryEntity
+import com.joelkanyi.shared.data.local.OnlineMealEntity
 import com.joelkanyi.shared.data.network.model.CategoriesResponse
 import com.joelkanyi.shared.data.network.model.MealDetailsResponse
 import com.joelkanyi.shared.data.network.model.MealsResponse
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.util.stringToList
 import com.kanyideveloper.core_database.model.MealEntity
-import com.kanyideveloper.core_database.model.OnlineMealCategoryEntity
-import com.kanyideveloper.core_database.model.OnlineMealEntity
+/*import com.kanyideveloper.core_database.model.OnlineMealCategoryEntity
+import com.kanyideveloper.core_database.model.OnlineMealEntity*/
 import com.kanyideveloper.domain.model.Category
 import com.kanyideveloper.domain.model.OnlineMeal
 

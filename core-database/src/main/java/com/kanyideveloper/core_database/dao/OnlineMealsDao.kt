@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package com.kanyideveloper.core_database.dao
+/*
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -41,3 +42,4 @@ interface OnlineMealsDao {
     @Query("SELECT * FROM online_meals WHERE strCategory = :category")
     suspend fun getOnlineMeals(category: String): List<OnlineMealEntity>
 }
+*/
