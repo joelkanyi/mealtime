@@ -44,6 +44,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.joelkanyi.horizontalcalendar.HorizontalCalendarView
+import com.joelkanyi.shared.domain.CoreMeal
 import com.kanyideveloper.compose_ui.components.StandardToolbar
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.components.EmptyStateComponent
@@ -325,8 +326,9 @@ private fun MealPlannerScreenContent(
                                 type = type,
                                 onRemoveClick = onRemoveClick,
                                 onMealClick = onMealClick,
-                                meals = mealsAndTheirTypes.filter { it.mealTypeName == type }
-                                    .map { it.mapMealPlanToMeals() }.flatten()
+                                meals = mealsAndTheirTypes.filter {
+                                    it.mealTypeName == type
+                                }.map { it.mapMealPlanToMeals() }.flatten()
                             )
                         }
                     }
@@ -336,9 +338,9 @@ private fun MealPlannerScreenContent(
     }
 }
 
-fun MealPlan.mapMealPlanToMeals(): List<Meal> {
+fun MealPlan.mapMealPlanToMeals(): List<CoreMeal> {
     return this.meals.map { meal ->
-        Meal(
+        CoreMeal(
             name = meal.name,
             imageUrl = meal.imageUrl,
             cookingTime = meal.cookingTime,

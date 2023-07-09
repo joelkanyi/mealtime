@@ -15,6 +15,7 @@
  */
 package com.kanyideveloper.core_database.dao
 
+/*
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -39,3 +40,4 @@ interface MealPlanDao {
     @Query("DELETE FROM meal_plan_table")
     suspend fun deleteAllMealsFromPlan()
 }
+*/

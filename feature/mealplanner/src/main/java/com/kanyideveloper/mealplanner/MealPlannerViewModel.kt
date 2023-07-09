@@ -22,6 +22,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.shared.domain.CoreMeal
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.domain.HomeRepository
 import com.kanyideveloper.core.domain.SubscriptionRepository
@@ -153,7 +154,7 @@ class MealPlannerViewModel constructor(
         _shouldShowMealsDialog.value = value
     }
 
-    fun insertMealToPlan(meal: Meal, mealTypePlan: String, date: String, isSubscribed: Boolean) {
+    fun insertMealToPlan(meal: CoreMeal, mealTypePlan: String, date: String, isSubscribed: Boolean) {
         viewModelScope.launch {
             val existingMeals =
                 mealPlannerRepository.getExistingMeals(mealType = mealTypePlan, date = date)

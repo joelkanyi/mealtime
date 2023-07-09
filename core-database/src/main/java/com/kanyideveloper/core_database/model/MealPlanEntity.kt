@@ -15,6 +15,7 @@
  */
 package com.kanyideveloper.core_database.model
 
+/*
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kanyideveloper.core.model.Meal
@@ -27,3 +28,4 @@ data class MealPlanEntity(
     val mealDate: String,
     @PrimaryKey val id: String
 )
+*/

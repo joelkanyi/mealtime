@@ -2,6 +2,7 @@ package com.joelkanyi.shared.data.local
 
 import com.joelkanyi.mealtime.data.local.sqldelight.MealTimeDatabase
 import com.joelkanyi.shared.data.local.adapter.ListOfStringsAdapter
+import com.joelkanyi.shared.data.local.adapter.listOfMealsAdapter
 import com.squareup.sqldelight.db.SqlDriver
 
 expect class DriverFactory {
@@ -15,5 +16,8 @@ fun createDatabase(
     mealEntityAdapter = MealEntity.Adapter(
         ingredientsAdapter = ListOfStringsAdapter,
         cookingInstructionsAdapter = ListOfStringsAdapter
+    ),
+    mealPlanEntityAdapter = MealPlanEntity.Adapter(
+        mealsAdapter = listOfMealsAdapter,
     )
 )

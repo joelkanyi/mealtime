@@ -27,7 +27,7 @@ fun mealPlannerModule() = module {
     single<MealPlannerRepository> {
         MealPlannerRepositoryImpl(
             mealTimePreferences = get(),
-            mealPlanDao = get(),
+            // mealPlanDao = get(),
             // favoritesDao = get(),
             // mealDao = get(),
             mealDbApi = get(),

@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.joelkanyi.shared.domain.CoreMeal
 import com.kanyideveloper.compose_ui.theme.PrimaryColor
 import com.kanyideveloper.compose_ui.theme.Shapes
 import com.kanyideveloper.core.model.Meal
@@ -56,14 +57,14 @@ import com.kanyideveloper.mealtime.core.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlanMealItem(
-    meal: Meal,
+    meal: CoreMeal,
     modifier: Modifier = Modifier,
     cardWidth: Dp = 160.dp,
     imageHeight: Dp = 120.dp,
     isAddingToPlan: Boolean = false,
     type: String = "",
     onMealClick: (String?, String?, Boolean) -> Unit,
-    onClickAdd: (Meal, String) -> Unit,
+    onClickAdd: (CoreMeal, String) -> Unit,
     onRemoveClick: (String?) -> Unit
 ) {
     Box(

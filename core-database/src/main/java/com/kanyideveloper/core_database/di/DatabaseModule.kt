@@ -18,13 +18,16 @@ package com.kanyideveloper.core_database.di
 import androidx.room.Room
 import com.kanyideveloper.core.util.Constants
 import com.kanyideveloper.core_database.DatabaseMigrations.migration_1_3
+/*
 import com.kanyideveloper.core_database.MealTimeDatabase
+*/
 import org.koin.dsl.module
 
 fun databaseModule() = module {
 
     single { com.kanyideveloper.core_database.converters.Converters(get()) }
 
+/*
     single {
         Room.databaseBuilder(get(), MealTimeDatabase::class.java, Constants.MEALTIME_DATABASE)
             .addMigrations(migration_1_3)
@@ -32,12 +35,13 @@ fun databaseModule() = module {
             .addTypeConverter(get<com.kanyideveloper.core_database.converters.Converters>())
             .build()
     }
+*/
 
     // single { get<MealTimeDatabase>().mealDao }
 
     // single { get<MealTimeDatabase>().favoritesDao }
 
-    single { get<MealTimeDatabase>().mealPlanDao }
+    // single { get<MealTimeDatabase>().mealPlanDao }
 
     // single { get<MealTimeDatabase>().onlineMealsDao }
 }

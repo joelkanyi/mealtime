@@ -16,6 +16,7 @@
 package com.kanyideveloper.mealplanner.domain.repository
 
 import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.shared.domain.CoreMeal
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.model.MealPlanPreference
 import com.kanyideveloper.mealplanner.model.MealPlan
@@ -36,7 +37,7 @@ interface MealPlannerRepository {
         isSubscribed: Boolean
     ): Resource<Flow<List<MealPlan>>>
 
-    fun getExistingMeals(mealType: String, date: String): List<Meal>
+    fun getExistingMeals(mealType: String, date: String): List<CoreMeal>
 
     suspend fun deleteAMealFromPlan(id: String)
 
@@ -47,7 +48,7 @@ interface MealPlannerRepository {
         searchBy: String,
         searchString: String,
         isSubscribed: Boolean
-    ): Resource<Flow<List<Meal>>>
+    ): Resource<Flow<List<CoreMeal>>>
 
     suspend fun removeMealFromPlan(id: String, isSubscribed: Boolean)
 

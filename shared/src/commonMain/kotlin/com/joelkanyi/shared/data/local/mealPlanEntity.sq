@@ -1,0 +1,52 @@
+import com.joelkanyi.shared.domain.CoreMeal;
+import kotlin.collections.List;
+
+CREATE TABLE IF NOT EXISTS mealPlanEntity (
+    mealTypeName TEXT NOT NULL,
+    meals TEXT AS List<CoreMeal>,
+    mealDate TEXT NOT NULL,
+    id TEXT NOT NULL,
+    PRIMARY KEY (id)
+);
+
+-- @Entity(tableName = MEAL_PLAN_TABLE)
+-- data class MealPlanEntity(
+--     val mealTypeName: String,
+--     val meals: List<Meal> = emptyList(),
+--     val mealDate: String,
+--     @PrimaryKey val id: String
+-- )
+
+
+-- interface MealPlanDao {
+--     @Insert(onConflict = OnConflictStrategy.REPLACE)
+--     suspend fun insertMealPlan(mealPlanEntity: MealPlanEntity)
+--
+--     @Query("SELECT * FROM meal_plan_table WHERE mealDate = :filterDay")
+--     fun getPlanMeals(filterDay: String): Flow<List<MealPlanEntity>>
+--
+--     @Query("DELETE FROM meal_plan_table WHERE id = :id")
+--     suspend fun deleteAMealFromPlan(id: String)
+--
+--     @Query("DELETE FROM meal_plan_table WHERE id = :id")
+--     suspend fun removeMealFromPlan(id: Int)
+--
+--     @Query("DELETE FROM meal_plan_table")
+--     suspend fun deleteAllMealsFromPlan()
+-- }
+
+insertMealPlan:
+    INSERT INTO mealPlanEntity (mealTypeName, meals, mealDate, id) VALUES (?, ?, ?, ?);
+
+getPlanMeals:
+    SELECT * FROM mealPlanEntity WHERE mealDate = ?;
+
+deleteAMealFromPlan:
+    DELETE FROM mealPlanEntity WHERE id = ?;
+
+removeMealFromPlan:
+    DELETE FROM mealPlanEntity WHERE id = ?;
+
+deleteAllMealsFromPlan:
+    DELETE FROM mealPlanEntity;
+
