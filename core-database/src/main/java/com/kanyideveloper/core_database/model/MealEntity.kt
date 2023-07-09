@@ -15,6 +15,7 @@
  */
 package com.kanyideveloper.core_database.model
 
+/*
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -35,3 +36,4 @@ data class MealEntity(
     val isFavorite: Boolean = false,
     @PrimaryKey val id: String
 ) : Parcelable
+*/

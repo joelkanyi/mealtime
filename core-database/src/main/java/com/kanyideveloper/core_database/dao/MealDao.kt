@@ -15,7 +15,7 @@
  */
 package com.kanyideveloper.core_database.dao
 
-import androidx.lifecycle.LiveData
+/*import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -43,4 +43,4 @@ interface MealDao {
 
     @Query("DELETE FROM meal_table")
     suspend fun deleteAllMeals()
-}
+}*/

@@ -34,12 +34,16 @@ import com.kanyideveloper.core.notifications.NotificationReceiver
 /*
 import com.kanyideveloper.core_database.dao.FavoritesDao
 */
+/*
 import com.kanyideveloper.core_database.dao.MealDao
+*/
 import com.kanyideveloper.core_database.dao.MealPlanDao
 /*
 import com.kanyideveloper.core_database.model.FavoriteEntity
 */
+/*
 import com.kanyideveloper.core_database.model.MealEntity
+*/
 import com.kanyideveloper.core_database.model.MealPlanEntity
 import com.kanyideveloper.mealplanner.data.mapper.toEntity
 import com.kanyideveloper.mealplanner.data.mapper.toGeneralMeal
@@ -68,7 +72,9 @@ class MealPlannerRepositoryImpl(
     /*
         private val favoritesDao: FavoritesDao,
     */
-    private val mealDao: MealDao,
+    /*
+        private val mealDao: MealDao,
+    */
     private val mealDbApi: MealDbApi,
     private val context: Context,
     private val databaseReference: DatabaseReference,
@@ -76,6 +82,7 @@ class MealPlannerRepositoryImpl(
 ) : MealPlannerRepository {
 
     val favoriteQueries = mealTimeDatabase.favoriteEntityQueries
+    val mealDao = mealTimeDatabase.mealEntityQueries
 
     override suspend fun hasMealPlanPref(isSubscribed: Boolean): Flow<MealPlanPreference?> {
         return mealTimePreferences.mealPlanPreferences(isSubscribed = isSubscribed)
@@ -535,11 +542,8 @@ class MealPlannerRepositoryImpl(
         return if (isSubscribed) {
             getMyMealsFromRemoteDataSource()
         } else {
-            val a = mealDao.getAllMeals().map { meals ->
-                meals.map { it.toMeal() }
-            }
-
-            Resource.Success(a)
+            val a = mealDao.getAllMeals().executeAsList().map { it.toMeal() }
+            Resource.Success(flowOf(a))
         }
     }
 
@@ -548,7 +552,7 @@ class MealPlannerRepositoryImpl(
          * Do offline caching
          */
         // first read from the local database
-        val myMeals = mealDao.getAllMeals()
+        val myMeals = mealDao.getAllMeals().executeAsList()
 
         return try {
             val newMyMeals = withTimeoutOrNull(10000L) {
@@ -569,49 +573,45 @@ class MealPlannerRepositoryImpl(
                 // save the remote data to the local database
                 myMealsRemote.forEach { onlineMeal ->
                     mealDao.insertMeal(
-                        mealEntity = MealEntity(
-                            id = onlineMeal.id ?: UUID.randomUUID().toString(),
-                            name = onlineMeal.name ?: "",
-                            imageUrl = onlineMeal.imageUrl ?: "",
-                            cookingTime = onlineMeal.cookingTime,
-                            category = onlineMeal.category ?: "",
-                            cookingDifficulty = onlineMeal.cookingDifficulty,
-                            ingredients = onlineMeal.ingredients,
-                            cookingInstructions = onlineMeal.cookingDirections,
-                            isFavorite = onlineMeal.favorite,
-                            servingPeople = onlineMeal.servingPeople
-                        )
+                        id = onlineMeal.id ?: UUID.randomUUID().toString(),
+                        name = onlineMeal.name ?: "",
+                        imageUrl = onlineMeal.imageUrl ?: "",
+                        cookingTime = onlineMeal.cookingTime,
+                        category = onlineMeal.category ?: "",
+                        cookingDifficulty = onlineMeal.cookingDifficulty,
+                        ingredients = onlineMeal.ingredients,
+                        cookingInstructions = onlineMeal.cookingDirections,
+                        isFavorite = onlineMeal.favorite,
+                        servingPeople = onlineMeal.servingPeople
                     )
                 }
 
                 // read from the local database
-                mealDao.getAllMeals().map { mealEntityList ->
-                    mealEntityList.map { mealEntity ->
-                        mealEntity.toMeal()
-                    }
+                mealDao.getAllMeals().executeAsList().map { mealEntity ->
+                    mealEntity.toMeal()
                 }
             }
 
             if (newMyMeals == null) {
                 Resource.Error(
                     "Viewing offline data",
-                    data = myMeals.map {
-                        it.map { mealEntity ->
+                    data = flowOf(
+                        myMeals.map { mealEntity ->
                             mealEntity.toMeal()
                         }
-                    }
+                    )
                 )
             } else {
-                Resource.Success(data = newMyMeals)
+                Resource.Success(data = flowOf(newMyMeals))
             }
         } catch (e: Exception) {
             Resource.Error(
                 e.localizedMessage ?: "Unknown error occurred",
-                data = myMeals.map {
-                    it.map { mealEntity ->
+                data = flowOf(
+                    myMeals.map { mealEntity ->
                         mealEntity.toMeal()
                     }
-                }
+                )
             )
         }
     }

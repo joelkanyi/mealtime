@@ -16,13 +16,16 @@
 package com.kanyideveloper.mealplanner.data.mapper
 
 import com.joelkanyi.shared.data.local.FavoriteEntity
+import com.joelkanyi.shared.data.local.MealEntity
 import com.joelkanyi.shared.data.network.model.MealsResponse
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.model.OnlineMeal
 /*
 import com.kanyideveloper.core_database.model.FavoriteEntity
 */
+/*
 import com.kanyideveloper.core_database.model.MealEntity
+*/
 import com.kanyideveloper.core_database.model.MealPlanEntity
 import com.kanyideveloper.mealplanner.model.MealPlan
 import java.util.UUID
@@ -73,13 +76,13 @@ internal fun MealEntity.toMeal(): Meal {
     return Meal(
         name = name,
         imageUrl = imageUrl,
-        cookingTime = cookingTime,
+        cookingTime = cookingTime ?: 0,
         category = category,
-        cookingDifficulty = cookingDifficulty,
-        ingredients = ingredients,
-        cookingDirections = cookingInstructions,
+        cookingDifficulty = cookingDifficulty ?: "",
+        ingredients = ingredients ?: emptyList(),
+        cookingDirections = cookingInstructions ?: emptyList(),
         favorite = isFavorite,
-        servingPeople = servingPeople,
+        servingPeople = servingPeople ?: 0,
         localMealId = id
     )
 }

@@ -15,6 +15,7 @@
  */
 package com.kanyideveloper.data.mapper
 
+import com.joelkanyi.shared.data.local.MealEntity
 import com.joelkanyi.shared.data.local.OnlineMealCategoryEntity
 import com.joelkanyi.shared.data.local.OnlineMealEntity
 import com.joelkanyi.shared.data.network.model.CategoriesResponse
@@ -22,7 +23,9 @@ import com.joelkanyi.shared.data.network.model.MealDetailsResponse
 import com.joelkanyi.shared.data.network.model.MealsResponse
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.util.stringToList
+/*
 import com.kanyideveloper.core_database.model.MealEntity
+*/
 /*import com.kanyideveloper.core_database.model.OnlineMealCategoryEntity
 import com.kanyideveloper.core_database.model.OnlineMealEntity*/
 import com.kanyideveloper.domain.model.Category
@@ -32,13 +35,13 @@ internal fun MealEntity.toMeal(): Meal {
     return Meal(
         name = name,
         imageUrl = imageUrl,
-        cookingTime = cookingTime,
+        cookingTime = cookingTime ?: 0,
         category = category,
-        cookingDifficulty = cookingDifficulty,
-        ingredients = ingredients,
-        cookingDirections = cookingInstructions,
+        cookingDifficulty = cookingDifficulty ?: "",
+        ingredients = ingredients ?: emptyList(),
+        cookingDirections = cookingInstructions ?: emptyList(),
         favorite = isFavorite,
-        servingPeople = servingPeople,
+        servingPeople = servingPeople ?: 0,
         localMealId = id
     )
 }
