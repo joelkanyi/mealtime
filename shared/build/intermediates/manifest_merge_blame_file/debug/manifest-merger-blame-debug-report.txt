@@ -1,0 +1,8 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.joelkanyi.shared" >
+4
+5    <uses-sdk android:minSdkVersion="21" />
+5-->/Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest315470121870481535.xml
+6
+7</manifest>
