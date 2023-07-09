@@ -15,7 +15,7 @@
  */
 package com.kanyideveloper.search.domain
 
-import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.shared.core.data.network.utils.Resource
 import com.kanyideveloper.core.model.OnlineMeal
 
 interface SearchRepository {

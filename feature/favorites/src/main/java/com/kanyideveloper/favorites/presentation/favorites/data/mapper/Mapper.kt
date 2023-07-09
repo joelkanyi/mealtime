@@ -15,11 +15,8 @@
  */
 package com.kanyideveloper.favorites.presentation.favorites.data.mapper
 
-import com.joelkanyi.shared.data.local.FavoriteEntity
+import com.joelkanyi.shared.core.data.local.FavoriteEntity
 import com.kanyideveloper.core.model.Favorite
-/*
-import com.kanyideveloper.core_database.model.FavoriteEntity
-*/
 
 internal fun FavoriteEntity.toFavorite(): Favorite {
     return Favorite(

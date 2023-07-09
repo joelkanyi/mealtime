@@ -15,7 +15,7 @@
  */
 package com.kanyideveloper.mealplanner.model
 
-import com.joelkanyi.shared.domain.CoreMeal
+import com.joelkanyi.shared.core.domain.CoreMeal
 
 data class MealPlan(
     val mealTypeName: String = "",

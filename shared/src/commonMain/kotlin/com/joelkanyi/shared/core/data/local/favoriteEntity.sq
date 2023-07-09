@@ -1,0 +1,39 @@
+CREATE TABLE favoriteEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    onlineMealId TEXT,
+    localMealId TEXT,
+    isOnline INTEGER AS Boolean DEFAULT 0 NOT NULL,
+    mealName TEXT NOT NULL,
+    mealImageUrl TEXT NOT NULL,
+    isFavorite INTEGER AS Boolean DEFAULT 0 NOT NULL
+);
+
+
+insertAFavorite:
+INSERT OR REPLACE
+INTO favoriteEntity (id, onlineMealId, localMealId, isOnline, mealName, mealImageUrl, isFavorite)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+getFavorites:
+SELECT * FROM favoriteEntity ORDER BY id DESC;
+
+getAFavoriteById:
+SELECT * FROM favoriteEntity WHERE id = ?;
+
+localInFavorites:
+SELECT isFavorite FROM favoriteEntity WHERE localMealId = ?;
+
+onlineInFavorites:
+SELECT isFavorite FROM favoriteEntity WHERE onlineMealId = ?;
+
+deleteAFavorite:
+DELETE FROM favoriteEntity WHERE id = ?;
+
+deleteALocalFavorite:
+DELETE FROM favoriteEntity WHERE localMealId = ?;
+
+deleteAnOnlineFavorite:
+DELETE FROM favoriteEntity WHERE onlineMealId = ?;
+
+deleteAllFavorites:
+DELETE FROM favoriteEntity;

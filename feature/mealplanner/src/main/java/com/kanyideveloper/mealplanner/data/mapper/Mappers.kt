@@ -15,22 +15,12 @@
  */
 package com.kanyideveloper.mealplanner.data.mapper
 
-import com.joelkanyi.shared.data.local.FavoriteEntity
-import com.joelkanyi.shared.data.local.MealEntity
-import com.joelkanyi.shared.data.local.MealPlanEntity
-import com.joelkanyi.shared.data.network.model.MealsResponse
-import com.joelkanyi.shared.domain.CoreMeal
-import com.kanyideveloper.core.model.Meal
+import com.joelkanyi.shared.core.data.local.FavoriteEntity
+import com.joelkanyi.shared.core.data.local.MealEntity
+import com.joelkanyi.shared.core.data.local.MealPlanEntity
+import com.joelkanyi.shared.core.data.network.model.MealsResponse
+import com.joelkanyi.shared.core.domain.CoreMeal
 import com.kanyideveloper.core.model.OnlineMeal
-/*
-import com.kanyideveloper.core_database.model.FavoriteEntity
-*/
-/*
-import com.kanyideveloper.core_database.model.MealEntity
-*/
-/*
-import com.kanyideveloper.core_database.model.MealPlanEntity
-*/
 import com.kanyideveloper.mealplanner.model.MealPlan
 import java.util.UUID
 

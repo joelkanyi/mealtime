@@ -19,8 +19,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import com.google.firebase.storage.StorageReference
-import com.joelkanyi.shared.data.network.utils.Resource
-import com.joelkanyi.shared.data.network.utils.safeApiCall
+import com.joelkanyi.shared.core.data.network.utils.Resource
+import com.joelkanyi.shared.core.data.network.utils.safeApiCall
 import com.kanyideveloper.addmeal.domain.repository.UploadImageRepository
 import com.kanyideveloper.core.util.imageUriToImageBitmap
 import kotlinx.coroutines.tasks.await

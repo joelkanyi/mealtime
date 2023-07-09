@@ -15,8 +15,8 @@
  */
 package com.joelkanyi.shared.di
 
-import com.joelkanyi.shared.data.network.MealDbApi
-import com.joelkanyi.shared.data.network.utils.Constants.BASE_URL
+import com.joelkanyi.shared.core.data.network.MealDbApi
+import com.joelkanyi.shared.core.data.network.utils.Constants.BASE_URL
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient

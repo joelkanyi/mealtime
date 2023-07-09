@@ -23,10 +23,10 @@ import androidx.activity.ComponentActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.joelkanyi.mealtime.data.local.sqldelight.MealTimeDatabase
-import com.joelkanyi.shared.data.network.MealDbApi
-import com.joelkanyi.shared.data.network.utils.Resource
-import com.joelkanyi.shared.data.network.utils.safeApiCall
-import com.joelkanyi.shared.domain.CoreMeal
+import com.joelkanyi.shared.core.data.network.MealDbApi
+import com.joelkanyi.shared.core.data.network.utils.Resource
+import com.joelkanyi.shared.core.data.network.utils.safeApiCall
+import com.joelkanyi.shared.core.domain.CoreMeal
 import com.kanyideveloper.core.data.MealTimePreferences
 import com.kanyideveloper.core.model.Favorite
 import com.kanyideveloper.core.model.Meal

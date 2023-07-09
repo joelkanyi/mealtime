@@ -15,11 +15,8 @@
  */
 package com.kanyideveloper.addmeal.data.mapper
 
-import com.joelkanyi.shared.data.local.MealEntity
+import com.joelkanyi.shared.core.data.local.MealEntity
 import com.kanyideveloper.core.model.Meal
-/*
-import com.kanyideveloper.core_database.model.MealEntity
-*/
 import java.util.UUID
 
 internal fun Meal.toMealEntity(): MealEntity {

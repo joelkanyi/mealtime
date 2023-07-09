@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joelkanyi.auth.domain.repository.AuthRepository
 import com.joelkanyi.auth.presentation.state.LoginState
-import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.shared.core.data.network.utils.Resource
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.state.PasswordTextFieldState
 import com.kanyideveloper.core.state.TextFieldState

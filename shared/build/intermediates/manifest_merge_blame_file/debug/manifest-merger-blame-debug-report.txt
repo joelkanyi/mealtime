@@ -3,6 +3,6 @@
 3    package="com.joelkanyi.shared" >
 4
 5    <uses-sdk android:minSdkVersion="21" />
-5-->/Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest10501703572842069307.xml
+5-->/Users/joelkanyi/AndroidStudioProjects/MealTime/shared/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6090831168327795591.xml
 6
 7</manifest>

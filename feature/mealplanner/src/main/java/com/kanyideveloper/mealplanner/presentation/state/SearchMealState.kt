@@ -15,7 +15,7 @@
  */
 package com.kanyideveloper.mealplanner.presentation.state
 
-import com.joelkanyi.shared.domain.CoreMeal
+import com.joelkanyi.shared.core.domain.CoreMeal
 import com.kanyideveloper.core.model.Meal
 
 data class SearchMealState(

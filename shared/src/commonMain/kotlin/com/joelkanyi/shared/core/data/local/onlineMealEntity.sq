@@ -1,0 +1,33 @@
+CREATE TABLE onlineMealEntity (
+    idMeal TEXT PRIMARY KEY NOT NULL,
+    strMeal TEXT NOT NULL,
+    strMealThumb TEXT NOT NULL,
+    strCategory TEXT NOT NULL
+);
+
+CREATE TABLE onlineMealCategoryEntity (
+    idCategory TEXT PRIMARY KEY NOT NULL,
+    strCategory TEXT NOT NULL,
+    strCategoryDescription TEXT NOT NULL,
+    strCategoryThumb TEXT NOT NULL
+);
+
+deleteOnlineMealCategories:
+DELETE FROM onlineMealCategoryEntity;
+
+deleteOnlineMeals:
+DELETE FROM onlineMealEntity WHERE strCategory = :category;
+
+insertOnlineMealCategories:
+INSERT OR REPLACE INTO onlineMealCategoryEntity (idCategory, strCategory, strCategoryDescription, strCategoryThumb) VALUES (?, ?, ?, ?);
+
+insertOnlineMeals:
+INSERT OR REPLACE INTO onlineMealEntity (idMeal, strMeal, strMealThumb, strCategory) VALUES (?, ?, ?, ?);
+
+getOnlineMealCategories:
+SELECT * FROM onlineMealCategoryEntity;
+
+getOnlineMeals:
+SELECT * FROM onlineMealEntity WHERE strCategory = :category;
+
+

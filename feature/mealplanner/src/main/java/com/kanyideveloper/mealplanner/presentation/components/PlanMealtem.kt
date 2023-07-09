@@ -48,7 +48,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.joelkanyi.shared.domain.CoreMeal
+import com.joelkanyi.shared.core.domain.CoreMeal
 import com.kanyideveloper.compose_ui.theme.PrimaryColor
 import com.kanyideveloper.compose_ui.theme.Shapes
 import com.kanyideveloper.core.model.Meal

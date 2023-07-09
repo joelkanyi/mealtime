@@ -15,19 +15,14 @@
  */
 package com.kanyideveloper.data.mapper
 
-import com.joelkanyi.shared.data.local.MealEntity
-import com.joelkanyi.shared.data.local.OnlineMealCategoryEntity
-import com.joelkanyi.shared.data.local.OnlineMealEntity
-import com.joelkanyi.shared.data.network.model.CategoriesResponse
-import com.joelkanyi.shared.data.network.model.MealDetailsResponse
-import com.joelkanyi.shared.data.network.model.MealsResponse
+import com.joelkanyi.shared.core.data.local.MealEntity
+import com.joelkanyi.shared.core.data.local.OnlineMealCategoryEntity
+import com.joelkanyi.shared.core.data.local.OnlineMealEntity
+import com.joelkanyi.shared.core.data.network.model.CategoriesResponse
+import com.joelkanyi.shared.core.data.network.model.MealDetailsResponse
+import com.joelkanyi.shared.core.data.network.model.MealsResponse
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.util.stringToList
-/*
-import com.kanyideveloper.core_database.model.MealEntity
-*/
-/*import com.kanyideveloper.core_database.model.OnlineMealCategoryEntity
-import com.kanyideveloper.core_database.model.OnlineMealEntity*/
 import com.kanyideveloper.domain.model.Category
 import com.kanyideveloper.domain.model.OnlineMeal
 
@@ -46,7 +41,7 @@ internal fun MealEntity.toMeal(): Meal {
     )
 }
 
-internal fun com.joelkanyi.shared.data.network.model.CategoriesResponse.Category.toCategory(): Category {
+internal fun CategoriesResponse.Category.toCategory(): Category {
     return Category(
         categoryId = idCategory,
         categoryName = strCategory,
@@ -55,7 +50,7 @@ internal fun com.joelkanyi.shared.data.network.model.CategoriesResponse.Category
     )
 }
 
-internal fun com.joelkanyi.shared.data.network.model.MealsResponse.Meal.toMeal(): OnlineMeal {
+internal fun MealsResponse.Meal.toMeal(): OnlineMeal {
     return OnlineMeal(
         name = strMeal,
         imageUrl = strMealThumb,
@@ -63,7 +58,7 @@ internal fun com.joelkanyi.shared.data.network.model.MealsResponse.Meal.toMeal()
     )
 }
 
-internal fun com.joelkanyi.shared.data.network.model.CategoriesResponse.Category.toEntity() =
+internal fun CategoriesResponse.Category.toEntity() =
     OnlineMealCategoryEntity(
         idCategory = idCategory,
         strCategory = strCategory,
@@ -78,7 +73,7 @@ internal fun OnlineMealCategoryEntity.toCategory() = Category(
     categoryImageUrl = strCategoryThumb
 )
 
-internal fun com.joelkanyi.shared.data.network.model.MealsResponse.Meal.toEntity(category: String) =
+internal fun MealsResponse.Meal.toEntity(category: String) =
     OnlineMealEntity(
         idMeal = idMeal,
         strMeal = strMeal,

@@ -15,7 +15,7 @@
  */
 package com.kanyideveloper.addmeal.domain.repository
 
-import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.shared.core.data.network.utils.Resource
 import com.kanyideveloper.core.model.Meal
 
 interface SaveMealRepository {

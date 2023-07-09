@@ -18,7 +18,7 @@ package com.kanyideveloper.addmeal.data.repository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.joelkanyi.mealtime.data.local.sqldelight.MealTimeDatabase
-import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.shared.core.data.network.utils.Resource
 import com.kanyideveloper.addmeal.data.mapper.toMealEntity
 import com.kanyideveloper.addmeal.domain.repository.SaveMealRepository
 import com.kanyideveloper.core.model.Meal

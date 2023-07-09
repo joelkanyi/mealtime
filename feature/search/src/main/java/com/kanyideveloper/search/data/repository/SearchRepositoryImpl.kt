@@ -15,9 +15,9 @@
  */
 package com.kanyideveloper.search.data.repository
 
-import com.joelkanyi.shared.data.network.MealDbApi
-import com.joelkanyi.shared.data.network.utils.Resource
-import com.joelkanyi.shared.data.network.utils.safeApiCall
+import com.joelkanyi.shared.core.data.network.MealDbApi
+import com.joelkanyi.shared.core.data.network.utils.Resource
+import com.joelkanyi.shared.core.data.network.utils.safeApiCall
 import com.kanyideveloper.core.model.OnlineMeal
 import com.kanyideveloper.search.data.mapper.toOnlineMeal
 import com.kanyideveloper.search.domain.SearchRepository

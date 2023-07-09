@@ -16,7 +16,7 @@
 package com.kanyideveloper.addmeal.domain.repository
 
 import android.net.Uri
-import com.joelkanyi.shared.data.network.utils.Resource
+import com.joelkanyi.shared.core.data.network.utils.Resource
 
 interface UploadImageRepository {
     suspend fun uploadImage(imageUri: Uri): Resource<String>

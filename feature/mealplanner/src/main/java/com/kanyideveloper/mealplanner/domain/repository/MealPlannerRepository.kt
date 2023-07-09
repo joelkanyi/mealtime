@@ -15,8 +15,8 @@
  */
 package com.kanyideveloper.mealplanner.domain.repository
 
-import com.joelkanyi.shared.data.network.utils.Resource
-import com.joelkanyi.shared.domain.CoreMeal
+import com.joelkanyi.shared.core.data.network.utils.Resource
+import com.joelkanyi.shared.core.domain.CoreMeal
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.model.MealPlanPreference
 import com.kanyideveloper.mealplanner.model.MealPlan

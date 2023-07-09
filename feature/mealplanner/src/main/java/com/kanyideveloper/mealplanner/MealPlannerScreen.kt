@@ -44,7 +44,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.joelkanyi.horizontalcalendar.HorizontalCalendarView
-import com.joelkanyi.shared.domain.CoreMeal
+import com.joelkanyi.shared.core.domain.CoreMeal
 import com.kanyideveloper.compose_ui.components.StandardToolbar
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.components.EmptyStateComponent

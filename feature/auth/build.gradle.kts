@@ -53,7 +53,6 @@ dependencies {
 
     implementation(project(Modules.composeUi))
     implementation(project(Modules.core))
-    implementation(project(Modules.coreDatabase))
     implementation(project(Modules.shared))
 }
 

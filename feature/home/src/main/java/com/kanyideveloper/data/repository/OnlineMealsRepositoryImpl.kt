@@ -16,9 +16,9 @@
 package com.kanyideveloper.data.repository
 
 import com.joelkanyi.mealtime.data.local.sqldelight.MealTimeDatabase
-import com.joelkanyi.shared.data.network.MealDbApi
-import com.joelkanyi.shared.data.network.utils.Resource
-import com.joelkanyi.shared.data.network.utils.safeApiCall
+import com.joelkanyi.shared.core.data.network.MealDbApi
+import com.joelkanyi.shared.core.data.network.utils.Resource
+import com.joelkanyi.shared.core.data.network.utils.safeApiCall
 import com.kanyideveloper.core.model.Meal
 /*
 import com.kanyideveloper.core_database.dao.OnlineMealsDao
