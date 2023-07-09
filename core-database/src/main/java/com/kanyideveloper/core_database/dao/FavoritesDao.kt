@@ -15,6 +15,7 @@
  */
 package com.kanyideveloper.core_database.dao
 
+/*
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
@@ -52,3 +53,4 @@ interface FavoritesDao {
     @Query("DELETE FROM favorites_table")
     suspend fun deleteAllFavorites()
 }
+*/

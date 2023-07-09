@@ -19,11 +19,15 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.kanyideveloper.core_database.converters.Converters
+/*
 import com.kanyideveloper.core_database.dao.FavoritesDao
+*/
 import com.kanyideveloper.core_database.dao.MealDao
 import com.kanyideveloper.core_database.dao.MealPlanDao
 import com.kanyideveloper.core_database.dao.OnlineMealsDao
+/*
 import com.kanyideveloper.core_database.model.FavoriteEntity
+*/
 import com.kanyideveloper.core_database.model.MealEntity
 import com.kanyideveloper.core_database.model.MealPlanEntity
 import com.kanyideveloper.core_database.model.OnlineMealCategoryEntity
@@ -32,7 +36,7 @@ import com.kanyideveloper.core_database.model.OnlineMealEntity
 @Database(
     entities = [
         MealEntity::class,
-        FavoriteEntity::class,
+        // FavoriteEntity::class,
         MealPlanEntity::class,
         OnlineMealCategoryEntity::class,
         OnlineMealEntity::class
@@ -43,7 +47,7 @@ import com.kanyideveloper.core_database.model.OnlineMealEntity
 @TypeConverters(Converters::class)
 abstract class MealTimeDatabase : RoomDatabase() {
     abstract val mealDao: MealDao
-    abstract val favoritesDao: FavoritesDao
+    // abstract val favoritesDao: FavoritesDao
     abstract val mealPlanDao: MealPlanDao
     abstract val onlineMealsDao: OnlineMealsDao
 }

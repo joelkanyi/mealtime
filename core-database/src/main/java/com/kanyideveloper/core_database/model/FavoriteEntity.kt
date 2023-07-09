@@ -19,6 +19,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kanyideveloper.core.util.Constants.FAVORITES_TABLE
 
+/*
 @Entity(tableName = FAVORITES_TABLE)
 data class FavoriteEntity(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
@@ -29,3 +30,4 @@ data class FavoriteEntity(
     val mealImageUrl: String,
     val isFavorite: Boolean = false
 )
+*/

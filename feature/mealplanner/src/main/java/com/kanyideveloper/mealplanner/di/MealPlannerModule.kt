@@ -28,12 +28,13 @@ fun mealPlannerModule() = module {
         MealPlannerRepositoryImpl(
             mealTimePreferences = get(),
             mealPlanDao = get(),
-            favoritesDao = get(),
+            // favoritesDao = get(),
             mealDao = get(),
             mealDbApi = get(),
             context = get(),
             databaseReference = get(),
-            firebaseAuth = get()
+            firebaseAuth = get(),
+            mealTimeDatabase = get(),
         )
     }
 

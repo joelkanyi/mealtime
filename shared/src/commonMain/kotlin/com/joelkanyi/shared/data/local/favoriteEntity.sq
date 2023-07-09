@@ -1,0 +1,94 @@
+CREATE TABLE favoriteEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    onlineMealId TEXT,
+    localMealId TEXT,
+    isOnline INTEGER AS Boolean DEFAULT 0 NOT NULL,
+    mealName TEXT NOT NULL,
+    mealImageUrl TEXT NOT NULL,
+    isFavorite INTEGER AS Boolean DEFAULT 0 NOT NULL
+);
+
+-- @Entity(tableName = FAVORITES_TABLE)
+-- data class FavoriteEntity(
+--     @PrimaryKey(autoGenerate = true) val id: Int? = null,
+--     val onlineMealId: String? = null,
+--     val localMealId: String? = null,
+--     val isOnline: Boolean = false,
+--     val mealName: String,
+--     val mealImageUrl: String,
+--     val isFavorite: Boolean = false
+-- )
+
+-- getAllNotes:
+-- SELECT * FROM noteEntity;
+--
+-- getNoteById:
+-- SELECT * FROM noteEntity WHERE id = ?;
+--
+-- insertNote:
+-- INSERT OR REPLACE
+-- INTO noteEntity (id, title, content, colorHex, dateCreated)
+-- VALUES (?, ?, ?, ?, ?);
+--
+-- deleteNoteById:
+-- DELETE FROM noteEntity WHERE id = ?;
+
+
+-- @Dao
+-- interface FavoritesDao {
+--     @Insert
+--     suspend fun insertAFavorite(favoriteEntity: FavoriteEntity)
+--
+--     @Query("SELECT * FROM favorites_table ORDER BY id DESC")
+--     fun getFavorites(): Flow<List<FavoriteEntity>>
+--
+--     @Query("SELECT * FROM favorites_table WHERE id  == :id")
+--     fun getAFavoriteById(id: Int): LiveData<FavoriteEntity?>
+--
+--     @Query("SELECT isFavorite FROM favorites_table WHERE localMealId = :id")
+--     fun localInFavorites(id: String): LiveData<Boolean>
+--
+--     @Query("SELECT isFavorite FROM favorites_table WHERE onlineMealId = :id")
+--     fun onlineInFavorites(id: String): LiveData<Boolean>
+--
+--     @Delete
+--     suspend fun deleteAFavorite(favoriteEntity: FavoriteEntity)
+--
+--     @Query("DELETE FROM favorites_table WHERE localMealId = :localMealId")
+--     suspend fun deleteALocalFavorite(localMealId: String)
+--
+--     @Query("DELETE FROM favorites_table WHERE onlineMealId = :mealId")
+--     suspend fun deleteAnOnlineFavorite(mealId: String)
+--
+--     @Query("DELETE FROM favorites_table")
+--     suspend fun deleteAllFavorites()
+-- }
+
+insertAFavorite:
+INSERT OR REPLACE
+INTO favoriteEntity (id, onlineMealId, localMealId, isOnline, mealName, mealImageUrl, isFavorite)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+getFavorites:
+SELECT * FROM favoriteEntity ORDER BY id DESC;
+
+getAFavoriteById:
+SELECT * FROM favoriteEntity WHERE id = ?;
+
+localInFavorites:
+SELECT isFavorite FROM favoriteEntity WHERE localMealId = ?;
+
+onlineInFavorites:
+SELECT isFavorite FROM favoriteEntity WHERE onlineMealId = ?;
+
+deleteAFavorite:
+DELETE FROM favoriteEntity WHERE id = ?;
+
+deleteALocalFavorite:
+DELETE FROM favoriteEntity WHERE localMealId = ?;
+
+deleteAnOnlineFavorite:
+DELETE FROM favoriteEntity WHERE onlineMealId = ?;
+
+deleteAllFavorites:
+DELETE FROM favoriteEntity;

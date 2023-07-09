@@ -35,7 +35,7 @@ fun databaseModule() = module {
 
     single { get<MealTimeDatabase>().mealDao }
 
-    single { get<MealTimeDatabase>().favoritesDao }
+    // single { get<MealTimeDatabase>().favoritesDao }
 
     single { get<MealTimeDatabase>().mealPlanDao }
 

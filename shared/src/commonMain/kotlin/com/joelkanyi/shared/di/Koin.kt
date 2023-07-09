@@ -27,6 +27,7 @@ fun initKoin(enableNetworkLogs: Boolean = true, appDeclaration: KoinAppDeclarati
             networkModule(
                 enableNetworkLogs = enableNetworkLogs,
             ),
+            dataModule()
         )
     }
 

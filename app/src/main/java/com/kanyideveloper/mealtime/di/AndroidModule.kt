@@ -15,11 +15,14 @@
  */
 package com.kanyideveloper.mealtime.di
 
+import com.joelkanyi.shared.data.local.DriverFactory
 import com.kanyideveloper.mealtime.MainViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 fun androidModule() = module {
+    single { DriverFactory(androidContext()) }
     viewModel {
         MainViewModel(
             userDataRepository = get(),

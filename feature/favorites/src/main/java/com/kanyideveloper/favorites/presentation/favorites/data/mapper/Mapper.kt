@@ -15,12 +15,15 @@
  */
 package com.kanyideveloper.favorites.presentation.favorites.data.mapper
 
+import com.joelkanyi.shared.data.local.FavoriteEntity
 import com.kanyideveloper.core.model.Favorite
+/*
 import com.kanyideveloper.core_database.model.FavoriteEntity
+*/
 
 internal fun FavoriteEntity.toFavorite(): Favorite {
     return Favorite(
-        id = id,
+        id = id.toInt(),
         onlineMealId = onlineMealId,
         localMealId = localMealId,
         online = isOnline,
@@ -32,12 +35,12 @@ internal fun FavoriteEntity.toFavorite(): Favorite {
 
 internal fun Favorite.toEntity(): FavoriteEntity {
     return FavoriteEntity(
-        id = id,
+        id = id?.toLong() ?: 0,
         onlineMealId = onlineMealId,
         localMealId = localMealId,
         isOnline = online,
         mealName = mealName,
         mealImageUrl = mealImageUrl,
-        isFavorite = favorite
+        isFavorite = favorite,
     )
 }
