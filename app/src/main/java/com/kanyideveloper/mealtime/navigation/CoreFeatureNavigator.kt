@@ -31,6 +31,7 @@ import com.kanyideveloper.mealplanner.destinations.AllergiesScreenDestination
 import com.kanyideveloper.mealplanner.destinations.MealPlannerScreenDestination
 import com.kanyideveloper.mealplanner.destinations.MealTypesScreenDestination
 import com.kanyideveloper.mealplanner.destinations.NumberOfPeopleScreenDestination
+import com.kanyideveloper.mealplanner.model.Allergies
 import com.kanyideveloper.presentation.destinations.DetailsScreenDestination
 import com.kanyideveloper.presentation.destinations.HomeScreenDestination
 import com.kanyideveloper.presentation.destinations.OnlineMealDetailsScreenDestination
@@ -107,7 +108,7 @@ class CoreFeatureNavigator(
         )
     }
 
-    override fun openNoOfPeopleScreen(allergies: String, editMealPlanPreference: Boolean) {
+    override fun openNoOfPeopleScreen(allergies: Allergies, editMealPlanPreference: Boolean) {
         navController.navigate(
             NumberOfPeopleScreenDestination(
                 allergies = allergies,
@@ -117,7 +118,7 @@ class CoreFeatureNavigator(
     }
 
     override fun openMealTypesScreen(
-        allergies: String,
+        allergies: Allergies,
         noOfPeople: String,
         editMealPlanPreference: Boolean
     ) {

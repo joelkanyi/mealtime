@@ -54,11 +54,6 @@ dependencies {
     implementation(project(Modules.shared))
 
     implementation(libs.horizontal.calendar.view)
-
-    // Room
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
-    implementation(libs.room.ktx)
 }
 
 kotlin {

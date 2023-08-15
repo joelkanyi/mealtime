@@ -52,6 +52,7 @@ import com.kanyideveloper.core.components.SwipeRefreshComponent
 import com.kanyideveloper.core.model.Meal
 import com.kanyideveloper.core.state.SubscriptionStatusUiState
 import com.kanyideveloper.core.util.UiEvents
+import com.kanyideveloper.mealplanner.model.Allergies
 import com.kanyideveloper.mealplanner.model.MealPlan
 import com.kanyideveloper.mealplanner.presentation.components.MealPlanItem
 import com.kanyideveloper.mealplanner.presentation.components.SelectMealDialog
@@ -63,9 +64,9 @@ import org.koin.androidx.compose.koinViewModel
 interface MealPlannerNavigator {
     fun popBackStack()
     fun openAllergiesScreen(editMealPlanPreference: Boolean = false)
-    fun openNoOfPeopleScreen(allergies: String, editMealPlanPreference: Boolean = false)
+    fun openNoOfPeopleScreen(allergies: Allergies, editMealPlanPreference: Boolean = false)
     fun openMealTypesScreen(
-        allergies: String,
+        allergies: Allergies,
         noOfPeople: String,
         editMealPlanPreference: Boolean = false
     )

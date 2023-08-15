@@ -17,7 +17,6 @@ package com.kanyideveloper.core.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.gson.Gson
 import com.kanyideveloper.core.data.SubscriptionRepositoryImpl
 import com.kanyideveloper.core.domain.SubscriptionRepository
 import org.koin.android.ext.koin.androidApplication
@@ -28,8 +27,6 @@ fun appModule() = module {
     single { FirebaseDatabase.getInstance().reference }
 
     single { FirebaseAuth.getInstance() }
-
-    single { Gson() }
 
     single<SubscriptionRepository> {
         SubscriptionRepositoryImpl(

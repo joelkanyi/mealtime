@@ -89,9 +89,4 @@ dependencies {
 
     // Splash Screen API
     implementation(libs.core.splash.screen)
-
-    // Room
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
-    implementation(libs.room.ktx)
 }

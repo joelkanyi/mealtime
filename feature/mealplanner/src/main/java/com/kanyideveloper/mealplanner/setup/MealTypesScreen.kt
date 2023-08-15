@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import com.kanyideveloper.compose_ui.components.StandardToolbar
 import com.kanyideveloper.core.util.UiEvents
 import com.kanyideveloper.mealplanner.MealPlannerNavigator
+import com.kanyideveloper.mealplanner.model.Allergies
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -53,7 +54,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun MealTypesScreen(
     editMealPlanPreference: Boolean,
-    allergies: String,
+    allergies: Allergies,
     numberOfPeople: String,
     navigator: MealPlannerNavigator,
     viewModel: SetupViewModel = koinViewModel()
@@ -80,7 +81,7 @@ fun MealTypesScreen(
         onClickComplete = {
             analyticsUtils.trackUserEvent("meal_plan_preferences_saved")
             viewModel.saveMealPlanPreferences(
-                allergies = viewModel.gson.fromJson(allergies, Array<String>::class.java).toList(),
+                allergies = allergies.allergicTo,
                 numberOfPeople = numberOfPeople,
                 dishTypes = viewModel.selectedDishType,
                 editMealPlan = editMealPlanPreference

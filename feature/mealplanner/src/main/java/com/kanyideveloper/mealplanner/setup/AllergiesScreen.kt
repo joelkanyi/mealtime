@@ -15,6 +15,7 @@
  */
 package com.kanyideveloper.mealplanner.setup
 
+import android.os.Parcelable
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -49,8 +50,10 @@ import com.kanyideveloper.core.components.ErrorStateComponent
 import com.kanyideveloper.core.components.LoadingStateComponent
 import com.kanyideveloper.core.util.UiEvents
 import com.kanyideveloper.mealplanner.MealPlannerNavigator
+import com.kanyideveloper.mealplanner.model.Allergies
 import com.ramcosta.composedestinations.annotation.Destination
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.parcelize.Parcelize
 import org.koin.androidx.compose.koinViewModel
 
 @Destination
@@ -69,6 +72,7 @@ fun AllergiesScreen(
                 is UiEvents.SnackbarEvent -> {
                     Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
                 }
+
                 else -> {}
             }
         }
@@ -78,7 +82,9 @@ fun AllergiesScreen(
         navigator = navigator,
         analyticsUtil = analyticsUtil,
         ingredientsState = viewModel.ingredients.value,
-        allergies = viewModel.gson.toJson(viewModel.allergicTo),
+        allergies = Allergies(
+            viewModel.allergicTo
+        ),
         editMealPlanPreference = editMealPlanPreference,
         onCheck = { allergy ->
             analyticsUtil.trackUserEvent("User allergic to $allergy")
@@ -93,7 +99,7 @@ fun AllergiesScreen(
 @Composable
 private fun AllergiesScreenContent(
     navigator: MealPlannerNavigator,
-    allergies: String,
+    allergies: Allergies,
     ingredientsState: IngredientsState,
     isChecked: (String) -> Boolean,
     onCheck: (String) -> Unit,

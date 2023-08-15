@@ -20,7 +20,6 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
 import com.joelkanyi.shared.core.data.network.utils.Resource
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.core.util.UiEvents
@@ -37,8 +36,6 @@ class SetupViewModel constructor(
 
     val numberOfPeople = listOf("1", "2", "3", "10", "10+")
     val dishTypes = listOf("Breakfast", "Lunch", "Dinner", "Dessert")
-
-    val gson = Gson()
 
     private val _ingredients = mutableStateOf(IngredientsState())
     val ingredients: State<IngredientsState> = _ingredients

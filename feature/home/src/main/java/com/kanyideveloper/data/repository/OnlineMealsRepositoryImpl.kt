@@ -15,6 +15,7 @@
  */
 package com.kanyideveloper.data.repository
 
+import coil.network.HttpException
 import com.joelkanyi.mealtime.data.local.sqldelight.MealTimeDatabase
 import com.joelkanyi.shared.core.data.network.MealDbApi
 import com.joelkanyi.shared.core.data.network.utils.Resource
@@ -30,7 +31,6 @@ import com.kanyideveloper.domain.model.OnlineMeal
 import com.kanyideveloper.domain.repository.OnlineMealsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import retrofit2.HttpException
 import java.io.IOException
 
 class OnlineMealsRepositoryImpl(

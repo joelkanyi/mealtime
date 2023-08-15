@@ -44,6 +44,7 @@ import com.kanyideveloper.compose_ui.components.StandardToolbar
 import com.kanyideveloper.compose_ui.theme.PrimaryColor
 import com.kanyideveloper.core.analytics.AnalyticsUtil
 import com.kanyideveloper.mealplanner.MealPlannerNavigator
+import com.kanyideveloper.mealplanner.model.Allergies
 import com.ramcosta.composedestinations.annotation.Destination
 import org.koin.androidx.compose.koinViewModel
 
@@ -51,7 +52,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun NumberOfPeopleScreen(
     editMealPlanPreference: Boolean = false,
-    allergies: String,
+    allergies: Allergies,
     navigator: MealPlannerNavigator,
     viewModel: SetupViewModel = koinViewModel()
 ) {
@@ -76,7 +77,7 @@ fun NumberOfPeopleScreen(
 @Composable
 private fun NumberOfPeopleScreenContent(
     navigator: MealPlannerNavigator,
-    allergies: String,
+    allergies: Allergies,
     numberOfPeople: String,
     numberOfPeopleChoices: List<String>,
     onNumberClick: (String) -> Unit,

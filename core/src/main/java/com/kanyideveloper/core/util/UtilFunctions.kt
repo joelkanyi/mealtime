@@ -38,9 +38,6 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.google.gson.Gson
-import com.kanyideveloper.core.model.ErrorResponse
-import retrofit2.HttpException
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -113,16 +110,6 @@ suspend fun <T> safeApiCall(
     }
 }
 */
-
-private fun convertStringErrorResponseToJsonObject(jsonString: String): ErrorResponse? {
-    val gson = Gson()
-    return gson.fromJson(jsonString, ErrorResponse::class.java)
-}
-
-fun errorBodyAsString(throwable: HttpException): String? {
-    val reader = throwable.response()?.errorBody()?.charStream()
-    return reader?.use { it.readText() }
-}
 
 @Composable
 fun LottieAnim(resId: Int, modifier: Modifier = Modifier, height: Dp = 300.dp) {
