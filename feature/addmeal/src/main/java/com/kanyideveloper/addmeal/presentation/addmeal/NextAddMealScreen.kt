@@ -86,7 +86,6 @@ fun NextAddMealScreen(
     navigator: AddMealNavigator,
     viewModel: AddMealsViewModel = hiltViewModel()
 ) {
-    NextAddMealScreenDestination
     val context = LocalContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
     val scaffoldState = rememberScaffoldState()
