@@ -2,7 +2,7 @@
 kotlin = "1.9.20"
 ksp = "1.9.20-1.0.14"
 ktx = "1.12.0"
-gradle = "8.0.2"
+gradle = "8.2.0"
 lifecycle = "2.6.2"
 junit = "4.13.2"
 coroutines = "1.7.3"
